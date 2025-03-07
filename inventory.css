@@ -1,0 +1,8 @@
+.firstRowCards {
+    padding-top: 25px;
+}
+
+/* Changed: Added margin-bottom to rows for spacing between rows */
+.row.mb-4 {
+    margin-bottom: 25px;
+}
