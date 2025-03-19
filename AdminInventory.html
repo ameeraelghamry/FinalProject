@@ -11,12 +11,20 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class=" navbar-brand" href="#">NileWay</a>
+    <nav class="navbar navbar-expand-lg" style="background-color: black;">
+        <a class=" navbar-brand" style="color: white;"
+            href="D:\MIU\Semester 4\Web Development\Projects\WebProject\AdminHome.html">NileWay</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
+        <div class="search-container mt-4">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search cars..." id="searchBar">
+                <button class="btn btn-dark" type="button" onclick="searchCars()">Search</button>
+            </div>
+        </div>
 
         <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
             <ul class="navbar-nav">
@@ -27,14 +35,25 @@
                     <a class="nav-link" href="#">Status <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active px-4">
-                    <a class="nav-link" href="#">Requests <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="#">Bookings <span class="sr-only">(current)</span></a>
                 </li>
             </ul>
         </div>
     </nav>
 
-    <div class="container firstRowCards">
-        <div class="row mb-4">
+    <div class="container-fluid">
+
+        <!-- Floating Add Button -->
+        <button class="btn floating-btn" onclick="addNewItem()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-circle"
+                viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                <path
+                    d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+            </svg>
+        </button>
+
+        <div class="row my-4">
             <!-- Car 1 -->
             <div class="col-md-3">
                 <div class="card shadow-sm">
@@ -50,8 +69,8 @@
                             <li>Automatic</li>
                         </ul>
                         <div class="d-flex justify-content-between align-items-center">
-                            <h5 class="text-primary">$440 / month</h5>
-                            <button class="btn btn-primary">Edit</button>
+                            <h5 class="text">$440 / month</h5>
+                            <button class="btn">Edit</button>
                         </div>
                     </div>
                 </div>
@@ -71,8 +90,8 @@
                             <li>Automatic</li>
                         </ul>
                         <div class="d-flex justify-content-between align-items-center">
-                            <h5 class="text-primary">$350 / month</h5>
-                            <button class="btn btn-primary">Edit</button>
+                            <h5 class="text">$350 / month</h5>
+                            <button class="btn">Edit</button>
                         </div>
                     </div>
                 </div>
@@ -92,8 +111,8 @@
                             <li>Automatic</li>
                         </ul>
                         <div class="d-flex justify-content-between align-items-center">
-                            <h5 class="text-primary">$400 / month</h5>
-                            <button class="btn btn-primary">Edit</button>
+                            <h5 class="text">$400 / month</h5>
+                            <button class="btn">Edit</button>
                         </div>
                     </div>
                 </div>
@@ -113,14 +132,16 @@
                             <li>Automatic</li>
                         </ul>
                         <div class="d-flex justify-content-between align-items-center">
-                            <h5 class="text-primary">$400 / month</h5>
-                            <button class="btn btn-primary">Edit</button>
+                            <h5 class="text">$400 / month</h5>
+                            <button class="btn">Edit</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
+
+        <!-- Add more rows here if needed -->
+        <!--         <div class="col-md-3">
             <div class="card shadow-sm">
                 <img src="https://img.carswp.com/nissan/sentra/photos_nissan_sentra_2012_2_b.jpg" class="card-img-top"
                     alt="Volkswagen T-Cross">
@@ -134,13 +155,12 @@
                         <li>Automatic</li>
                     </ul>
                     <div class="d-flex justify-content-between align-items-center">
-                        <h5 class="text-primary">$400 / month</h5>
-                        <button class="btn btn-primary">Edit</button>
+                        <h5 class="text">$400 / month</h5>
+                        <button class="btn">Edit</button>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Add more rows here if needed -->
+        </div> -->
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
