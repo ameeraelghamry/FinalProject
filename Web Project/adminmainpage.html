@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin</title>
+    <link rel="stylesheet" type="text/css" href="adminhome.css"> <!-- Link to the CSS file -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+</head>
+<body>
+    <h1>Good Morning,</h1>
+
+    <div class="chart-container">
+        <canvas id="scatter"></canvas>
+    </div>
+    <div class="chart-container">
+        <canvas id="wave"></canvas>
+    </div>
+
+    <div class="right-side-container">
+        <!-- Doughnut chart container -->
+        <div id="donut-container">
+            <canvas id="donut"></canvas>
+        </div>
+
+        <!-- Reminder box -->
+        <div class="reminder-box">
+            <h2>Reminders</h2>
+            <div id="reminder-list" class="reminder-list"></div>
+        </div>
+    </div>
+
+    <script>
+        const reminders = [
+            "Inspect and service the fleet vehicles.",
+            "Update the car rental pricing plans for the upcoming season.",
+            "Review customer feedback and implement improvements."
+        ];
+
+        const reminderList = document.getElementById("reminder-list");
+
+        reminders.forEach(reminder => {
+            let reminderItem = document.createElement("div");
+            reminderItem.classList.add("reminder-item");
+            reminderItem.textContent = reminder;
+            reminderList.appendChild(reminderItem);
+        });
+
+        const xValues = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"];
+        const yValues = [5000, 10000, 9000, 15000, 22000, 20000, 27000, 29000];
+
+        new Chart("scatter", {
+            type: "line",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    fill: false,
+                    lineTension: 0,
+                    backgroundColor: "rgba(0,0,255,1.0)",
+                    borderColor: "rgba(0,0,255,0.1)",
+                    data: yValues
+                }]
+            },
+            options: {
+                legend: { display: false },
+                title: { display: true, text: "Bookings Overview 2025" },
+                scales: { yAxes: [{ ticks: { min: 0, max: 30000 } }] }
+            }
+        });
+
+        const y = [3000, 11000, 9000, 20000, 36000, 30000, 20000, 36000];
+
+        new Chart("wave", {
+            type: "line",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    fill: false,
+                    pointRadius: 2,
+                    borderColor: "rgba(0,0,255,0.5)",
+                    data: y
+                }]
+            },    
+            options: {
+                legend: { display: false },
+                title: { display: true, text: "Earnings Summary 2025", fontSize: 16 }
+            }
+        });
+
+        const a = ["Hired", "Pending", "Cancelled"];
+        const b = [65, 20, 15];
+        const barColors = ["#2b5797", "lightblue", "lightgrey"];
+
+        new Chart("donut", {
+            type: "doughnut",
+            data: {
+                labels: a,
+                datasets: [{ backgroundColor: barColors, data: b }]
+            },
+            options: {
+                title: { display: true, text: "Rent Status 2025" }
+            }
+        });
+    </script>
+</body>
+
+</html>
