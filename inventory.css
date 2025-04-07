@@ -4,7 +4,10 @@
 
 .search-container {
     width: 300px;
-    /* Adjust width */
+}
+
+.row {
+    padding-top: 70px;
 }
 
 .floating-btn {
@@ -27,10 +30,10 @@
 }
 
 .navbar {
-    /* opacity: 85%; */
+    background-color: black;
 }
 
-.nav-link {
+z .nav-link {
     color: white;
 }
 
