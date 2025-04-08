@@ -1,3 +1,4 @@
+// Country to city mapping
 const cityOptions = {
   Algeria: ["Algiers", "Annaba", "Oran"],
   Argentina: ["Buenos Aires", "Cordoba", "Rosario"],
@@ -27,4 +28,32 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
   });
+});
+
+// Handle order submission
+const placeOrderBtn = document.getElementById("placeOrderBtn");
+
+placeOrderBtn.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  const fullName = document.getElementById("fullname").value.trim();
+  const email = document.getElementById("email").value.trim();
+
+  if (!fullName || !email) {
+    alert("Please fill out your name and email before placing the order.");
+    return;
+  }
+
+  const orderCode = Math.floor(100000 + Math.random() * 900000);
+  const orderDate = new Date().toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  });
+
+  localStorage.setItem("orderCode", orderCode);
+  localStorage.setItem("orderDate", orderDate);
+
+  // ✅ Redirect AFTER setting values
+  window.location.href = "confirm.html";
 });
