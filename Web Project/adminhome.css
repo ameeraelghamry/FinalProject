@@ -9,6 +9,10 @@ body {
     position: relative;
 }
 
+.container {
+    margin-top: 70px;
+}
+
 h1 {
     color: #333;
     text-align: left;
@@ -35,7 +39,8 @@ canvas {
 .right-side-container {
     position: fixed;
     top: 50px;
-    right: 40px; /* Increased the right space */
+    right: 40px;
+    /* Increased the right space */
     width: 320px;
     display: flex;
     flex-direction: column;
@@ -79,4 +84,21 @@ canvas {
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
     font-size: 14px;
     color: #555;
+}
+
+
+.navbar {
+    background-color: #061524;
+}
+
+z .nav-link {
+    color: white;
+}
+
+.navbar-nav .nav-link:hover {
+    color: gold !important;
+}
+
+.search-container {
+    width: 300px;
 }
