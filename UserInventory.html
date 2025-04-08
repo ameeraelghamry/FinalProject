@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Inventory</title>
+    <link rel="stylesheet" href="adminInventory.css">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top mb-3">
+        <a class="navbar-brand text-white" href="./AdminHome.html" style="padding-left: 20px;">NileWay</a>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                <li class="nav-item active px-4">
+                    <a class="nav-link text-white"
+                        href="file:///D:/MIU/Semester%204/Web%20Development/Projects/WebProject/AdminInventory.html#">Inventory</a>
+                </li>
+                <li class="nav-item active px-4">
+                    <a class="nav-link text-white" href="#">Status</a>
+                </li>
+                <li class="nav-item active px-4">
+                    <a class="nav-link text-white"
+                        href="file:///D:/MIU/Semester%204/Web%20Development/Projects/WebProject/rented.html">Bookings</a>
+                </li>
+            </ul>
+        </div>
+
+        <form class="d-flex me-4 ">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-light" type="submit">Search</button>
+        </form>
+
+    </nav>
+
+    <div class="container-fluid">
+
+        <!-- Floating Add Button -->
+
+        <button class="btn floating-btn" onclick="addNewItem()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-circle"
+                viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                <path
+                    d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+            </svg>
+        </button>
+
+
+        <div class="row">
+            <!-- Car 1 -->
+            <div class="col-md-3 ">
+                <div class="card mb-4">
+                    <img src="https://img.carswp.com/nissan/juke/nissan_juke_2013_pictures_7_b.jpg" class="card-img-top"
+                        alt="Nissan Sentra 2012">
+                    <div class="card-body">
+                        <h5 class="card-title">Nissan Sentra</h5>
+                        <span class="badge bg-light text-dark">2012</span>
+                        <ul class="list-unstyled mt-2">
+                            <li>5 People</li>
+                            <li>Hybrid</li>
+                            <li>6.1km / 1-litre</li>
+                            <li>Automatic</li>
+                        </ul>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="text">$440 / month</h5>
+                            <button class="btn">Edit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Car 2 -->
+            <div class="col-md-3">
+                <div class="card mb-4">
+                    <img src="https://img.carswp.com/nissan/sunny/nissan_sunny_2011_photos_1_b.jpg" class="card-img-top"
+                        alt="BMW 3 Series">
+                    <div class="card-body">
+                        <h5 class="card-title">BMW 3 Series</h5>
+                        <span class="badge bg-light text-dark">2019</span>
+                        <ul class="list-unstyled mt-2">
+                            <li>4 People</li>
+                            <li>Gasoline</li>
+                            <li>8.2km / 1-litre</li>
+                            <li>Automatic</li>
+                        </ul>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="text">$350 / month</h5>
+                            <button class="btn">Edit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Car 3 -->
+            <div class="col-md-3">
+                <div class="card  mb-4">
+                    <img src="https://img.carswp.com/nissan/sentra/photos_nissan_sentra_2012_2_b.jpg"
+                        class="card-img-top" alt="Volkswagen T-Cross">
+                    <div class="card-body">
+                        <h5 class="card-title">Volkswagen T-Cross</h5>
+                        <span class="badge bg-light text-dark">2020</span>
+                        <ul class="list-unstyled mt-2">
+                            <li>4 People</li>
+                            <li>Gasoline</li>
+                            <li>5.3km / 1-litre</li>
+                            <li>Automatic</li>
+                        </ul>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="text">$400 / month</h5>
+                            <button class="btn">Edit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Car 4 -->
+            <div class="col-md-3">
+                <div class="card  mb-4">
+                    <img src="https://img.carswp.com/nissan/sentra/photos_nissan_sentra_2012_2_b.jpg"
+                        class="card-img-top" alt="Volkswagen T-Cross">
+                    <div class="card-body">
+                        <h5 class="card-title">Volkswagen T-Cross</h5>
+                        <span class="badge bg-light text-dark">2020</span>
+                        <ul class="list-unstyled mt-2">
+                            <li>4 People</li>
+                            <li>Gasoline</li>
+                            <li>5.3km / 1-litre</li>
+                            <li>Automatic</li>
+                        </ul>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="text">$400 / month</h5>
+                            <button class="btn">Edit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card  mb-4">
+                    <img src="https://img.carswp.com/nissan/juke/nissan_juke_2013_pictures_7_b.jpg" class="card-img-top"
+                        alt="Nissan Sentra 2012">
+                    <div class="card-body">
+                        <h5 class="card-title">Nissan Sentra</h5>
+                        <span class="badge bg-light text-dark">2012</span>
+                        <ul class="list-unstyled mt-2">
+                            <li>5 People</li>
+                            <li>Hybrid</li>
+                            <li>6.1km / 1-litre</li>
+                            <li>Automatic</li>
+                        </ul>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="text">$440 / month</h5>
+                            <button class="btn">Edit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Car 2 -->
+            <div class="col-md-3">
+                <div class="card  mb-4">
+                    <img src="https://img.carswp.com/nissan/sunny/nissan_sunny_2011_photos_1_b.jpg" class="card-img-top"
+                        alt="BMW 3 Series">
+                    <div class="card-body">
+                        <h5 class="card-title">BMW 3 Series</h5>
+                        <span class="badge bg-light text-dark">2019</span>
+                        <ul class="list-unstyled mt-2">
+                            <li>4 People</li>
+                            <li>Gasoline</li>
+                            <li>8.2km / 1-litre</li>
+                            <li>Automatic</li>
+                        </ul>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="text">$350 / month</h5>
+                            <button class="btn">Edit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Car 3 -->
+            <div class="col-md-3">
+                <div class="card  mb-4">
+                    <img src="https://img.carswp.com/nissan/sentra/photos_nissan_sentra_2012_2_b.jpg"
+                        class="card-img-top" alt="Volkswagen T-Cross">
+                    <div class="card-body">
+                        <h5 class="card-title">Volkswagen T-Cross</h5>
+                        <span class="badge bg-light text-dark">2020</span>
+                        <ul class="list-unstyled mt-2">
+                            <li>4 People</li>
+                            <li>Gasoline</li>
+                            <li>5.3km / 1-litre</li>
+                            <li>Automatic</li>
+                        </ul>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="text">$400 / month</h5>
+                            <button class="btn">Edit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Car 4 -->
+            <div class="col-md-3">
+                <div class="card  mb-4">
+                    <img src="https://img.carswp.com/nissan/sentra/photos_nissan_sentra_2012_2_b.jpg"
+                        class="card-img-top" alt="Volkswagen T-Cross">
+                    <div class="card-body">
+                        <h5 class="card-title">Volkswagen T-Cross</h5>
+                        <span class="badge bg-light text-dark">2020</span>
+                        <ul class="list-unstyled mt-2">
+                            <li>4 People</li>
+                            <li>Gasoline</li>
+                            <li>5.3km / 1-litre</li>
+                            <li>Automatic</li>
+                        </ul>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="text">$400 / month</h5>
+                            <button class="btn">Edit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card  mb-4">
+                    <img src="https://img.carswp.com/nissan/sentra/photos_nissan_sentra_2012_2_b.jpg"
+                        class="card-img-top" alt="Volkswagen T-Cross">
+                    <div class="card-body">
+                        <h5 class="card-title">Volkswagen T-Cross</h5>
+                        <span class="badge bg-light text-dark">2020</span>
+                        <ul class="list-unstyled mt-2">
+                            <li>4 People</li>
+                            <li>Gasoline</li>
+                            <li>5.3km / 1-litre</li>
+                            <li>Automatic</li>
+                        </ul>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="text">$400 / month</h5>
+                            <button class="btn">Edit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card  mb-4">
+                    <img src="https://img.carswp.com/nissan/sentra/photos_nissan_sentra_2012_2_b.jpg"
+                        class="card-img-top" alt="Volkswagen T-Cross">
+                    <div class="card-body">
+                        <h5 class="card-title">Volkswagen T-Cross</h5>
+                        <span class="badge bg-light text-dark">2020</span>
+                        <ul class="list-unstyled mt-2">
+                            <li>4 People</li>
+                            <li>Gasoline</li>
+                            <li>5.3km / 1-litre</li>
+                            <li>Automatic</li>
+                        </ul>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="text">$400 / month</h5>
+                            <button class="btn">Edit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card  mb-4">
+                    <img src="https://img.carswp.com/nissan/sentra/photos_nissan_sentra_2012_2_b.jpg"
+                        class="card-img-top" alt="Volkswagen T-Cross">
+                    <div class="card-body">
+                        <h5 class="card-title">Volkswagen T-Cross</h5>
+                        <span class="badge bg-light text-dark">2020</span>
+                        <ul class="list-unstyled mt-2">
+                            <li>4 People</li>
+                            <li>Gasoline</li>
+                            <li>5.3km / 1-litre</li>
+                            <li>Automatic</li>
+                        </ul>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="text">$400 / month</h5>
+                            <button class="btn">Edit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card  mb-4">
+                    <img src="https://img.carswp.com/nissan/sentra/photos_nissan_sentra_2012_2_b.jpg"
+                        class="card-img-top" alt="Volkswagen T-Cross">
+                    <div class="card-body">
+                        <h5 class="card-title">Volkswagen T-Cross</h5>
+                        <span class="badge bg-light text-dark">2020</span>
+                        <ul class="list-unstyled mt-2">
+                            <li>4 People</li>
+                            <li>Gasoline</li>
+                            <li>5.3km / 1-litre</li>
+                            <li>Automatic</li>
+                        </ul>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="text">$400 / month</h5>
+                            <button class="btn">Edit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card  mb-4">
+                    <img src="https://img.carswp.com/nissan/sentra/photos_nissan_sentra_2012_2_b.jpg"
+                        class="card-img-top" alt="Volkswagen T-Cross">
+                    <div class="card-body">
+                        <h5 class="card-title">Volkswagen T-Cross</h5>
+                        <span class="badge bg-light text-dark">2020</span>
+                        <ul class="list-unstyled mt-2">
+                            <li>4 People</li>
+                            <li>Gasoline</li>
+                            <li>5.3km / 1-litre</li>
+                            <li>Automatic</li>
+                        </ul>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="text">$400 / month</h5>
+                            <button class="btn">Edit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card  mb-4">
+                    <img src="https://img.carswp.com/nissan/sentra/photos_nissan_sentra_2012_2_b.jpg"
+                        class="card-img-top" alt="Volkswagen T-Cross">
+                    <div class="card-body">
+                        <h5 class="card-title">Volkswagen T-Cross</h5>
+                        <span class="badge bg-light text-dark">2020</span>
+                        <ul class="list-unstyled mt-2">
+                            <li>4 People</li>
+                            <li>Gasoline</li>
+                            <li>5.3km / 1-litre</li>
+                            <li>Automatic</li>
+                        </ul>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="text">$400 / month</h5>
+                            <button class="btn">Edit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card  mb-4">
+                    <img src="https://img.carswp.com/nissan/sentra/photos_nissan_sentra_2012_2_b.jpg"
+                        class="card-img-top" alt="Volkswagen T-Cross">
+                    <div class="card-body">
+                        <h5 class="card-title">Volkswagen T-Cross</h5>
+                        <span class="badge bg-light text-dark">2020</span>
+                        <ul class="list-unstyled mt-2">
+                            <li>4 People</li>
+                            <li>Gasoline</li>
+                            <li>5.3km / 1-litre</li>
+                            <li>Automatic</li>
+                        </ul>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="text">$400 / month</h5>
+                            <button class="btn">Edit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Function to add a new inventory item card
+        function addNewItem() {
+            // Create the outer column div
+            const colDiv = document.createElement('div');
+            colDiv.className = 'col-md-3';
+
+            // Set the inner HTML for the card
+            colDiv.innerHTML = `
+                <div class="card  mb-4">
+                    <img src="https://img.carswp.com/nissan/juke/nissan_juke_2013_pictures_7_b.jpg" class="card-img-top" alt="New Car">
+                    <div class="card-body">
+                        <h5 class="card-title">New Car Model</h5>
+                        <span class="badge bg-light text-dark">2025</span>
+                        <ul class="list-unstyled mt-2">
+                            <li>4 People</li>
+                            <li>Electric</li>
+                            <li>10km / 1-litre</li>
+                            <li>Automatic</li>
+                        </ul>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="text">$500 / month</h5>
+                            <button class="btn">Edit</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Find the first row and append the new card to it
+            const row = document.querySelector('.row');
+            row.appendChild(colDiv);
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
