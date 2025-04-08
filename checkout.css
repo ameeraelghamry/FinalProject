@@ -3,7 +3,7 @@
 body {
   font-family: 'Poppins', sans-serif;
   padding: 30px;
-  background-color: #1c1663;
+  background-color: #061524;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -32,7 +32,7 @@ body {
   justify-content: center;
   width: 140px;
   height: 70px;
-  background-color: #0d1936;
+  background-color: #061524;
   border-radius: 0 0 20px 20px;
 }
 
@@ -48,13 +48,13 @@ body {
 .form-header::before {
   left: -30px;
   border-top-right-radius: 50%;
-  box-shadow: 15px 0 0 #0d1936;
+  box-shadow: 15px 0 0 #061524;
 }
 
 .form-header::after {
   right: -30px;
   border-top-left-radius: 50%;
-  box-shadow: -15px 0 0 #0d1936;
+  box-shadow: -15px 0 0 #061524;
 }
 
 /* TITLES */
