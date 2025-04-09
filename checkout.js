@@ -1,4 +1,4 @@
-
+// Country to city mapping
 const cityOptions = {
   AF: ["Kabul", "Kandahar", "Herat"],
   AL: ["Tirana", "Durrës", "Vlorë"],
@@ -141,9 +141,17 @@ placeOrderBtn.addEventListener("click", function (e) {
 
   const fullName = document.getElementById("fullname").value.trim();
   const email = document.getElementById("email").value.trim();
+  const address = document.getElementById("address").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const zipcode = document.getElementById("zipcode").value.trim();
+  const country = document.getElementById("country").value.trim();
+  const city = document.getElementById("city").value.trim();
+  const cardnumber = document.getElementById("cardnumber").value.trim();
+  const expdate = document.getElementById("expdate").value.trim();
+  const cvv = document.getElementById("cvv").value.trim();
 
-  if (!fullName || !email) {
-    alert("Please fill out your name and email before placing the order.");
+  if (!fullName || !email || !address || !phone || !zipcode || !country || !city || !cardnumber || !expdate || !cvv) {
+    alert("Please fill out any missing field before placing the order.");
     return;
   }
 
@@ -157,7 +165,7 @@ placeOrderBtn.addEventListener("click", function (e) {
   localStorage.setItem("orderCode", orderCode);
   localStorage.setItem("orderDate", orderDate);
 
-  //  Redirect after setting values
+  // ✅ Redirect AFTER setting values
   window.location.href = "confirm.html";
 });
 const phoneInputField = document.querySelector("#phone");
