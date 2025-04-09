@@ -1,4 +1,3 @@
-// Country to city mapping
 const cityOptions = {
   AF: ["Kabul", "Kandahar", "Herat"],
   AL: ["Tirana", "Durrës", "Vlorë"],
@@ -165,7 +164,7 @@ placeOrderBtn.addEventListener("click", function (e) {
   localStorage.setItem("orderCode", orderCode);
   localStorage.setItem("orderDate", orderDate);
 
-  // ✅ Redirect AFTER setting values
+  // Redirect after setting values
   window.location.href = "confirm.html";
 });
 const phoneInputField = document.querySelector("#phone");
