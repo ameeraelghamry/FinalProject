@@ -80,10 +80,25 @@ label {
   display: block;
   margin: 10px 0 5px;
 }
+.btn {
+  background-color: #2d208e;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  margin-top: 10px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.btn:hover {
+  background-color: #1d17c6;
+}
+
 
 input[type="text"],
 input[type="email"],
-input[type="number"] {
+input[type="number"],
+input[type="tel"]{
   width: 100%;
   padding: 10px;
   box-sizing: border-box;
@@ -120,7 +135,6 @@ select {
   font-weight: bold;
   font-size: 1.1em;
 }
-
 button {
   background-color: #2d208e;
   color: white;
