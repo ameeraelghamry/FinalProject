@@ -29,6 +29,36 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
 
+  window.addEventListener("scroll", () => {
+    const startY = 179.67; // Top of row 3
+const endY = 1213.066666; // Top of row 6 (where second model begins)
+const offset = 150;
+const startAngle = -150;
+const endAngle = startAngle + 300;
+    const scrollRange = endY - startY;
+  
+    const scrollY = window.scrollY;
+  
+    if (scrollY < startY || scrollY > endY + 200) return;
+  
+    const progress = Math.min((scrollY - startY) / scrollRange, 1);
+    const rotation = startAngle + progress * (endAngle - startAngle);
+    const currentY = startY + progress * scrollRange;
+
+    const leftPosition = 20 - progress * 20;
+  
+    const model = document.getElementById('floatingModel');
+    const wrapper = document.getElementById('modelWrapper');
+  
+    if (model && wrapper) {
+      model.setAttribute("camera-orbit", `${rotation}deg 80deg auto`);
+      wrapper.style.top = `${currentY + offset}px`;
+      wrapper.style.left = `${leftPosition}%`;
+    }
+  });
+
+
+
   document.addEventListener("DOMContentLoaded", function () {
     const images = document.querySelectorAll('.image-container img');
     const popup = document.querySelector('.popup-image');
@@ -48,9 +78,7 @@ document.addEventListener("DOMContentLoaded", function() {
   });
   
 
-
-
-
+ 
 
 
 
