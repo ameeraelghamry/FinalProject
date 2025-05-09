@@ -14,21 +14,22 @@
     <div class="banner">
 
         <video autoplay muted loop id="background-video">
-            <source src="videos/carvid.mov" type="video/mp4">
+            <source src="carvid.mov" type="video/mp4">
             Your browser does not support the video tag
         </video>
         <div class="fade-overlay"></div>
 
         <div class="navbar">
-            <!-- <div>
-                <img src="nilewayrentalogo-02.png" alt="logo">
+            <div class="logo">
+                <img src="nilewayrental-02.png" alt="logo">
             </div>
-                -->
+              
             <ul>
                 <li><a href="Home.html">Home</a></li>
-                <li><a href="#">Cars</a></li> <!--directing to shop all page-->
+                <li><a href="rented.html">Cars</a></li>   <!-- shop all page -->
                 <li><a href="About us.html">About us</a></li>
                 <li><a href="Contact us.html">Contact us</a></li>
+                <li><a href="#">Login/Sign Up</a></li>
             </ul>
            
             <form class="search-container" action="/search" method="GET">
@@ -42,7 +43,7 @@
             <h1>Comfotable glide<br>
                 in Egypt!
             </h1>
-            <button type="button"><span></span>EXPLORE ALL</button>
+            <button type="button" class="ex"><span></span>EXPLORE ALL</button>  <!-- shop all page -->
         </div>
         
     </div>
@@ -103,6 +104,14 @@
                 <p>4 cars</p><br>
                 <strong>SUV</strong>
             </div>
+
+             <!-- fifth -->
+            <div class="browse-card">
+                <img src="fifth type.jpeg" alt="Coupe">
+                <p>6 cars</p><br>
+                <strong>Coupe</strong>
+            </div>
+
         </div>
         
     </div>
@@ -151,7 +160,7 @@
     <!-- LISTINGS -->
 
     <div class="featured-listings">
-        <h2>Featured Listings</h2>
+        <h2>Featured Cars</h2>
         <div class="listings">
 
             <!-- Inner listings -->
@@ -223,11 +232,11 @@
                 <p>3,000 miles • Manual • Petrol</p>
                 
                 <div class="price">$400/month</div>
-                <a href="#" class="view">View</a> <!-- directing to each car page-->>
+                <a href="#" class="view">View</a>  <!-- directing to the car page -->
             </div>
 
             <div class="view-all-container">
-                <a href="#" class="view">View All</a> <!--directing to shop all page-->>
+                <a href="#" class="view">View All</a>  <!-- directing to shop all page -->
             </div>
         </div>
     </div>
@@ -247,7 +256,7 @@
                     <li><a href="About us.html">About Us</a></li>
                     <li><a href="Contact us.html">Contact Us</a></li>
                     <li><a href="Our policy.html">Our Policy</a></li>
-                    <li><a href="#">Admin Panel</a></li> <!-- directing to admin page-->>
+                    <li><a href="#">Admin Panel</a></li> <!--directing to admin pannel-->
                 </ul>
             </div>
 
@@ -256,12 +265,12 @@
                 <h3>Social Media</h3>
                  <hr>
                  <br>
-                 <ul>
-                    <li>Instagram: NileWay_Rentals</li>
+                 <ul class="social-icons">
+                    <li><img src="instagran.png" alt="Instagram"> NileWay_Rentals</li>
                     <br>
-                    <li>Facebook: NileWay Rentals</li>
+                    <li><img src="facebook.png" alt="Facebook"> NileWay Rentals</li>
                     <br>
-                    <li>Website    : www.NileWayRentals.com</li>
+                    <li><img src="website.png" alt="Website">www.NileWayRentals.com</li>
                  </ul>
             </div>
 
@@ -273,8 +282,8 @@
                 <form>
                     <input type="email" placeholder="Email">
                     
-                    <a href="#" class="email-login">
-                        <button type="submit" id="loginbtn">Login</button> <!--directing to login/signup page-->>
+                    <a href="#" class="view">
+                        <button type="submit" id="loginbtn">Login</button> <!--directing to login/signup page-->
                     </a>
                 </form>
             </div>

@@ -223,3 +223,15 @@ input[type="email"]{
     font-size: 16px;
     border-radius: 10px;
 }
+
+.social-icons li {
+    display: flex;
+    align-items: center; 
+    gap: 10px; 
+}
+
+.social-icons li img {
+    width: 30px;  
+    height: 30px;
+    object-fit: contain; 
+}
