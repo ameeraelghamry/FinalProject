@@ -14,7 +14,7 @@ html, body{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: sans-serif;
+    font-family: Verdana, Geneva;
     position: relative;
     color: #061524;
 }
@@ -55,7 +55,6 @@ li{
 a{
     color: white;
     text-decoration: none;
-    font-family: Georgia, 'Times New Roman', Times, serif;
     text-transform: uppercase;
 }
 .navbar{
@@ -575,7 +574,6 @@ input[type="date"]:hover {
 .footer{
     background-color: #061524;
     padding: 40px 0;
-    font-family: Arial, sans-serif;
     margin: 0;
     width: 100%;
 }
