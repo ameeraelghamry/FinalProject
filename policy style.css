@@ -137,9 +137,7 @@ h1{
 
 .login form{
     display: flex;
-    border: 1px solid white;
     padding: 10px;
-    border-radius: 8px;
 }
 
 .login input{

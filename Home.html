@@ -6,6 +6,40 @@
     <title>NileWay Rentals</title>
     <link rel="stylesheet" href="HomeStyle.css">
 
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const container = document.querySelector(".featured-listings");
+  const scrollArea = container.querySelector(".listings");
+
+  let scrollInterval;
+
+  container.addEventListener("mousemove", (e) => {
+    const bounds = container.getBoundingClientRect();
+    const x = e.clientX - bounds.left;
+
+    const threshold = 100; 
+    const speed = 50;     
+
+    clearInterval(scrollInterval);
+
+    if (x < threshold) {
+      scrollInterval = setInterval(() => {
+        scrollArea.scrollLeft -= speed;
+      }, 5); 
+    } else if (x > bounds.width - threshold) {
+      scrollInterval = setInterval(() => {
+        scrollArea.scrollLeft += speed;
+      }, 5);
+    }
+  });
+
+  container.addEventListener("mouseleave", () => {
+    clearInterval(scrollInterval);
+  });
+});
+</script>
+
+
 </head>
 <body>
 
@@ -253,6 +287,7 @@
                 <hr>
                 <br>
                 <ul>
+                    <li><a href="Home.html">Home</a></li>
                     <li><a href="About us.html">About Us</a></li>
                     <li><a href="Contact us.html">Contact Us</a></li>
                     <li><a href="Our policy.html">Our Policy</a></li>
@@ -282,9 +317,9 @@
                 <form>
                     <input type="email" placeholder="Email">
                     
-                    <a href="#" class="view">
-                        <button type="submit" id="loginbtn">Login</button> <!--directing to login/signup page-->
-                    </a>
+                   
+                        <button type="submit" class="loginbtn">Login</button> <!--directing to login/signup page-->
+                   
                 </form>
             </div>
         </div>
