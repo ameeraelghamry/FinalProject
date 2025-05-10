@@ -255,3 +255,8 @@ input[type="email"]{
     height: 30px;
     object-fit: contain; 
 }
+
+.footer, 
+.footer * {
+    font-weight: 400 !important; /* ensures normal weight across footer */
+}
