@@ -165,7 +165,7 @@ placeOrderBtn.addEventListener("click", function (e) {
   localStorage.setItem("orderDate", orderDate);
 
   // Redirect after setting values
-  window.location.href = "confirm.html";
+  window.location.href = "success.html";
 });
 const phoneInputField = document.querySelector("#phone");
 const phoneInput = window.intlTelInput(phoneInputField, {
