@@ -1,4 +1,4 @@
-const Product = require('../models/product')
+const Car = require('../models/car')
 const express = require('express');
 const router = express.Router();
 
@@ -6,29 +6,32 @@ const router = express.Router();
 //now instead of app.get we use router.get
 //routers for webpage
 router.get(`/`, async (req, res) => {
-    const productList = await Product.find();
+    const carList = await Car.find();
 
-    if(!productList){
+    if(!carList){
         res.status(500).json({
             success: false
         })
     }
-    res.send(productList);
+    res.send(carList);
 })
 
 router.post(`/`, (req, res) => {
-    const product = new Product({
-        name: req.body.name,
-        image: req.body.image,
+    const newcar = new Car({
+        name:  req.body.name,
+        brand:  req.body.brand,
+        city:  req.body.city,
+        image:  req.body.image,
         price: req.body.price,
-        miles: req.body.miles,
+        miles:  req.body.miles,
+        category:  req.body.category,
     })
 
     //save in database
-    product
+    newcar
         .save()
-        .then((createdProduct) => {
-            res.status(201).json(createdProduct)
+        .then((createdCar) => {
+            res.status(201).json(createdCar)
         })
         .catch((err) => {
             res.status(500).json({

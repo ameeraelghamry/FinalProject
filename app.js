@@ -3,25 +3,23 @@ const app = express()
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const mongoose = require('mongoose')
-const Product = require('./models/product')
+const car = require('./models/car')
 
 require('dotenv/config')
 
 //routers
 const api = process.env.API_URL
-const productsRoutes = require('./routers/products')
-const categoriesRoutes = require('./routers/categories')
+const carsRoutes = require('./routers/cars')
 const userRoutes = require('./routers/users')
 const rentalRoutes = require('./routers/rentals')
-
+ 
 //middleware
 app.use(bodyParser.json())
 app.use(morgan('tiny')) //good to display log requests
 
 
 //main routes of products
-app.use(`${api}/products`, productsRoutes)
-app.use(`${api}/categories`, categoriesRoutes)
+app.use(`${api}/cars`, carsRoutes)
 app.use(`${api}/users`, userRoutes)
 app.use(`${api}/rentals`, rentalRoutes)
 
