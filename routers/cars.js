@@ -16,7 +16,7 @@ router.get(`/`, async (req, res) => {
     }
 
     if(search){
-       const words = search.trim().toLowerCase().split(/\s+/); // split by spaces
+       const words = search.trim().toLowerCase().split(/\s+/); 
 
         filter.$and = words.map(word => ({
             $or: [
@@ -37,6 +37,37 @@ router.get(`/`, async (req, res) => {
         })
     }
     res.send(carList);
+})
+
+//filtering by date search form
+router.get('/cars', async (req, res) => {
+    const {startDate, endDate, city } = req.query;
+
+    //making date objects mongodb saves dates as objects
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    const rentedCars = await Rental.find({
+        $or:[
+
+            //startDate <= requestedEndDate AND endDate >= requestedStartDate
+            {startDate: {$lte: end}, 
+            endDate: {$gte: start}
+            }
+        ]
+    }).select('product');
+
+    const rentedCarIds = rentedCars.map(r => r.product);
+
+    
+    const filter = {
+      _id: { $nin: rentedCarIds },
+      city: city
+    };
+
+    const availableCars = await Car.find(filter);
+
+    res.json(availableCars);
 })
 
 router.post(`/`, (req, res) => {
@@ -62,6 +93,25 @@ router.post(`/`, (req, res) => {
                 success: false,
             })
         })
+})
+
+//for editing cars
+router.put('/:id', async (req, res) => {
+  try {
+    const updatedCar = await Car.findByIdAndUpdate(
+      req.params.id,      
+      req.body,           
+      { new: true }      
+    );
+
+    if (!updatedCar) {
+      return res.status(404).json({ success: false, message: 'Car not found' });
+    }
+
+    res.json({ success: true, data: updatedCar });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
 })
 
 //exporitng a module

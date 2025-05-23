@@ -11,7 +11,11 @@ const carSchema = mongoose.Schema({
     },
     miles: Number,
     category: String,
-    seats: Number
+    seats: Number,
+    available: {
+        type: Boolean,
+        default: true
+    }
 })
 
 //exporting product itself
