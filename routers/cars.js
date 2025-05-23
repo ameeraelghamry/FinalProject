@@ -6,11 +6,30 @@ const router = express.Router();
 //now instead of app.get we use router.get
 //routers for webpage
 router.get(`/`, async (req, res) => {
-    const carList = await Car.find();
+    const category = req.query.category;
+    const search = req.query.search;
+
+    let filter = {};
+
+    if(category){
+        filter.category = category;
+    }
+
+    if(search){
+        filter.$or = [
+            {name: {$regex: search, $options: 'i'}},
+            {brand: {$regex: search, $options: 'i'}},
+            {city: {$regex: search, $options: 'i'}},
+            {category: {$regex: search, $options: 'i'}}
+        ];
+    }
+
+    const carList = await Car.find(filter);
 
     if(!carList){
         res.status(500).json({
-            success: false
+            success: false,
+            message: 'No cars found'
         })
     }
     res.send(carList);
