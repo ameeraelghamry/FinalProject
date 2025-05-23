@@ -16,12 +16,16 @@ router.get(`/`, async (req, res) => {
     }
 
     if(search){
-        filter.$or = [
-            {name: {$regex: search, $options: 'i'}},
-            {brand: {$regex: search, $options: 'i'}},
-            {city: {$regex: search, $options: 'i'}},
-            {category: {$regex: search, $options: 'i'}}
-        ];
+       const words = search.trim().toLowerCase().split(/\s+/); // split by spaces
+
+        filter.$and = words.map(word => ({
+            $or: [
+                { name: { $regex: word, $options: 'i' } },
+                { brand: { $regex: word, $options: 'i' } },
+                { category: { $regex: word, $options: 'i' } },
+                { city: { $regex: word, $options: 'i' } }
+            ]
+        }));
     }
 
     const carList = await Car.find(filter);
