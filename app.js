@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const mongoose = require('mongoose')
 const car = require('./models/car')
+const session = require('express-session');
 
 require('dotenv/config')
 
@@ -12,6 +13,12 @@ const api = process.env.API_URL
 const carsRoutes = require('./routers/cars')
 const userRoutes = require('./routers/users')
 const rentalRoutes = require('./routers/rentals')
+const path = require('path'); 
+
+app.set('view engine', 'ejs'); 
+app.set('views', path.join(__dirname, 'views'));
+
+app.use(express.static('public'));
  
 //middleware
 app.use(bodyParser.json())
@@ -31,6 +38,21 @@ mongoose
     .catch((err) => {
         console.log(err)
     })
+
+app.use(session({
+  secret: 'your_secret_key', // Use a secure secret key
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false } // Set to true if using https
+}));
+
+app.get('/contact', (req, res) => {
+res.render('Contact us', { user: req.session.user });
+});
+
+app.get('/', (req, res) => {
+  res.render('home', { user: req.session?.user });
+});
 
 //listening port for server
 app.listen(3000, () => {

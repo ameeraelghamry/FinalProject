@@ -1,0 +1,32 @@
+<head>
+    <link rel="stylesheet" href="/css/HomeStyle.css">
+</head>
+
+    
+        <div class="navbar">
+            <div class="logo">
+                <img src="/images/nilewayrental-02.png" alt="logo">
+            </div>
+              
+            <ul>
+                <li><a href="Home.html">Home</a></li>
+                <li><a href="rented.html">Cars</a></li>   <!-- shop all page -->
+                <li><a href="About us.html">About us</a></li>
+                <li><a href="/contact">Contact us</a></li>
+
+                <% if (!user) { %>
+                    <li><a href="">Login</a></li>
+                    <li><a href="">Sign Up</a></li>
+                    <% } else { %>
+                    <li><a href="">Profile</a></li>
+                    <li><a href="">Logout</a></li>
+                <% } %>
+
+            </ul>
+           
+            <form class="search-container" action="/search" method="GET">
+                <input type="text" placeholder="Search for cars..." name="search">
+                <button type="submit">Go</button>
+            </form>
+           
+        </div>
