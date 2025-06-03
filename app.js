@@ -40,18 +40,28 @@ mongoose
     })
 
 app.use(session({
-  secret: 'your_secret_key', // Use a secure secret key
+  secret: 'your_secret_key', 
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false } // Set to true if using https
+  cookie: { secure: false } 
 }));
+
+
+
+app.get('/', (req, res) => {
+  res.render('home', { user: req.session?.user });
+});
 
 app.get('/contact', (req, res) => {
 res.render('Contact us', { user: req.session.user });
 });
 
-app.get('/', (req, res) => {
-  res.render('home', { user: req.session?.user });
+app.get('/about', (req, res) => {
+  res.render('About us', { user: req.session?.user });
+});
+
+app.get('/policy', (req, res) => {
+  res.render('Our policy', { user: req.session?.user });
 });
 
 //listening port for server
