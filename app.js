@@ -64,6 +64,7 @@ app.get('/policy', (req, res) => {
   res.render('Our policy', { user: req.session?.user });
 });
 
+
 //listening port for server
 app.listen(3000, () => {
     console.log('server is running on port 3000')

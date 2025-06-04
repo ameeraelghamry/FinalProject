@@ -46,6 +46,9 @@ const createUser = async (req, res) => {
     await newUser
         .save()
         .then((created) => {
+
+            req.session.user = created; //session established as user registers
+
             res.status(201).json(created)
         })
         .catch((err) => {
