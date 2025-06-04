@@ -1,46 +1,12 @@
-const User = require('../models/user');
-const express =require('express');
+const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcrypt');
 
-router.get(`/`, async (req,res)=>{
-    const userList = await User.find();
+const User = require('../controllers/User');
 
-    if(!userList){
-        res.status(500).json({
-            success: false
-        })
-    }
-    res.send(userList);
-})
+// Get all users
+router.get('/', User.getAllUsers);
 
-
-//sign up
-router.post(`/`, async(req, res) => {
-
-    const hashedPassword = await bcrypt.hash(req.body.Password, 10);
-
-    const newUser = new User({
-        FirstName:  req.body.FirstName,
-        LastName: req.body.LastName,
-        Email: req.body.Email,
-        Phone: req.body.Phone,
-        Birthdate: req.body.Birthdate,
-        Password: hashedPassword
-    })
-
-    //save in database
-    await newUser
-        .save()
-        .then((created) => {
-            res.status(201).json(created)
-        })
-        .catch((err) => {
-            res.status(500).json({
-                error: err,
-                success: false,
-            })
-        })
-})
+// Sign up
+router.post('/', User.createUser);
 
 module.exports = router;
