@@ -1,4 +1,4 @@
-const {user, User} = require('../models/user');
+const User = require('../models/user');
 const express =require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
@@ -14,31 +14,33 @@ router.get(`/`, async (req,res)=>{
     res.send(userList);
 })
 
-router.post('/register', async(req, res)=>{
-    
-    const {FirstName, Lastname, Email, Phone, Birthdate, Password} = req.body;
-                
-    const hashedPassword = await bcrypt.hash(Password, 10);
+
+//sign up
+router.post(`/`, async(req, res) => {
+
+    const hashedPassword = await bcrypt.hash(req.body.Password, 10);
 
     const newUser = new User({
-        Firstname,
-        LastName,
-        Email,
-        Phone,
-        Birthdate,
+        FirstName:  req.body.FirstName,
+        LastName: req.body.LastName,
+        Email: req.body.Email,
+        Phone: req.body.Phone,
+        Birthdate: req.body.Birthdate,
         Password: hashedPassword
-        });
+    })
 
-    await newUser.save()
-        .then((newUser) => {
-        res.status(201).json(newUser)
+    //save in database
+    await newUser
+        .save()
+        .then((created) => {
+            res.status(201).json(created)
         })
         .catch((err) => {
-        res.status(500).json({
-        error: err,
-        success: false,
+            res.status(500).json({
+                error: err,
+                success: false,
+            })
         })
-    })
 })
 
 module.exports = router;
