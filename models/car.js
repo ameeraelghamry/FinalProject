@@ -1,18 +1,39 @@
 const mongoose = require('mongoose')
 
 const carSchema = mongoose.Schema({
-    name: String,
-    brand: String,
-    city: String,
-    image: String,
-    price: {
+    name:  {
+        type: String,
+        required: true,
+    },
+    brand:{
+        type: String,
+        required: true,
+    },
+    city:{
+        type: String,
+        required: true,
+    },
+    image:{
+        type: String,
+        required: true,
+    },
+    price:{
         type: Number,
         required: true,
     },
-    miles: Number,
-    category: String,
-    seats: Number,
-    available: {
+    miles:{
+        type: Number,
+        required: true,
+    },
+    category:{
+        type: String,
+        required: true,
+    },
+    seats:{
+        type: Number,
+        required: true,
+    },
+    available:{ //whether car is booked according to date or not
         type: Boolean,
         default: true
     }
