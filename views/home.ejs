@@ -7,36 +7,36 @@
     <link rel="stylesheet" href="/css/HomeStyle.css">
 
     <script>
-document.addEventListener("DOMContentLoaded", function () {
-  const container = document.querySelector(".featured-listings");
-  const scrollArea = container.querySelector(".listings");
+    document.addEventListener("DOMContentLoaded", function () {
+    const container = document.querySelector(".featured-listings");
+    const scrollArea = container.querySelector(".listings");
 
-  let scrollInterval;
+    let scrollInterval;
 
-  container.addEventListener("mousemove", (e) => {
-    const bounds = container.getBoundingClientRect();
-    const x = e.clientX - bounds.left;
+    container.addEventListener("mousemove", (e) => {
+        const bounds = container.getBoundingClientRect();
+        const x = e.clientX - bounds.left;
 
-    const threshold = 100; 
-    const speed = 50;     
+        const threshold = 100; 
+        const speed = 50;     
 
-    clearInterval(scrollInterval);
+        clearInterval(scrollInterval);
 
-    if (x < threshold) {
-      scrollInterval = setInterval(() => {
-        scrollArea.scrollLeft -= speed;
-      }, 5); 
-    } else if (x > bounds.width - threshold) {
-      scrollInterval = setInterval(() => {
-        scrollArea.scrollLeft += speed;
-      }, 5);
-    }
-  });
+        if (x < threshold) {
+        scrollInterval = setInterval(() => {
+            scrollArea.scrollLeft -= speed;
+        }, 5); 
+        } else if (x > bounds.width - threshold) {
+        scrollInterval = setInterval(() => {
+            scrollArea.scrollLeft += speed;
+        }, 5);
+        }
+    });
 
-  container.addEventListener("mouseleave", () => {
-    clearInterval(scrollInterval);
-  });
-});
+    container.addEventListener("mouseleave", () => {
+        clearInterval(scrollInterval);
+    });
+    });
 </script>
 
 
@@ -94,39 +94,49 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="browser-container">
 
             <!-- first -->
+            <a href="/cars?category=Sedan" class="browse-card">
             <div class="browse-card">
                 <img src="/images/browse1.jpeg" alt="Sedan">
                 <p>7 cars</p><br>
                 <strong>Sedan</strong>
             </div>
+            </a>
 
              <!-- second -->
+            <a href="/cars?category=hatchback" class="browse-card">
             <div class="browse-card">
                 <img src="/images/browse 2.avif" alt="Hatchback">
                 <p>1 car</p><br>
                 <strong>Hatchback</strong>
             </div>
+            </a>
 
             <!-- third -->
+            <a href="/cars?category=convertible" class="browse-card">
             <div class="browse-card">
                 <img src="/images/browse 3.webp" alt="Convertible">
                 <p>3 cars</p><br>
                 <strong>Convertible</strong>
             </div>
+            </a>
 
             <!-- fourth -->
+            <a href="/cars?category=suv" class="browse-card">
             <div class="browse-card">
                 <img src="/images/browse 4.avif" alt="SUV">
                 <p>4 cars</p><br>
                 <strong>SUV</strong>
             </div>
+            </a>
 
              <!-- fifth -->
+            <a href="/cars?category=coupe" class="browse-card">
             <div class="browse-card">
                 <img src="/images/fifth type.jpeg" alt="Coupe">
                 <p>6 cars</p><br>
                 <strong>Coupe</strong>
             </div>
+            </a>
 
         </div>
         

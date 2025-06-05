@@ -1,7 +1,7 @@
 const Car = require('../models/car');
 const Rental = require('../models/rental');
 
-const getAllCars = async (req, res) => {//veronia
+const getAllCars = async (req, res) => {//veronia search bar
     const category = req.query.category;
     const search = req.query.search;
     
