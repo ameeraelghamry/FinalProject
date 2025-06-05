@@ -21,6 +21,7 @@ nav {
     height: 60vh;
     overflow: hidden;
     z-index: 0;
+    padding-top: 70px;
 }
 
 .first img{
@@ -31,6 +32,7 @@ nav {
     height: 100%;
     object-fit: cover;
     z-index: 0;
+    object-position: center 20%;
 }
 
 .first h1{
@@ -41,10 +43,11 @@ nav {
 .content{
     width: 100%;
     position:absolute;
-    text-align: center;
+    text-align: start;
+    padding-left: 5%;
     z-index: 2;
     margin-top: 90px;
-    color: white;
+    color: #061524;
 }
 
 h2{

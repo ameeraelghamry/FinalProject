@@ -112,3 +112,17 @@ input[type="email"]{
 .footer * {
     font-weight: 400 !important; /* ensures normal weight across footer */
 }
+
+.credentials {
+    width: 100%;
+    text-align: center;
+    color: #ccc;
+    font-size: 14px;
+    padding-top: 20px;
+    border-top: 1px solid #1a2a3c;
+    margin-top: 30px;
+}
+
+footer, .footer-content, .credentials, .footer-email {
+    color: white !important;
+}

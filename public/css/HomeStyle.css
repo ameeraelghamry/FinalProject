@@ -19,7 +19,6 @@ html, body{
     color: #061524;
 }
 .banner{
-    position: relative;
     width:100%;
     height: 100vh;
     overflow: hidden;
@@ -486,4 +485,3 @@ input[type="date"]:hover {
     background: #061524;
     color: white;
 }
-
