@@ -47,53 +47,7 @@ html, body{
     object-fit: cover;
     z-index: -1;
 }
-li{
-     float: left;
-     list-style-type: none;
-     margin-right: 20px;
-}
-a{
-    color: white;
-    text-decoration: none;
-    text-transform: uppercase;
-}
-.navbar{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 10px 30px;
-    height: 60px;
-    background-color: #061524;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    z-index: 1;
-}
-.navbar ul li ::after{
-    content: ' ';
-    height: 3px;
-    width: 0;
-    background: white;
-    position: absolute;
-    left: 0;
-    bottom: -10px;
-    transition: 0.5s;
-}
-.navbar ul li{
-   position: relative; 
-}
-.navbar ul li:hover ::after{
-    width: 100%;
-}
 
-.logo img{
-    height: 60px;
-    width: auto;
-    object-fit: contain;
-    display: block;
-    margin-right: 20px;
-}
 
 .content{
     width: 100%;
@@ -109,42 +63,6 @@ a{
     font-size: 60px;
     margin-top: 80px;
 
-}
-
-/*Search Container*/
-
-.search-container{
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.search-container input[type="text"]{
-    padding: 5px 10px;
-    font-size: 16px;
-    height: 35px;
-    border-radius: 20px;
-    border: 2px solid #061524;
-    outline: none;
-}
-
-.search-container button{
-    padding: 5px 15px;
-    border-radius: 20px;
-    width: 70px;
-    height: 30px;
-    border: none;
-    background-color: white;
-    color: #061524;
-    font-size: 16px;
-    cursor: pointer;
-    transition: 0.5s ease;
-}
-
-.search-container button:hover{
-    background-color: #061524;
-    color: white;
 }
 
 /*BUTTON*/

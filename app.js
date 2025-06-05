@@ -3,9 +3,8 @@ const app = express()
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const mongoose = require('mongoose')
-const car = require('./models/car')
 const session = require('express-session');
-
+const path = require('path'); 
 require('dotenv/config')
 
 //routers
@@ -13,7 +12,7 @@ const api = process.env.API_URL
 const carsRoutes = require('./routers/cars')
 const userRoutes = require('./routers/users')
 const rentalRoutes = require('./routers/rentals')
-const path = require('path'); 
+
 
 app.set('view engine', 'ejs'); 
 app.set('views', path.join(__dirname, 'views'));
@@ -23,6 +22,13 @@ app.use(express.static('public'));
 //middleware
 app.use(bodyParser.json())
 app.use(morgan('tiny')) //good to display log requests
+
+app.use(session({
+  secret: 'your_secret_key', 
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false } 
+}));
 
 
 //main routes of products
@@ -38,14 +44,6 @@ mongoose
     .catch((err) => {
         console.log(err)
     })
-
-app.use(session({
-  secret: 'your_secret_key', 
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: false } 
-}));
-
 
 
 app.get('/', (req, res) => {

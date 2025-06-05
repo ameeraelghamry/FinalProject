@@ -2,22 +2,21 @@ const express = require('express');
 const router = express.Router();
 const Car = express.Router();
 
-const Car = require('../controllers/Car');
+const carController = require('../controllers/Car');
 
 //now instead of app.get we use router.get
 //routers for webpage
 
 //search bar
-router.get(`/`,Car.getAllCars);
+router.get(`/`, carController.getAllCars);
 
 //filtering by date search form
-router.get('/available', Car.searchByDate);
-
+router.get('/available', carController.searchByDate);
 
 //adding a new car
-router.post(`/add`,Car.addCar);
+router.post(`/add`,carController.addCar);
 
 //for editing cars
-router.put('/edit/:id', Car.updateCar)
+router.put('/edit/:id', carController.editCar)
 //exporitng a module
 module.exports = router;

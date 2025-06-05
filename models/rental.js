@@ -6,7 +6,8 @@ const rentalSchema = mongoose.Schema({
         ref:'car'
     },
     startDate: Date,
-    endDate: Date
+    endDate: Date,
+    payment: Number,
 })
 
 //exporting product itself
