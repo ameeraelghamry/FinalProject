@@ -51,15 +51,19 @@ app.get('/', (req, res) => {
 });
 
 app.get('/contact', (req, res) => {
-res.render('Contact us', { user: req.session.user });
+res.render('ContactUs', { user: req.session.user });
 });
 
 app.get('/about', (req, res) => {
-  res.render('About us', { user: req.session?.user });
+  res.render('AboutUs', { user: req.session?.user });
 });
 
 app.get('/policy', (req, res) => {
-  res.render('Our policy', { user: req.session?.user });
+  res.render('OurPolicy', { user: req.session?.user });
+});
+
+app.get('/signup', (req, res) => {
+  res.render('SignUp', { user: req.session?.user });
 });
 
 

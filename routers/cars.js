@@ -18,5 +18,11 @@ router.post(`/add`,carController.addCar);
 
 //for editing cars
 router.put('/edit/:id', carController.editCar)
+
+//connecting to frontend 
+//in script frontend when button is clicked it gathers the info and renders/avaialable which is in this route
+//calls search by date in controllers so it performs the filtering function
+router.get('/available', searchByDate);
+
 //exporitng a module
 module.exports = router;

@@ -2,6 +2,7 @@ const Car = require('../models/car');
 const Rental = require('../models/rental');
 
 const getAllCars = async (req, res) => {//veronia search bar
+    try{
     const category = req.query.category;
     const search = req.query.search;
     
@@ -33,10 +34,16 @@ const getAllCars = async (req, res) => {//veronia search bar
         })
     }
     res.send(carList);
+    }catch(error){
+        console.error('Error searching cars:', error);
+        res.status(500).send('Server error');
+    }
 }
 
 const searchByDate = async (req, res) => {//veronia
-     const {startDate, endDate, city } = req.query;
+    
+    try{
+    const {startDate, endDate, city } = req.query;//extract them from the url sent
     
         //making date objects mongodb saves dates as objects
         const start = new Date(startDate);
@@ -62,7 +69,11 @@ const searchByDate = async (req, res) => {//veronia
     
         const availableCars = await Car.find(filter);
     
-        res.json(availableCars);
+        res.render('availableCars', { cars: availableCars }); //might need to be edited
+    } catch(error){
+        console.error('Error searching cars:', error);
+        res.status(500).send('Server error');
+    }
 }
 
 
