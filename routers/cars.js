@@ -5,6 +5,7 @@ const carController = require('../controllers/Car');
 
 //now instead of app.get we use router.get
 //routers for webpage
+router.get('/', carController.getAllCars);//handles browse cards
 
 //search bar
 router.get(`/search`, carController.getAllCars);

@@ -35,9 +35,9 @@ const getAllCars = async (req, res) => {//veronia search bar
         })
     }
 
-    //res.send(carList);// for testing
+    res.send(carList);// for testing
 
-    res.render('carSearchResults', { cars: carList, search: search });//might need to be edited
+    //res.render('carSearchResults', { cars: carList, search: search });//might need to be edited
 
 
     }catch(error){
