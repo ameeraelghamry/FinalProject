@@ -89,14 +89,30 @@
 
     <!-- for search by date -->
     <script>
+
+        //global variable of today
+        const today = new Date().toISOString().split('T')[0];
+
+        //make sure dates are not in the past
+        window.addEventListener('DOMContentLoaded', () => {
+            //converts to a proper format but removes the time part
+            document.getElementById('start-date').setAttribute('min', today);
+            document.getElementById('end-date').setAttribute('min', today);
+        })
+
         document.getElementById('search-btn').addEventListener('click', async() => {
             const startDate = document.getElementById('start-date').value;
             const endDate = document.getElementById('end-date').value;
             const city = document.getElementById('city').value;
 
-            if(!startDate || !endDate || !city){
+            if(!startDate || !endDate || !city || city === "Select City"){
                 alert('please fill in all fields.');
                 return;
+            }
+
+            if (startDate < today || endDate < today) {
+            alert('Select a valid date');
+            return;
             }
 
             try{

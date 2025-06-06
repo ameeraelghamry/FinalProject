@@ -75,9 +75,9 @@ const searchByDate = async (req, res) => {//veronia
     
         const availableCars = await Car.find(filter);
     
-        res.render('availableCars', { cars: availableCars }); //might need to be edited
+        //res.render('availableCars', { cars: availableCars }); //might need to be edited
 
-        //res.json({ cars: availableCars }); // for testing
+        res.json({ cars: availableCars }); // for testing
 
     } catch(error){
         console.error('Error searching cars:', error);
