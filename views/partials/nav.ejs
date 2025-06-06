@@ -23,9 +23,20 @@
 
             </ul>
            
-            <form class="search-container" action="/search" method="GET">
-                <input type="text" placeholder="Search for cars..." name="search">
+            <!--sends automatically a get request no js needed to connect to backend-->
+            <form id="search-form" class="search-container" action="/api/v1/cars/search" method="GET">
+                <input type="text" placeholder="Search for cars..." name="search" id="search-input">
                 <button type="submit">Go</button>
             </form>
+
+            <script>
+                document.getElementById('search-form').addEventListener('submit', function(e) {
+                    const searchInput = document.getElementById('search-input');
+
+                    if(searchInput.value){
+                        searchInput.value = searchInput.value.trim().toLowerCase();
+                    }
+                });
+            </script>
            
         </div>

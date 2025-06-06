@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const Car = express.Router();
 
 const carController = require('../controllers/Car');
 
@@ -8,10 +7,7 @@ const carController = require('../controllers/Car');
 //routers for webpage
 
 //search bar
-router.get(`/`, carController.getAllCars);
-
-//filtering by date search form
-router.get('/available', carController.searchByDate);
+router.get(`/search`, carController.getAllCars);
 
 //adding a new car
 router.post(`/add`,carController.addCar);
@@ -22,7 +18,7 @@ router.put('/edit/:id', carController.editCar)
 //connecting to frontend 
 //in script frontend when button is clicked it gathers the info and renders/avaialable which is in this route
 //calls search by date in controllers so it performs the filtering function
-router.get('/available', searchByDate);
+router.get('/available', carController.searchByDate);
 
 //exporitng a module
 module.exports = router;

@@ -11,4 +11,4 @@ const rentalSchema = mongoose.Schema({
 })
 
 //exporting product itself
-exports.Rental = mongoose.model('rental', rentalSchema)
+module.exports = mongoose.model('Rental', rentalSchema);

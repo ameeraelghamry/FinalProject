@@ -9,7 +9,8 @@ const getAllCars = async (req, res) => {//veronia search bar
     let filter = {};
     
     if(category){
-        filter.category = category;
+        //case insensitive
+       filter.category = { $regex: category, $options: 'i' };
     }
     
     if(search){
@@ -27,13 +28,18 @@ const getAllCars = async (req, res) => {//veronia search bar
     
     const carList = await Car.find(filter);
     
-    if(!carList){
-    res.status(500).json({
-    success: false,
-    message: 'No cars found'
+    if(!carList || carList.length === 0){
+    return res.status(404).json({
+        success: false,
+        message: 'No cars found'
         })
     }
-    res.send(carList);
+
+    //res.send(carList);// for testing
+
+    res.render('carSearchResults', { cars: carList, search: search });//might need to be edited
+
+
     }catch(error){
         console.error('Error searching cars:', error);
         res.status(500).send('Server error');
@@ -70,6 +76,9 @@ const searchByDate = async (req, res) => {//veronia
         const availableCars = await Car.find(filter);
     
         res.render('availableCars', { cars: availableCars }); //might need to be edited
+
+        //res.json({ cars: availableCars }); // for testing
+
     } catch(error){
         console.error('Error searching cars:', error);
         res.status(500).send('Server error');
