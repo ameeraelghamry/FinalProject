@@ -1,4 +1,6 @@
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 function togglePopup(){
 document.getElementById("popup").classList.toggle("active");
 
@@ -84,6 +86,7 @@ const endAngle = startAngle + 300;
 
 
 =======
+>>>>>>> be7cf73cf80d9ca7f6f3ced5ac389b9e424b9ea2
 function togglePopup(){
 document.getElementById("popup").classList.toggle("active");
 
@@ -143,4 +146,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
+<<<<<<< HEAD
+=======
 >>>>>>> origin/main
+>>>>>>> be7cf73cf80d9ca7f6f3ced5ac389b9e424b9ea2

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,3 +24,30 @@
   </script>
 </body>
 </html>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Order Confirmation</title>
+  <link rel="stylesheet" href="success.css" />
+</head>
+<body>
+  <div class="confirmation-box">
+    <h1>Thanks For Renting With Us!</h1>
+    <p>Your ride's ready to hit the roads of Egypt🌞🐫🌴</p>
+    <p class="order-code">Order Code: <span id="orderCode"></span></p>
+    <p class="order-date">Order Date: <span id="orderDate"></span></p>
+    <a href="userInventory.html" class="back-btn">Place Another Order</a>
+  </div>
+
+  <script>
+    const orderCode = localStorage.getItem("orderCode") || "N/A";
+    const orderDate = localStorage.getItem("orderDate") || "Unknown";
+
+    document.getElementById("orderCode").textContent = "#" + orderCode;
+    document.getElementById("orderDate").textContent = orderDate;
+  </script>
+</body>
+</html>
+>>>>>>> be7cf73cf80d9ca7f6f3ced5ac389b9e424b9ea2
