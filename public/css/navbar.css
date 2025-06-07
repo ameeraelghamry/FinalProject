@@ -1,0 +1,119 @@
+
+
+.navbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px 30px;
+    height: 60px;
+    background-color: #061524;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1;
+}
+
+.navbar ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar ul li {
+    position: relative;
+    float: left;
+    margin-right: 20px;
+}
+
+.navbar ul li::after {
+    content: ' ';
+    height: 3px;
+    width: 0;
+    background: white;
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    transition: 0.5s;
+}
+
+.navbar ul li:hover::after {
+    width: 100%;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+
+.logo img {
+    height: 60px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+    margin-right: 20px;
+}
+
+
+.search-container {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.search-container input[type="text"] {
+    padding: 5px 10px;
+    font-size: 16px;
+    height: 35px;
+    border-radius: 20px;
+    border: 2px solid #061524;
+    outline: none;
+}
+
+.search-container button {
+    padding: 5px 15px;
+    border-radius: 20px;
+    width: 70px;
+    height: 30px;
+    border: none;
+    background-color: white;
+    color: #061524;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.5s ease;
+}
+
+.search-container button:hover {
+    background-color: #061524;
+    color: white;
+}
+
+
+@media (max-width: 750px) {
+    .navbar ul {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        gap: 10px;
+        padding: 10px 0;
+    }
+
+    .logo img {
+        height: 50px;
+    }
+
+    .navbar {
+        height: auto;
+        padding: 15px;
+    }
+
+    .navbar ul li {
+        text-align: center;
+        float: none; 
+        margin-right: 0;
+    }
+}
