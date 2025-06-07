@@ -129,9 +129,19 @@ const editCar = async (req, res) =>{//veronia
       }
 }
 
+const getFeatured = async (req, res) => {
+    try{
+        const featured = await Car.find({featured: true});//fetching
+        res.json({success: true, data: featured});
+    } catch(error){
+        res.status(500).json({ success: false, message: error.message });
+    }
+}
+
 module.exports = {
     editCar,
     addCar,
     searchByDate,
-    getAllCars
+    getAllCars,
+    getFeatured
 };

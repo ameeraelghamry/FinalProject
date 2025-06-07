@@ -7,6 +7,9 @@ const carController = require('../controllers/Car');
 //routers for webpage
 router.get('/', carController.getAllCars);//handles browse cards
 
+//featured cars api
+router.get('/featured', carController.getFeatured);
+
 //search bar
 router.get(`/search`, carController.getAllCars);
 
