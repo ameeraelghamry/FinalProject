@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -149,4 +150,155 @@
 
 
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="cardetailscss.css">
+    
+    
+    <script type="text/javascript" src="logicCarDetails.js"></script>
+    <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/model-viewer/3.1.1/model-viewer.min.js"></script>
+
+
+</head>
+<body>
+    
+<div class="container">
+    <div class="carName" > <h1>car name</h1> </div>
+<div class="carDetails"><p>he eleventh-generation Honda Civic (FE/FL) is a compact car (C-segment) manufactured by Honda since 2021The first-generation Civic was introduced in July 1972 as a two-door fastback sedan,[2] followed by a three-door hatchback that September. The Civic has been repeatedly rebadged for international markets, and served as the basis for the Honda CR-X, the Honda CR-X del Sol.</p></div>
+    <div class="moreDetailsbutt">
+        <button onclick="togglePopup()">more details</button></div>
+    <div class="popup" id="popup">
+
+        <div class="overlay"></div>
+        <div class="popup-content">
+            <h2>more details</h2>
+            <ul>
+            <li> 158-horsepower</li>
+            <li> 1,169 cc</li>
+            <li> 4-cylinder</li>
+            <li>maximum speed: 200 km/h</li>
+            <li>fuel consumption: 6.0(L/100km)</li>
+           </ul>
+           <div class="controls">
+            <button class="close" onclick="togglePopup()">close</button>
+           </div>
+        </div>
+
+    </div>
+    <div class="carImage"><img src="honda5.jpeg" alt="car"></div>
+    <div class="receipt">
+        <h2 class="receipt-title">Receipt</h2>
+        <hr>
+        <p class="receipt-detail">car's rate/day: <span class="car's-ratePday">200$</span></p>
+        <hr>
+        <p class="receipt-detail">number of days : <span class="days">3</span></p>
+        <hr>
+        <p class="receipt-detail">14% vat : <span class="vat14">86$</span></p>
+        <hr>
+        <p class="receipt-detail">total : <span class="total-price">686$</span></p>
+    </div>
+<div class="carsrate">
+    <h2 class="RATE">car's rate/day</h2>
+    <p class="rate">200$</p>
+</div>
+
+<div class="totalprice"><h2>Total</h2></div>
+    <div class="total">686$</div>
+
+
+    <div class="currency">
+        <input type= "radio" name="curr" id="Egp" checked ="checked"/>
+        <label for="Egp">EGP</label>
+        <input type= "radio" name="curr" id="USD"> 
+        <label for="USD">USD</label>
+        <input type= "radio" name="curr" id="eur">
+        <label for="eur">EUR</label>
+        <input type="radio" name="curr" id="Aed"> 
+        <label for="Aed">AED</label>
+    </div>
+    <div class="checkout-actions">
+    <div class = "pcoceedToCheckout">
+      <a href ="checkout.html">
+        <button class="proceed" onclick="procrrdToCheckout()"> Rent Now</button>
+      </a> 
+    </div>
+
+    <div class = "editCalendar">
+        <button class="edit" onclick="editCalendar()"> Edit Rental Dates </button>
+    </div>
+</div>
+
+    
+<div class="model-container">
+    <!-- Updated model-viewer with GLB format -->
+    <model-viewer
+      src="honda_civic_type-r.glb"
+      alt="3D model of honda civic"
+      camera-controls
+      auto-rotate
+      ar
+      shadow-intensity="1.5"
+      environment-image="neutral"
+      exposure="0.85"
+      field-of-view="25deg"
+    >
+      <!-- Loading progress bar -->
+      <div class="progress-bar" slot="progress-bar"></div>
+
+      <!-- Loading message -->
+      <div slot="poster" style="width:100%;height:100%;display:flex;justify-content:center;align-items:center;">
+        Loading 3D Model...
+      </div>
+    </model-viewer>
+  </div>
+
+  <div class="control">
+    <button id="toggle-rotate">Toggle Rotation</button>
+  </div>
+
+  <div class="attribution">
+    honda civic 
+  </div> 
+    
+  <div class="AllImages">
+    <div class="image-container">
+      <div class="image"><img src="honda1.jpeg" alt="img1"></div>
+      <div class="image"><img src="honda2.jpeg" alt="img2"></div>  
+      <div class="image"><img src="honda3.jpeg" alt="img3"></div>
+      <div class="image"><img src="honda4.jpeg" alt="img4"></div>
+    </div>
+  
+    <div class="popup-image">
+      <span>&times;</span>
+      <img src="" alt="popup">
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+</div>
+
+
+
+</body>
+>>>>>>> origin/main
 </html>

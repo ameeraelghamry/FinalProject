@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+    <title>Inventory</title>
+    <link rel="stylesheet" href="adminInventory.css" />
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top mb-3">
+        <a class="navbar-brand text-white" href="./AdminHome.html" style="padding-left: 20px;">NileWay</a>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                <li class="nav-item active px-4">
+                    <a class="nav-link text-white" href="#">Inventory</a>
+                </li>
+                <li class="nav-item active px-4">
+                    <a class="nav-link text-white" href="#">Status</a>
+                </li>
+                <li class="nav-item active px-4">
+                    <a class="nav-link text-white" href="#">Bookings</a>
+                </li>
+            </ul>
+        </div>
+
+        <form class="d-flex me-4 ">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+            <button class="btn btn-outline-light" type="submit">Search</button>
+        </form>
+    </nav>
+
+    <div class="container-fluid">
+        <!-- Floating Add Button -->
+        <button class="btn floating-btn" onclick="addNewItem()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-circle"
+                viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                <path
+                    d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+            </svg>
+        </button>
+
+        <div class="row">
+            <% cars.forEach(function(car) { %>
+                <div class="col-md-3">
+                    <div class="card mb-4">
+                        <img src="<%= car.imgUrl %>" class="card-img-top" alt="<%= car.title %>" />
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <%= car.title %>
+                            </h5>
+                            <span class="badge bg-light text-dark">
+                                <%= car.year %>
+                            </span>
+                            <ul class="list-unstyled mt-2">
+                                <li>
+                                    <%= car.capacity %> People
+                                </li>
+                                <li>
+                                    <%= car.fuelType %>
+                                </li>
+                                <li>
+                                    <%= car.mileage %>
+                                </li>
+                                <li>
+                                    <%= car.transmission %>
+                                </li>
+                            </ul>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="text">$<%= car.price %> / month</h5>
+                                <button class="btn">Edit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% }); %>
+        </div>
+    </div>
+
+    <script>
+        function addNewItem() {
+            alert("Add new item clicked!");
+        }
+    </script>
+</body>
+
+</html>
