@@ -3,26 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LogIn</title>  
-    <link rel="stylesheet" href="login.css">
-    <link rel="stylesheet" href="google.css">
-    <script src="All.js"></script>
-</head>
+    <title>LogIn</title>
 
-<body> 
+    <link rel="stylesheet" href="/styles/login.css">
+    <link rel="stylesheet" href="/styles/google.css">
+    <script src="/scripts/All.js"></script>
+</head>
+<body>
+
     <!-- Background video -->
-    <video id="backgroundVideo" src="D:\Jomana\Web Project\carvideoo.mp4" alt="Sign-up video"   autoplay loop muted>
-      Your browser does not support the video tag.
-  </video>
+    <video id="backgroundVideo" src="/videos/carvideoo.mp4" autoplay loop muted>
+        Your browser does not support the video tag.
+    </video>
 
     <!-- Login Form Container -->
     <div class="login-container">
-        <form class="login-form" id="loginForm" onsubmit="return validateLogin(event)">
+        <form class="login-form" id="loginForm" onsubmit="return validateLogin(event)" method="POST" action="/login">
             <h2>Login</h2>
 
             <!-- Email/Username Input -->
             <div class="input-group">
-                <label for="email">Email/Username</label> 
+                <label for="email">Email/Username</label>
                 <input type="text" id="email" name="email" placeholder="Enter your Email/Username" required>
             </div>
 
@@ -33,11 +34,11 @@
             </div>
 
             <!-- Login Button -->
-            <button class="login-btn">LogIn</button>
+            <button class="login-btn" type="submit">LogIn</button>
 
             <!-- Forgot Password Link -->
             <div class="signup-link">
-                <a href="forgotPassword.html">Forgot Password?</a>
+                <a href="/forgotPassword">Forgot Password?</a>
             </div>
 
             <!-- Horizontal Line with Label -->
@@ -48,7 +49,7 @@
             </div>
 
             <!-- Google Sign-In Button -->
-            <button class="gsi-material-button">
+            <button class="gsi-material-button" type="button" onclick="location.href='/auth/google'">
                 <div class="gsi-material-button-state"></div>
                 <div class="gsi-material-button-content-wrapper">
                     <div class="gsi-material-button-icon">
@@ -66,18 +67,17 @@
             <!-- Sign-Up Link -->
             <p class="signup-link">
                 Don't have an account yet? <br />
-                <a href="Sign%20Up.html">Register for free</a>
+                <a href="/signup">Register for free</a>
             </p>
         </form>
     </div>
 
     <script>
-      window.addEventListener('load', function () {
-          setTimeout(() => {
-              document.querySelector('.login-container').classList.add('visible');
-          }, 300); // small delay for a smoother feel
-      });
-  </script>
-  
+        window.addEventListener('load', function () {
+            setTimeout(() => {
+                document.querySelector('.login-container').classList.add('visible');
+            }, 300); // small delay for a smoother feel
+        });
+    </script>
 </body>
 </html>
