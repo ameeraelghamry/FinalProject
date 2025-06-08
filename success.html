@@ -1,53 +1,153 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Order Confirmation</title>
-  <link rel="stylesheet" href="success.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmed - Premium Car Rental</title>
+    <link rel="stylesheet" href="../css/success.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-  <div class="confirmation-box">
-    <h1>Thanks For Renting With Us!</h1>
-    <p>Your ride's ready to hit the roads of Egypt🌞🐫🌴</p>
-    <p class="order-code">Order Code: <span id="orderCode"></span></p>
-    <p class="order-date">Order Date: <span id="orderDate"></span></p>
-    <a href="userInventory.html" class="back-btn">Place Another Order</a>
-  </div>
+    <div class="success-container">
+        <div class="logo-container">
+            <img src="../images/logo (2).png" alt="Car Rental Logo" class="logo">
+        </div>
+        
+        <div class="success-header">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h1>Booking Confirmed!</h1>
+            <p>Your car rental reservation has been successfully processed.</p>
+            
+            <div class="checkout-progress">
+                <div class="progress-step completed">
+                    <i class="fas fa-car"></i>
+                    <span>Vehicle Selected</span>
+                </div>
+                <div class="progress-step completed">
+                    <i class="fas fa-credit-card"></i>
+                    <span>Payment</span>
+                </div>
+                <div class="progress-step completed">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Confirmation</span>
+                </div>
+            </div>
+        </div>
 
-  <script>
-    const orderCode = localStorage.getItem("orderCode") || "N/A";
-    const orderDate = localStorage.getItem("orderDate") || "Unknown";
+        <div class="booking-details">
+            <div class="confirmation-number">
+                <h2>Confirmation Number</h2>
+                <p id="booking-id">ABC123XYZ</p>
+            </div>
 
-    document.getElementById("orderCode").textContent = "#" + orderCode;
-    document.getElementById("orderDate").textContent = orderDate;
-  </script>
+            <div class="car-summary">
+                <h2>Vehicle Details</h2>
+                <div class="car-card">
+                    <img src="" alt="Rented Car" id="car-image">
+                    <div class="car-info">
+                        <h3 id="car-name">Car Name</h3>
+                        <p id="car-specs">Specifications</p>
+                        <div class="car-features">
+                            <span><i class="fas fa-users"></i> <span id="passengers">5 Passengers</span></span>
+                            <span><i class="fas fa-suitcase"></i> <span id="luggage">4 Bags</span></span>
+                            <span><i class="fas fa-cog"></i> <span id="transmission">Automatic</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rental-info">
+                <h2>Rental Information</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <div>
+                            <span>Pickup Date</span>
+                            <p id="pickup-date">Date</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <div>
+                            <span>Return Date</span>
+                            <p id="return-date">Date</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <span>Pickup Location</span>
+                            <p id="pickup-location">Location</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <span>Pickup Time</span>
+                            <p id="pickup-time">Time</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="payment-summary">
+                <h2>Payment Summary</h2>
+                <div class="summary-details">
+                    <div class="summary-row">
+                        <span>Rental Rate</span>
+                        <span id="rental-rate">$0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Insurance</span>
+                        <span id="insurance-fee">$0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Taxes & Fees</span>
+                        <span id="taxes">$0.00</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total Paid</span>
+                        <span id="total-amount">$0.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="next-steps">
+            <h2>Next Steps</h2>
+            <div class="steps-grid">
+                <div class="step-item">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Check Your Email</h3>
+                    <p>We've sent a detailed confirmation to your email address.</p>
+                </div>
+                <div class="step-item">
+                    <i class="fas fa-id-card"></i>
+                    <h3>Bring Required Documents</h3>
+                    <p>Don't forget your driver's license and credit card used for booking.</p>
+                </div>
+                <div class="step-item">
+                    <i class="fas fa-clock"></i>
+                    <h3>Arrive On Time</h3>
+                    <p>Please arrive at the pickup location at your scheduled time.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <a href="#" class="primary-button" id="download-confirmation">
+                <i class="fas fa-download"></i>
+                Download Confirmation
+            </a>
+            <a href="../index.html" class="secondary-button">
+                <i class="fas fa-home"></i>
+                Return to Home
+            </a>
+        </div>
+    </div>
+    <script src="../js/success.js"></script>
 </body>
-</html>
-=======
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Order Confirmation</title>
-  <link rel="stylesheet" href="success.css" />
-</head>
-<body>
-  <div class="confirmation-box">
-    <h1>Thanks For Renting With Us!</h1>
-    <p>Your ride's ready to hit the roads of Egypt🌞🐫🌴</p>
-    <p class="order-code">Order Code: <span id="orderCode"></span></p>
-    <p class="order-date">Order Date: <span id="orderDate"></span></p>
-    <a href="userInventory.html" class="back-btn">Place Another Order</a>
-  </div>
-
-  <script>
-    const orderCode = localStorage.getItem("orderCode") || "N/A";
-    const orderDate = localStorage.getItem("orderDate") || "Unknown";
-
-    document.getElementById("orderCode").textContent = "#" + orderCode;
-    document.getElementById("orderDate").textContent = orderDate;
-  </script>
-</body>
-</html>
->>>>>>> be7cf73cf80d9ca7f6f3ced5ac389b9e424b9ea2
+</html> 
