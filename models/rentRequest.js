@@ -23,8 +23,9 @@ const rentRequestSchema = new mongoose.Schema({
         required: true
     },
 
-    status: {
-        type: String, enum: ['pending'],
+    carStatus: {
+        type: String,
+        enum: ['pending', 'Booked'],
         default: 'pending'
     }, // status for requests
 
