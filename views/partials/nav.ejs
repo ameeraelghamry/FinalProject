@@ -1,0 +1,41 @@
+<head>
+    <link rel="stylesheet" href="/css/navbar.css">
+</head>
+
+    
+        <div class="navbar">
+            <div class="logo">
+                <img src="/images/nilewayrental-02.png" alt="logo">
+            </div>
+              
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About us</a></li>
+                <li><a href="/contact">Contact us</a></li>
+                <li><a href="/policy">Policy</a></li>
+
+                <% if (!user) { %>
+                    <li><a href="/signup">Sign Up</a></li>
+                    <% } else { %>
+                    <li><a href="/api/v1/users/logout">Logout</a></li>
+                <% } %>
+
+            </ul>
+           
+            <!--sends automatically a get request no js needed to connect to backend-->
+            <form id="search-form" class="search-container" action="/api/v1/cars/search" method="GET">
+                <input type="text" placeholder="Search for cars..." name="search" id="search-input">
+                <button type="submit">Go</button>
+            </form>
+
+            <script>
+                document.getElementById('search-form').addEventListener('submit', function(e) {
+                    const searchInput = document.getElementById('search-input');
+
+                    if(searchInput.value){
+                        searchInput.value = searchInput.value.trim().toLowerCase();
+                    }
+                });
+            </script>
+           
+        </div>
