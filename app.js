@@ -77,6 +77,10 @@ app.get('/admin', (req, res) => {
   res.render('admin/requests', { user: req.session?.user });
 });
 
+app.get('/explore', (req, res) => {
+  res.render('Explore', { user: req.session?.user });
+});
+
 //listening port for server
 app.listen(3000, () => {
   console.log('server is running on port 3000')
