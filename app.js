@@ -70,7 +70,7 @@ app.get('/policy', (req, res) => {
 });
 
 app.get('/signup', (req, res) => {
-  res.render('SignUp', { user: req.session?.user });
+  res.render('signup', { user: req.session?.user });
 });
 
 app.get('/admin', (req, res) => {

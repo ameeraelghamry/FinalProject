@@ -16,6 +16,7 @@ const getAllUsers = async (req, res) => {
 
 
 const createUser = async (req, res) => {
+    console.log("REQ BODY:", req.body);//for testing
 
     const { FirstName, LastName, Email, Phone, Birthdate, Password, ConfirmPassword } = req.body;
 
@@ -32,13 +33,15 @@ const createUser = async (req, res) => {
     
     //one way encryption for password
     const hashedPassword = await bcrypt.hash(req.body.Password, 10);
+
+    const validbDate = Birthdate.split('T')[0];
     
     const newUser = new User({
         FirstName,
         LastName,
         Email,
         Phone,
-        Birthdate,
+        Birthdate: validbDate,
         Password: hashedPassword
     })
     

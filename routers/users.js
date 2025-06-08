@@ -24,7 +24,7 @@ router.get('/:userId/notifications', async (req, res) => {
 // Sign up
 router.post('/signup', User.createUser);
 
-router.post('/logout', (req, res) => {
+router.get('/logout', (req, res) => {
   req.session.destroy(err => {
     if (err) {
       return res.status(500).json(err);

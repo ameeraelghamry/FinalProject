@@ -91,11 +91,12 @@
     <script>
 
         //global variable of today
+        //converts to a proper format but removes the time part
         const today = new Date().toISOString().split('T')[0];
 
         //make sure dates are not in the past
         window.addEventListener('DOMContentLoaded', () => {
-            //converts to a proper format but removes the time part
+            
             document.getElementById('start-date').setAttribute('min', today);
             document.getElementById('end-date').setAttribute('min', today);
         })
@@ -111,8 +112,8 @@
             }
 
             if (startDate < today || endDate < today) {
-            alert('Select a valid date');
-            return;
+                alert('Select a valid date');
+                return;
             }
 
             try{
