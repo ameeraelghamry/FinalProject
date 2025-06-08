@@ -5,13 +5,13 @@ const rentRequestSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
-    }, // link to your User _id
+    },
 
     carId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Car',
         required: true
-    },   // link to your Car _id
+    },
 
     rentStart: {
         type: Date,
@@ -27,7 +27,7 @@ const rentRequestSchema = new mongoose.Schema({
         type: String,
         enum: ['pending', 'Booked'],
         default: 'pending'
-    }, // status for requests
+    },
 
     createdAt: {
         type: Date,
