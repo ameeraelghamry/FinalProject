@@ -6,6 +6,9 @@ router.get('/requests', adminController.getAllRequests);
 
 router.get('/bookings', adminController.getAllBookings);
 
+
+
+
 // Accept a rental request by ID
 //router.post('/requests/accept/:id', adminController.acceptRequest);
 

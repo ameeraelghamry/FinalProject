@@ -2,88 +2,85 @@ const rentRequest = require('../models/rentRequest');
 const Booking = require('../models/bookings');
 //const Message = require('../models/Message');
 const Car = require('../models/car');
+const Notification = require('../models/notification');
 
-exports.getAllRequests = async (req, res) => {
-    console.log("GET /admin/requests hit");
-    try {
-        const requests = await rentRequest.find({ status: 'pending' })
-            .populate('userId', 'FirstName LastName Email Phone')
-            .populate('carId', 'name brand city price available category image');
-        res.render('admin/requests', { requests });
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Server error');
-    }
-};
-
-exports.getAllBookings = async (req, res) => {
-    try {
-        const bookings = await Booking.find()
-            .populate('userId', 'FirstName LastName Email Phone')
-            .populate('carId', 'name brand city price available category image');
-        res.render('admin/bookings', { bookings });
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Server error');
-    }
-};
-
-// // Accept a rental request: move it to bookings, notify user, remove request
-// exports.acceptRequest = async (req, res) => {
+// exports.getAllRequests = async (req, res) => {
+//     console.log("GET /admin/requests hit");
 //     try {
-//         const requestId = req.params.id;
-//         const request = await RentalRequest.findById(requestId);
-//         if (!request) return res.status(404).send('Request not found');
-
-//         // Create a booking from the request info
-//         const booking = new Booking({
-//             userId: request.userId,
-//             carId: request.carId,
-//             rentStart: request.rentStart,
-//             rentEnd: request.rentEnd,
-//         });
-//         await booking.save();
-
-//         // Update car availability to false (booked)
-//         await Car.findByIdAndUpdate(request.carId, { available: false });
-
-//         // Send notification message to user
-//         const message = new Message({
-//             userId: request.userId,
-//             content: `Your rental request for car ID ${request.carId} has been accepted.`,
-//         });
-//         await message.save();
-
-//         // Delete the rental request after acceptance
-//         await RentalRequest.findByIdAndDelete(requestId);
-
-//         res.redirect('/admin/requests');
+//         const requests = await rentRequest.find({ status: 'pending' })
+//             .populate('userId', 'FirstName LastName Email Phone')
+//             .populate('carId', 'name brand city price available category image');
+//         res.render('admin/requests', { requests });
 //     } catch (error) {
 //         console.error(error);
 //         res.status(500).send('Server error');
 //     }
 // };
 
-// // Decline a rental request: delete it and notify user
-// exports.declineRequest = async (req, res) => {
+// exports.getAllBookings = async (req, res) => {
 //     try {
-//         const requestId = req.params.id;
-//         const request = await RentalRequest.findById(requestId);
-//         if (!request) return res.status(404).send('Request not found');
-
-//         // Send notification message to user
-//         const message = new Message({
-//             userId: request.userId,
-//             content: `Your rental request for car ID ${request.carId} has been declined.`,
-//         });
-//         await message.save();
-
-//         // Delete the rental request after decline
-//         await RentalRequest.findByIdAndDelete(requestId);
-
-//         res.redirect('/admin/requests');
+//         const bookings = await Booking.find()
+//             .populate('userId', 'FirstName LastName Email Phone')
+//             .populate('carId', 'name brand city price available category image');
+//         res.render('admin/bookings', { bookings });
 //     } catch (error) {
 //         console.error(error);
 //         res.status(500).send('Server error');
 //     }
+// };
+
+// exports.acceptRequest = async (req, res) => {
+//   try {
+//     const requestId = req.params.id;
+//     const request = await RentalRequest.findById(requestId);
+//     if (!request) return res.status(404).send('Request not found');
+
+//     // Create booking
+//     const booking = new Booking({
+//       userId: request.userId,
+//       carId: request.carId,
+//       rentStart: request.rentStart,
+//       rentEnd: request.rentEnd,
+//     });
+//     await booking.save();
+
+//     // Update car availability
+//     await Car.findByIdAndUpdate(request.carId, { available: false });
+
+//     // Create notification for user
+//     await Notification.create({
+//       userId: request.userId,
+//       content: `Your rental request for car ID ${request.carId} has been accepted.`
+//     });
+
+//     // Delete the rental request
+//     await RentalRequest.findByIdAndDelete(requestId);
+
+//     res.redirect('/admin/requests');
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send('Server error');
+//   }
+// };
+
+// exports.declineRequest = async (req, res) => {
+//   try {
+//     const requestId = req.params.id;
+//     const request = await RentalRequest.findById(requestId);
+//     if (!request) return res.status(404).send('Request not found');
+
+//     // Create notification for user
+//     await Notification.create({
+//       userId: request.userId,
+//       content: `Your rental request for car ID ${request.carId} has been declined.`
+//     });
+
+//     // Delete the rental request
+//     await RentalRequest.findByIdAndDelete(requestId);
+
+//     res.redirect('/admin/requests');
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send('Server error');
+//   }
 // };
