@@ -27,6 +27,7 @@ const userSchema = mongoose.Schema({
     },
     Type: {
         type: String,
+        enum: ['client','admin'],  //because we have two options a client/user and an admin to use in login 
         default: 'client',
      },
 })
