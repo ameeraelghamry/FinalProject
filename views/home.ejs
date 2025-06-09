@@ -111,11 +111,12 @@
     <script>
 
         //global variable of today
+        //converts to a proper format but removes the time part
         const today = new Date().toISOString().split('T')[0];
 
         //make sure dates are not in the past
         window.addEventListener('DOMContentLoaded', () => {
-            //converts to a proper format but removes the time part
+            
             document.getElementById('start-date').setAttribute('min', today);
             document.getElementById('end-date').setAttribute('min', today);
         })
@@ -342,9 +343,44 @@
         <div class="view-all-container">
             <a href="#" class="view"><%= __('View All') %></a> <!-- directing to shop all page -->
         </div>
+           <!--dynamically inserted here-->
 
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            try{
+                const response = await fetch('/api/v1/cars/featured');
+                const result = await response.json();
+                if(result.success){
+                    const cars = result.data;
+                    const listingsContainer = document.querySelector('.featured-listings .listings');
+                    listingsContainer.innerHTML = '';
+
+                    cars.forEach(car => {
+                     const carHTML = `
+                    <div class="list">
+                    <div class="image-container">
+                        <img src="${car.image}" alt="${car.name}">
+                    </div>
+
+                    <h3>${car.name}</h3>
+                    <p>${car.miles.toLocaleString()} miles • Automatic • Petrol</p>
+                    
+                    <div class="price">${car.price} EGP/day</div>
+                    <a href="/cars/${car._id}" class="view">View</a>
+                    </div>
+                `;
+                listingsContainer.insertAdjacentHTML('beforeend', carHTML);
+                });
+                }
+                
+            }catch (err) {
+                console.log(err);
+            }
+        })
+    </script>
 
     <!-- FOOTER -->
     <<%- include('partials/footer', { __: __, locale: locale }) %>

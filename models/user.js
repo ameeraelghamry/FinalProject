@@ -18,7 +18,7 @@ const userSchema = mongoose.Schema({
         required: true,
     },
     Birthdate: {
-        type: Date,
+        type: String,
         required: true,
     },
     Password:  {
