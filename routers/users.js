@@ -4,12 +4,38 @@ const router = express.Router();
 const User = require('../controllers/User');
 const Notification = require('../models/notification');
 
-// Get all users
-router.get('/', User.getAllUsers);
-
+//signup 
 router.get('/signup', (req, res) => {
   res.render('signup', { user: (req.session.user === undefined ? "" : req.session.user) });
 });
+
+
+//jomana
+router.get('/login', (req, res) => { // renders-retrives the login view "login.ejs"
+  res.render('login', { user: req.session.user || null }); // means if  user is logged in then session exists ,if not then null.(same concept as the one in the sign up.)
+  });
+ 
+  
+// Sign up
+router.post('/signup', User.createUser);
+
+//jomana
+// Login route 
+router.post('/login', User.loginUser); //creates 
+
+router.get('/logout', (req, res) => { //destroying the session
+  req.session.destroy(err => {
+    if (err) {
+      return res.status(500).json(err);
+    }
+    res.redirect('/');
+  });
+});
+
+
+// Get all users
+router.get('/', User.getAllUsers);
+
 
 router.get('/:userId/notifications', async (req, res) => {
   try {
@@ -21,18 +47,5 @@ router.get('/:userId/notifications', async (req, res) => {
   }
 });
 
-// Sign up
-router.post('/signup', User.createUser);
 
-router.get('/logout', (req, res) => {
-  req.session.destroy(err => {
-    if (err) {
-      return res.status(500).json(err);
-    }
-    res.redirect('/');
-  });
-});
-
-
-
-module.exports = router;
+  module.exports = router;

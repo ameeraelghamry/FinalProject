@@ -18,19 +18,18 @@
 
     <!-- Login Form Container -->
     <div class="login-container">
-        <form class="login-form" id="loginForm" onsubmit="return validateLogin(event)" method="POST" action="/login">
-            <h2>Login</h2>
-
+        <form class="login-form" id="loginForm" onsubmit="return validateLogin(event)" method="POST" action="/api/v1/users/login">
+         <h2>Login</h2>
             <!-- Email/Username Input -->
             <div class="input-group">
                 <label for="email">Email/Username</label>
-                <input type="text" id="email" name="email" placeholder="Enter your Email/Username" required>
+                <input type="text" id="email" name="Email" placeholder="Enter your Email/Username" required>
             </div>
 
             <!-- Password Input -->
             <div class="input-group">
                 <label for="pass">Password</label>
-                <input type="password" id="pass" name="pass" placeholder="Enter your Password" required>
+                <input type="password" id="pass" name="Password" placeholder="Enter your Password" required>
             </div>
 
             <!-- Login Button -->

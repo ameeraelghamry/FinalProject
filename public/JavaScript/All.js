@@ -83,9 +83,8 @@ rightContainer.classList.add('shrinkRight');
  }*/
 
   // Validation function for the login form
-  function validateLogin(event) {
-    // Prevent the form from submitting
-    event.preventDefault();
+  async function validateLogin(event) {
+    event.preventDefault();  // Stop the default form submission
 
     // Get the form values
     var email = document.getElementById('email').value;
@@ -97,11 +96,31 @@ rightContainer.classList.add('shrinkRight');
         return false; // Prevent form submission
     }
 
-    // If validation is successful, redirect to Home page
-    window.location.href = 'Home.html';
-    return true; // Allow form submission (actually redirecting)
-}
+    try {
+        // Send login data via POST to backend API
+        const response = await fetch('/api/v1/users/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ Email: email, Password: password })
+        });
 
+        const data = await response.json();
+
+        if (data.success) {
+            // If login successful, redirect user to the URL sent by backend
+            window.location.href = data.redirectTo;
+        } else {
+            // If login failed, show an alert with the error message
+            alert(data.message || 'Login failed. Please try again.');
+        }
+    } catch (error) {
+        // Handle network or unexpected errors
+        console.error('Error during login:', error);
+        alert('An error occurred. Please try again later.');
+    }
+
+    return false; // Prevent default form submission no matter what
+}
 
 
 //forgot pass js 
