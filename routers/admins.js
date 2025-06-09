@@ -6,14 +6,9 @@ router.get('/requests', adminController.getAllRequests);
 
 router.get('/bookings', adminController.getAllBookings);
 
+router.post('/requests/accept/:id', adminController.acceptRequest);
 
-
-
-// Accept a rental request by ID
-//router.post('/requests/accept/:id', adminController.acceptRequest);
-
-// Decline a rental request by ID
-//router.post('/requests/decline/:id', adminController.declineRequest);
+router.post('/requests/decline/:id', adminController.declineRequest);
 
 
 module.exports = router;
