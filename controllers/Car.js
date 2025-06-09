@@ -35,9 +35,9 @@ const getAllCars = async (req, res) => {//veronia search bar
             })
         }
 
-    res.send(carList);// for testing
+    //res.send(carList);// for testing
 
-    //res.render('carSearchResults', { cars: carList, search: search });//might need to be edited
+    res.render('Admin/adminInventory', { cars: carList, search: search });//might need to be edited
 
 
     } catch (error) {
@@ -74,7 +74,7 @@ const searchByDate = async (req, res) => {//veronia
             city: city
         };
     
-        const availableCars = await Car.find(filter);
+    //    const availableCars = await Car.find(filter);// this line is a duplicate of line 29,
     
         //res.render('availableCars', { cars: availableCars }); //might need to be edited
 
