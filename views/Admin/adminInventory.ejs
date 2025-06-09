@@ -45,42 +45,37 @@
             </svg>
         </button>
 
-        <div class="row">
-            <% cars.forEach(function(car) { %>
-                <div class="col-md-3">
-                    <div class="card mb-4">
-                        <img src="<%= car.imgUrl %>" class="card-img-top" alt="<%= car.title %>" />
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <%= car.title %>
-                            </h5>
-                            <span class="badge bg-light text-dark">
-                                <%= car.year %>
-                            </span>
-                            <ul class="list-unstyled mt-2">
-                                <li>
-                                    <%= car.capacity %> People
-                                </li>
-                                <li>
-                                    <%= car.fuelType %>
-                                </li>
-                                <li>
-                                    <%= car.mileage %>
-                                </li>
-                                <li>
-                                    <%= car.transmission %>
-                                </li>
-                            </ul>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h5 class="text">$<%= car.price %> / month</h5>
-                                <button class="btn">Edit</button>
-                            </div>
+       <div class="row">
+    <% if (cars.length > 0) { %>
+        <% cars.forEach(car => { %>
+            <div class="col-md-3">
+                <div class="card mb-4">
+                    <img src="<%= car.image %>" class="card-img-top" alt="<%= car.name %>" />
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <%= car.name %>
+                        </h5>
+                        
+                        <ul class="list-unstyled mt-2">
+                             <li><%= car.category %> category</li>
+                            <li><%= car.capacity %> People</li>
+                            
+                            <li><%= car.miles %></li>
+                            
+                        </ul>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="text">$<%= car.price %> / month</h5>
+                            <button class="btn btn-sm btn-primary">Edit</button>
                         </div>
                     </div>
                 </div>
-                <% }); %>
-        </div>
-    </div>
+            </div>
+        <% }); %>
+    <% } else { %>
+        <p>No cars found.</p>
+    <% } %>
+</div>
+
 
     <script>
         function addNewItem() {
