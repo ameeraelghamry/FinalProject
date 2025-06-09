@@ -64,12 +64,6 @@ const createUser = async (req, res) => {
     })
 }
 
-module.exports = {
-    getAllUsers,
-    createUser,
-    loginUser, //login 
-};
-
 // jomana login 
 
 const loginUser = async (req, res) => {
@@ -121,4 +115,10 @@ const loginUser = async (req, res) => {
  // Step 5: Handle unexpected errors
         return res.status(500).json({ message: "Server error", error: err });
     }
+};
+
+module.exports = {
+    getAllUsers,
+    createUser,
+    loginUser, //login 
 };
