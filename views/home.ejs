@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,40 +8,41 @@
     <link rel="stylesheet" href="/css/HomeStyle.css">
 
     <script>
-    document.addEventListener("DOMContentLoaded", function () {
-    const container = document.querySelector(".featured-listings");
-    const scrollArea = container.querySelector(".listings");
+        document.addEventListener("DOMContentLoaded", function () {
+            const container = document.querySelector(".featured-listings");
+            const scrollArea = container.querySelector(".listings");
 
-    let scrollInterval;
+            let scrollInterval;
 
-    container.addEventListener("mousemove", (e) => {
-        const bounds = container.getBoundingClientRect();
-        const x = e.clientX - bounds.left;
+            container.addEventListener("mousemove", (e) => {
+                const bounds = container.getBoundingClientRect();
+                const x = e.clientX - bounds.left;
 
-        const threshold = 100; 
-        const speed = 50;     
+                const threshold = 100;
+                const speed = 50;
 
-        clearInterval(scrollInterval);
+                clearInterval(scrollInterval);
 
-        if (x < threshold) {
-        scrollInterval = setInterval(() => {
-            scrollArea.scrollLeft -= speed;
-        }, 5); 
-        } else if (x > bounds.width - threshold) {
-        scrollInterval = setInterval(() => {
-            scrollArea.scrollLeft += speed;
-        }, 5);
-        }
-    });
+                if (x < threshold) {
+                    scrollInterval = setInterval(() => {
+                        scrollArea.scrollLeft -= speed;
+                    }, 5);
+                } else if (x > bounds.width - threshold) {
+                    scrollInterval = setInterval(() => {
+                        scrollArea.scrollLeft += speed;
+                    }, 5);
+                }
+            });
 
-    container.addEventListener("mouseleave", () => {
-        clearInterval(scrollInterval);
-    });
-    });
-</script>
+            container.addEventListener("mouseleave", () => {
+                clearInterval(scrollInterval);
+            });
+        });
+    </script>
 
 
 </head>
+
 <body>
 
     <!-- NAVBAR -->
@@ -53,38 +55,56 @@
         </video>
         <div class="fade-overlay"></div>
 
-       <%- include('partials/nav') %>
+        <%- include('partials/nav', { __: __, locale: locale, user: user }) %>
 
-        <div class="content">
-            <h1>Comfotable glide<br>
-                in Egypt!
-            </h1>
-            <button type="button" class="ex"><span></span>EXPLORE ALL</button>  <!-- shop all page -->
-        </div>
-        
+
+            <div class="content">
+                <h1>
+                    <h1>
+                        <%= __( "Comfortable glide" ) %>
+                    </h1>
+                    <%= __("in Egypt!") %>
+                </h1>
+                <button type="button" class="ex"><span></span>
+                    <%= __("EXPLORE ALL") %>
+                </button> <!-- shop all page -->
+            </div>
+
     </div>
 
     <!-- SEARCH -->
 
     <div class="search">
-        <h2>Find Your Perfect New or Used Cars</h2>
-        <p>Safe and secure car deals for you.</p>
+        <h2>
+            <%= __("Find Your Perfect New or Used Cars") %>
+        </h2>
+        <p>
+            <%= __("Safe and secure car deals for you.") %>
+        </p>
         <div class="searchBar">
-            <label for="start-date">Select Starting Date:</label>
+            <label for="start-date">
+                <%=__("Select Starting Date:")%>
+            </label>
             <input type="date" id="start-date">
 
-            <label for="end-date">Select Ending Date:</label>
+            <label for="end-date">
+                <%=__("Select Ending Date:")%>
+            </label>
             <input type="date" id="end-date">
 
             <select id="city">
-                <option disabled selected>Select City</option>
+                <option disabled selected>
+                    <%=__("Select City")%>
+                </option>
                 <option>Cairo</option>
                 <option>Hurghada</option>
                 <option>Alexandria</option>
                 <option>Sharm El Sheikh</option>
             </select>
         </div>
-        <button type="submit" id="search-btn">Search</button>
+        <button type="submit" id="search-btn">
+            <%=__("Search")%>
+        </button>
     </div>
 
     <!-- for search by date -->
@@ -101,12 +121,12 @@
             document.getElementById('end-date').setAttribute('min', today);
         })
 
-        document.getElementById('search-btn').addEventListener('click', async() => {
+        document.getElementById('search-btn').addEventListener('click', async () => {
             const startDate = document.getElementById('start-date').value;
             const endDate = document.getElementById('end-date').value;
             const city = document.getElementById('city').value;
 
-            if(!startDate || !endDate || !city || city === "Select City"){
+            if (!startDate || !endDate || !city || city === "Select City") {
                 alert('please fill in all fields.');
                 return;
             }
@@ -116,118 +136,213 @@
                 return;
             }
 
-            try{
-                const response = await fetch (`/api/v1/cars/available?startDate=${startDate}&endDate=${endDate}&city=${encodeURIComponent(city)}`);
+            try {
+                const response = await fetch(`/api/v1/cars/available?startDate=${startDate}&endDate=${endDate}&city=${encodeURIComponent(city)}`);
                 const data = await response.json();
-            }catch (err) {
-            console.error('Error:', err);
-        }
+            } catch (err) {
+                console.error('Error:', err);
+            }
         })
     </script>
 
     <!-- BROWSE -->
 
     <div class="browse">
-        <h2>Browse by Type</h2>
+        <h2>
+            <%=__("Browse by Type")%>
+        </h2>
         <div class="browser-container">
 
             <!-- first -->
-             <!-- a href triggers a get-->
+            <!-- a href triggers a get-->
             <a href="/api/v1/cars?category=Sedan" class="browse-card">
-            
+
                 <img src="/images/browse1.jpeg" alt="Sedan">
-                <p>7 cars</p><br>
-                <strong>Sedan</strong>
-            
+                <p>
+                    <%=__("7 cars")%>
+                </p><br>
+                <strong>
+                    <%=__("Sedan")%>
+                </strong>
+
             </a>
 
-             <!-- second -->
+            <!-- second -->
             <a href="/api/v1/cars?category=hatchback" class="browse-card">
-           
+
                 <img src="/images/browse 2.avif" alt="Hatchback">
-                <p>1 car</p><br>
-                <strong>Hatchback</strong>
-           
+                <p>
+                    <%=__("1 car")%>
+                </p><br>
+                <strong>
+                    <%=__("Hatchback")%>
+                </strong>
+
             </a>
 
             <!-- third -->
             <a href="/api/v1/cars?category=convertible" class="browse-card">
-           
+
                 <img src="/images/browse 3.webp" alt="Convertible">
-                <p>3 cars</p><br>
-                <strong>Convertible</strong>
-            
+                <p>
+                    <%=__("3 cars")%>
+                </p><br>
+                <strong>
+                    <%=__("Convertible")%>
+                </strong>
+
             </a>
 
             <!-- fourth -->
             <a href="/api/v1/cars?category=suv" class="browse-card">
-           
+
                 <img src="/images/browse 4.avif" alt="SUV">
-                <p>4 cars</p><br>
-                <strong>SUV</strong>
-           
+                <p>
+                    <%=__("4 cars")%>
+                </p><br>
+                <strong>
+                    <%=__("SUV")%>
+                </strong>
+
             </a>
 
-             <!-- fifth -->
+            <!-- fifth -->
             <a href="/api/v1/cars?category=coupe" class="browse-card">
-           
+
                 <img src="/images/fifth type.jpeg" alt="Coupe">
-                <p>6 cars</p><br>
-                <strong>Coupe</strong>
-           
+                <p>
+                    <%=__("6 cars")%>
+                </p><br>
+                <strong>
+                    <%=__("Coupe")%>
+                </strong>
+
             </a>
 
         </div>
-        
+
     </div>
 
     <!-- WHY CHOOSE US -->
 
     <div class="choose">
-        <h2>Why Choose Us?</h2>
+        <h2><%=__("Why Choose Us?")%></h2>
         <div class="features">
 
             <!-- first -->
             <div class="feature-card">
                 <img src="/images/first icon.png" alt="Financing Icon">
-                <h3>Special Financing Offers</h3>
+                <h3>
+                    <%=__("Special Financing Offers")%>
+                </h3>
                 <br>
-                <p>Flexible financing solutions tailored to your budget. Get low-interest rates and easy approval!</p>
+                <p><%=__("Flexible financing solutions tailored to your budget. Get low-interest rates and easy approval!")%></p>
             </div>
 
-             <!-- second -->
+            <!-- second -->
             <div class="feature-card">
                 <img src="/images/second icon.png" alt="Dealership Icon">
-                <h3>Trusted Car Dealership</h3>
+                <h3><%=__("Trusted Car Dealership")%></h3>
                 <br>
-                <p>With years of experience, we provide reliable service, certified vehicles, and honest deals.</p>
+                <p><%=__("With years of experience, we provide reliable service, certified vehicles, and honest deals.")%></p>
             </div>
 
             <!-- third -->
             <div class="feature-card">
                 <img src="/images/third icon.png" alt="Pricing Icon">
-                <h3>Transparent pricing</h3>
+                <h3><%=__("Transparent pricing")%></h3>
                 <br>
-                <p> No hidden fees, no surprises! What you see is what you pay—clear and upfront pricing.</p>
+                <p> <%=__("No hidden fees, no surprises! What you see is what you pay—clear and upfront pricing.")%></p>
             </div>
 
             <!-- fourth -->
             <div class="feature-card">
                 <img src="/images/fourth-icon.png" alt="Service Icon">
-                <h3>Expert Car Services</h3>
+                <h3><%=__("Expert Car Services")%></h3>
                 <br>
-                <p>From maintenance to repairs, our skilled technicians ensure your car stays in top condition.</p>
+                <p><%=__("From maintenance to repairs, our skilled technicians ensure your car stays in top condition.")%></p>
             </div>
-            
+
         </div>
     </div>
 
     <!-- LISTINGS -->
 
     <div class="featured-listings">
-        <h2>Featured Cars</h2>
+        <h2><%=__("Featured Cars")%></h2>
         <div class="listings">
 
+            <!-- Inner listings -->
+
+            <!-- First -->
+        <div class="list">
+            <div class="image-container">
+                <img src="/images/1st feature.avif" alt="Toyota Camry New">
+                <span class="tag green"><%= __('Best Seller') %></span>
+            </div>
+
+            <h3><%= __('Toyota Camry New') %></h3>
+            <p><%= __('15,000 miles • Automatic • Petrol') %></p>
+
+            <div class="price"><%= __('600EGP/day') %></div>
+            <a href="#" class="view"><%= __('View') %></a>
+        </div>
+
+        <!-- Second -->
+        <div class="list">
+            <div class="image-container">
+                <img src="/images/second-feature.jpeg" alt="T-Cross - 2023">
+            </div>
+
+            <h3><%= __('T-Cross - 2023') %></h3>
+            <p><%= __('10,000 miles • Automatic • Petrol') %></p>
+
+            <div class="price"><%= __('700EGP/day') %></div>
+            <a href="#" class="view"><%= __('View') %></a>
+        </div>
+
+        <!-- Third -->
+        <div class="list">
+            <div class="image-container">
+                <img src="/images/3rd-feature.avif" alt="C-Class 202">
+            </div>
+
+            <h3><%= __('C-Class 2023') %></h3>
+            <p><%= __('8,500 miles • Automatic • Petrol') %></p>
+
+            <div class="price"><%= __('900EGP/day') %></div>
+            <a href="#" class="view"><%= __('View') %></a>
+        </div>
+
+        <!-- Fourth -->
+        <div class="list">
+            <div class="image-container">
+                <img src="/images/fourth-feature.webp" alt="New GLC 2023">
+            </div>
+
+            <h3><%= __('New GLC 2023') %></h3>
+            <p><%= __('5,000 miles • Automatic • Petrol') %></p>
+
+            <div class="price"><%= __('800EGP/day') %></div>
+            <a href="#" class="view"><%= __('View') %></a>
+        </div>
+
+        <!-- Fifth -->
+        <div class="list">
+            <div class="image-container">
+                <img src="/images/fifth-feature.jpg" alt="Ford Mustang 2024">
+            </div>
+
+            <h3><%= __('Ford Mustang 2024') %></h3>
+            <p><%= __('3,000 miles • Manual • Petrol') %></p>
+
+            <div class="price"><%= __('1000EGP/day') %></div>
+            <a href="#" class="view"><%= __('View') %></a> <!-- directing to the car page -->
+        </div>
+
+        <div class="view-all-container">
+            <a href="#" class="view"><%= __('View All') %></a> <!-- directing to shop all page -->
+        </div>
            <!--dynamically inserted here-->
 
         </div>
@@ -268,7 +383,9 @@
     </script>
 
     <!-- FOOTER -->
-    <%- include('partials/footer') %>
-    
+    <<%- include('partials/footer', { __: __, locale: locale }) %>
+
+
 </body>
+
 </html>
