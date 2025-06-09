@@ -7,6 +7,7 @@ const session = require('express-session'); // enables session support
 const path = require('path');
 const i18n = require('i18n');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 
 require('dotenv/config')
 
@@ -20,6 +21,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.static('public')); //makes the frontend files be accessible in the browser 
 app.use(cookieParser());
+app.use(cors());
 
 i18n.configure({
   locales: ['en', 'fr'],
