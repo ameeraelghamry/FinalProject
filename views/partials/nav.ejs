@@ -2,41 +2,61 @@
     <link rel="stylesheet" href="/css/navbar.css">
 </head>
 
-    
-        <div class="navbar">
-            <div class="logo">
-                <img src="/images/nilewayrental-02.png" alt="logo">
-            </div>
-              
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/about">About us</a></li>
-                <li><a href="/contact">Contact us</a></li>
-                <li><a href="/policy">Policy</a></li>
+<div class="navbar">
+    <div class="logo">
+        <img src="/images/nilewayrental-02.png" alt="logo">
+    </div>
 
-                <% if (!user) { %>
-                    <li><a href="">Sign Up</a></li>
-                    <% } else { %>
-                    <li><a href="">Profile</a></li>
-                    <li><a href="">Logout</a></li>
+    <ul>
+        <li><a href="/">
+                <%= __("Home") %>
+            </a></li>
+        <li><a href="/about">
+                <%= __("About us") %>
+            </a></li>
+        <li><a href="/contact">
+                <%= __("Contact us") %>
+            </a></li>
+        <li><a href="/policy">
+                <%= __("Policy") %>
+            </a></li>
+
+        <% if (!user) { %>
+            <li><a href="#">
+                    <%= __("Sign Up") %>
+                </a></li>
+            <% } else { %>
+                <li><a href="#">
+                        <%= __("Profile") %>
+                    </a></li>
+                <li><a href="#">
+                        <%= __("Logout") %>
+                    </a></li>
                 <% } %>
+    </ul>
 
-            </ul>
-           
-            <!--sends automatically a get request no js needed to connect to backend-->
-            <form id="search-form" class="search-container" action="/api/v1/cars/search" method="GET">
-                <input type="text" placeholder="Search for cars..." name="search" id="search-input">
-                <button type="submit">Go</button>
-            </form>
+    <!-- Language Switcher -->
+    <select name="locale" onchange="window.location.href='/lang/' + this.value;">
+        <option value="en" <%=locale==='en' ? 'selected' : '' %>><%= __("English") %>
+        </option>
+        <option value="fr" <%=locale==='fr' ? 'selected' : '' %>><%= __("Français") %>
+        </option>
+    </select>
 
-            <script>
-                document.getElementById('search-form').addEventListener('submit', function(e) {
-                    const searchInput = document.getElementById('search-input');
+    <!-- Search Form -->
+    <form id="search-form" class="search-container" action="/api/v1/cars/search" method="GET">
+        <input type="text" placeholder="<%= __('Search for cars...') %>" name="search" id="search-input">
+        <button type="submit">
+            <%= __("Go") %>
+        </button>
+    </form>
 
-                    if(searchInput.value){
-                        searchInput.value = searchInput.value.trim().toLowerCase();
-                    }
-                });
-            </script>
-           
-        </div>
+    <script>
+        document.getElementById('search-form').addEventListener('submit', function (e) {
+            const searchInput = document.getElementById('search-input');
+            if (searchInput.value) {
+                searchInput.value = searchInput.value.trim().toLowerCase();
+            }
+        });
+    </script>
+</div>

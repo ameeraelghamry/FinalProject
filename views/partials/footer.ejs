@@ -2,20 +2,23 @@
     <link rel="stylesheet" href="/css/footer.css">
 </head>
 
+
 <div class="footer">
         <div class="footer-container">
 
             <!-- FOOTER  LINKS-->
 
             <div class="links">
-                <h3>Quick Links</h3>
-                <hr>
-                <br>
-                <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/about">About Us</a></li>
-                    <li><a href="/contact">Contact Us</a></li>
-                    <li><a href="/policy">Our Policy</a></li>
+                <h3><%= __("Quick Links") %></h3>
+            <hr>
+            <br>
+            <ul>
+                <li><a href="/"><%= __("Home") %></a></li>
+                <li><a href="/about"><%= __("About Us") %></a></li>
+                <li><a href="/contact"><%= __("Contact Us") %></a></li>
+                <li><a href="/policy"><%= __("Our Policy") %></a></li>
+            </ul>
+
                 </ul>
             </div>
 
@@ -35,19 +38,19 @@
             
 
             <!-- FOOTER LOGIN/SIGN UP-->
-
             <div class="login">
-                <h3>Sign up with NileWay Rentals</h3>
+                <h3><%= __("Sign up with NileWay Rentals") %></h3>
                 <br>
                 <form>
-                    <input type="email" placeholder="Email">
-                    <button type="submit" id="loginbtn">Login</button>
+                    <input type="email" placeholder="<%= __('Email') %>">
+                    <button type="submit" id="loginbtn"><%= __("Login") %></button>
                 </form>
             </div>
 
-        <div class="credentials">
-            <p>&copy; 2025 NileWay Rentals. All rights reserved. | Designed by NileWay Team</p>
-        </div>
+            <div class="credentials">
+                <p><%= __("© 2025 NileWay Rentals. All rights reserved. | Designed by NileWay Team") %></p>
+            </div>
+
 
         </div>
     </div>
