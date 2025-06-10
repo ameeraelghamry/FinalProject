@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const adminController = require('../controllers/admin');
+const carController = require('../controllers/Car');
+
+router.get('/', carController.getAllCars);
 
 router.get('/requests', adminController.getAllRequests);
 
