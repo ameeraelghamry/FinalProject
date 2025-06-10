@@ -38,7 +38,7 @@ const getAllCars = async (req, res) => {//veronia search bar
     //res.send(carList);// for testing
 
     res.render('Admin/adminInventory', { cars: carList, search: search });//might need to be edited
-console.log("getAllCars route hit");//to see if the route hits currently the cars.find() bufferring times out
+    console.log("getAllCars route hit");//to see if the route hits currently the cars.find() bufferring times out
 
     } catch (error) {
         console.error('Error searching cars:', error);
@@ -74,7 +74,9 @@ const searchByDate = async (req, res) => {//veronia
             city: city
         };
     
-    //    const availableCars = await Car.find(filter);// this line is a duplicate of line 29,
+        const availableCars = await Car.find(filter);
+
+        res.render('Admin/adminInventory', { cars: availableCars, search: city });
     
         //res.render('availableCars', { cars: availableCars }); //might need to be edited
 
