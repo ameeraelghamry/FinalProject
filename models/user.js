@@ -30,6 +30,8 @@ const userSchema = mongoose.Schema({
         enum: ['client','admin'],  //because we have two options a client/user and an admin to use in login 
         default: 'client',
      },
+  resetCode: String,
+  resetCodeExpires: Date
 })
 
 //exporting product itself
