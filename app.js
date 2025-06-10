@@ -97,6 +97,19 @@ app.get('/login', (req, res) => {
 
 });
 
+app.get('/forgotpassword', (req, res) => {
+  res.render('forgotpassword', { user: req.session.user });
+});
+
+app.get('/verify', (req, res) => {
+  res.render('verify', { user: req.session.user });
+});
+
+app.get('/resetpass', (req, res) => {
+  res.render('resetpass', { user: req.session.user });
+});
+
+
 // Language switcher
 app.get('/lang/:locale', (req, res) => {
   const locale = req.params.locale;

@@ -4,6 +4,12 @@ const router = express.Router();
 const User = require('../controllers/User');
 const Notification = require('../models/notification');
 
+const {
+  sendResetCode,
+  verifyResetCode,
+  resetPassword
+} = require('../controllers/User');  // reset-forgotpass and verify 
+
 //signup 
 router.get('/signup', (req, res) => {
   res.render('signup', { user: (req.session.user === undefined ? "" : req.session.user) });
@@ -22,6 +28,11 @@ router.post('/signup', User.createUser);
 //jomana
 // Login route 
 router.post('/login', User.loginUser); //creates 
+
+router.post('/forgotpassword', sendResetCode);      //forgot pass  page
+router.post('/verify', verifyResetCode);        // Code verification page
+router.post('/resetpass', resetPassword);       // New password input page
+
 
 router.get('/logout', (req, res) => { //destroying the session
   req.session.destroy(err => {

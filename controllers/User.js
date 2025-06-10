@@ -1,6 +1,6 @@
 const User = require('../models/user'); // import the user model 
 const bcrypt = require('bcrypt');
-
+const sendEmail = require('../utils/sendEmail'); // used for the forgot pass 
 //signup 
 const getAllUsers = async (req, res) => {
     try{
@@ -102,7 +102,7 @@ const loginUser = async (req, res) => {
             return res.status(200).json({
                 success: true,
                 message: "Client login successful",
-                redirectTo: "/home" // Redirect to client home page"check link"
+                redirectTo: "/" // Redirect to client home page"check link"
             });
         } 
         else {
@@ -117,8 +117,71 @@ const loginUser = async (req, res) => {
     }
 };
 
+
+
+//forgot password  (sends a code)
+const sendResetCode = async (req, res) => {
+  const { Email } = req.body;
+  const user = await User.findOne({ Email });
+
+  if (!user) {
+    return res.status(400).json({ message: "User not found. Try again." });
+  }
+
+  const code = Math.floor(100000 + Math.random() * 900000).toString(); // 6-digit code
+  user.resetCode = code;
+  user.resetCodeExpires = Date.now() + 10 * 60 * 1000; // valid for 10 min
+  await user.save();
+
+  await sendEmail({
+    to: Email,
+    subject: "Your Password Reset Code",
+    html: `<p>Your reset code is <strong>${code}</strong>. It expires in 10 minutes.</p>`
+  });
+
+  return res.status(200).json({ message: "Verification code sent to email." });
+};
+
+//verifaction code (checks the code )
+const verifyResetCode = async (req, res) => {
+  const { Email, code } = req.body;
+  const user = await User.findOne({ Email });
+
+  if (!user || user.resetCode !== code || user.resetCodeExpires < Date.now()) {
+    return res.status(400).json({ message: "Invalid or expired code." });
+  }
+
+  return res.status(200).json({ message: "Code verified." });
+};
+
+//resetpassword 
+const resetPassword = async (req, res) => {
+  const { Email, newPassword, confirmPassword } = req.body;
+
+  if (newPassword !== confirmPassword) {
+    return res.status(400).json({ message: "Passwords do not match." });
+  }
+
+  const user = await User.findOne({ Email });
+  if (!user) return res.status(400).json({ message: "User not found." });
+
+  const hashed = await bcrypt.hash(newPassword, 10);
+  user.Password = hashed;
+  user.resetCode = undefined;
+  user.resetCodeExpires = undefined;
+
+  await user.save();
+
+  return res.status(200).json({ message: "Password has been reset successfully." });
+};
+
+
+
 module.exports = {
     getAllUsers,
     createUser,
     loginUser, //login 
+    sendResetCode,      // for forgot password page
+    verifyResetCode,    // for verify page
+    resetPassword       // for reset password page
 };

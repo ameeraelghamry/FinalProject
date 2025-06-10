@@ -124,76 +124,114 @@ rightContainer.classList.add('shrinkRight');
 
 
 //forgot pass js 
-function sendEmailCode(event)
-{
-   event.preventDefault();
+async function sendEmailCode(event) {
+    event.preventDefault();
 
-   // Simulate generating and sending an email code
-   let emailVerificationCode = Math.floor(100000 + Math.random() * 900000);
-   console.log(`Email Verification Code: ${emailVerificationCode}`);
+    const email = document.getElementById('email').value;
 
-   // Store the verification code in sessionStorage
-   sessionStorage.setItem('emailVerificationCode', emailVerificationCode);
+    try {
+        const response = await fetch('/api/v1/users/forgotpassword', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
+        });
 
-   // Redirect to the verification page
-   window.location.href = 'Verify.html';
+        const data = await response.json();
+
+        if (response.ok) {
+            sessionStorage.setItem('resetEmail', email); // Store email for later
+            alert(data.message || 'Verification code sent to your email.');
+            window.location.href = '/verify'; // Route that renders verify page
+        } else {
+            alert(data.message || 'Failed to send code.');
+        }
+    } catch (err) {
+        console.error(err);
+        alert('Something went wrong. Please try again later.');
+    }
 }
 
 
 
 // js of verify 
- // Get the verification code from sessionStorage
- let emailVerificationCode = sessionStorage.getItem('emailVerificationCode');
+async function verifyEmailCode() {
+    const code = document.getElementById('emailCode').value;
+    const email = sessionStorage.getItem('resetEmail');
 
- // Verifying the email code
- function verifyEmailCode() {
-     const enteredCode = document.getElementById('emailCode').value;
-     
-   // Redirect to the reset page 
-   window.location.href = 'reset password.html';
+    if (!email || !code) {
+        alert('Missing email or code.');
+        return;
+    }
 
-   /*  if (enteredCode == emailVerificationCode) {
-         document.getElementById('message').textContent = 'Email verified successfully!';
-         document.getElementById('errorMessage').textContent = '';
-         sessionStorage.removeItem('emailVerificationCode'); // Clear the code after successful verification
-     } else {
-         document.getElementById('errorMessage').textContent = 'Invalid verification code.';
-     }*/
- }
+    try {
+        const response = await fetch('/api/v1/users/verify-reset-code', {  //make sure of this line 
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, code })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            alert(data.message || 'Code verified.');
+            window.location.href = '/resetpass'; // Page with reset form
+        } else {
+            document.getElementById('errorMessage').textContent = data.message || 'Invalid code.';
+        }
+    } catch (err) {
+        console.error(err);
+        alert('Server error.');
+    }
+}
+
 
 
 
  //reset password 
-function validateresetpass (event) {
-    event.preventDefault(); // Prevent form from submitting automatically
+async function validateresetpass(event) {
+    event.preventDefault();
 
     const pass = document.getElementById("pass1").value;
     const confirmpassw = document.getElementById("pass2").value;
+    const email = sessionStorage.getItem('resetEmail');
 
-    const isValid = pass.length >= 8 &&
-                    /[A-Z]/.test(pass) &&
-                    /\d/.test(pass);
-
-    if (pass === "") {
-        alert("Password is Required!");
-        return false; 
+    if (!email) {
+        alert("Session expired. Please restart the process.");
+        window.location.href = '/forgotpassword';
+        return;
     }
-    if (pass.length < 8) {
-        alert("Password must be at least 8 characters long and contain uppercase letters and numbers.");
+
+    const isValid = pass.length >= 8 && /[A-Z]/.test(pass) && /\d/.test(pass);
+
+    if (!pass || pass.length < 8 || !isValid) {
+        alert("Password must be at least 8 characters, include an uppercase letter and a digit.");
         return false;
     }
-    if (!isValid) {
-        alert("Password must contain at least one uppercase letter and one digit.");
-        return false;
-    }
-    if (confirmpassw !== pass) {
+    if (pass !== confirmpassw) {
         alert("Passwords do not match.");
         return false;
     }
 
-      alert("Password saved successfully ");
-      window.location.href = 'logIn.html';
-    return true;
-   
+    try {
+        const response = await fetch('/api/v1/users/resetpass', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, newPassword: pass })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            alert(data.message || "Password reset successfully!");
+            sessionStorage.removeItem('resetEmail');
+            window.location.href = '/logIn';
+        } else {
+            alert(data.message || "Reset failed.");
+        }
+    } catch (err) {
+        console.error(err);
+        alert("Error during reset.");
+    }
 }
+
  
