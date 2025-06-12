@@ -43,7 +43,7 @@ exports.acceptRequest = async (req, res) => {
         });
         await booking.save();
 
-        await Car.findByIdAndUpdate(request.carId, { available: "Booked" }); //carStatus not recognised!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        await Car.findByIdAndUpdate(request.carId, { available: false }); //available not recognised!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         // Create notification for user
         await Notification.create({

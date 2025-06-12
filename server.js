@@ -20,7 +20,7 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/pages', express.static(path.join(__dirname, 'pages')));
 
 // Database setup
-const Booking = require('./models/booking');
+const Booking = require('./models/bookings');
 
 // Connect to MongoDB with better error handling
 async function connectDB() {
@@ -280,13 +280,13 @@ app.post('/api/checkout/process', async (req, res) => {
     }
 });
 
-// Handle 404 errors for API routes
-app.use('/api/*', (req, res) => {
-    res.status(404).json({
-        success: false,
-        message: 'API endpoint not found'
-    });
-});
+// //Handle 404 errors for API routes
+// app.use('/api/*', (req, res) => {
+//     res.status(404).json({
+//         success: false,
+//         message: 'API endpoint not found'
+//     });
+// });
 
 // Handle 404 errors for HTML routes
 app.use((req, res) => {
