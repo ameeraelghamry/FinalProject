@@ -20,7 +20,7 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/pages', express.static(path.join(__dirname, 'pages')));
 
 // Database setup
-const Booking = require('./models/booking');
+const Booking = require('./models/bookings');
 
 // Connect to MongoDB with better error handling
 async function connectDB() {
