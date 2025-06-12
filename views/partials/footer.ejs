@@ -43,8 +43,16 @@
                 <br>
                 <form>
                     <input type="email" placeholder="<%= __('Email') %>">
-                    <button type="submit" id="loginbtn"><%= __("Login") %></button>
+                    <button type="button"  onclick="redirect()" id="loginbtn"><%= __("Sign Up") %></button>
                 </form>
+                <script>
+                    //redirect with the email entered
+                    function redirect(){
+                        const email = document.querySelector('input[type="email"]').value;
+                        const url = encodeURIComponent(email);
+                        location.href = `/signup?email=${url}`;
+                    }
+                </script>
             </div>
 
             <div class="credentials">

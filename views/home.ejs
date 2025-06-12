@@ -7,40 +7,35 @@
     <title>NileWay Rentals</title>
     <link rel="stylesheet" href="/css/HomeStyle.css">
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const container = document.querySelector(".featured-listings");
-            const scrollArea = container.querySelector(".listings");
+    <script>//for the featured listings scrolling
+        document.addEventListener("DOMContentLoaded", () => {
+        const container = document.querySelector(".listings");
+        let scrollInterval;
 
-            let scrollInterval;
+        container.addEventListener("mousemove", (e) => {
+            //return position of html element relevant to the screen
+            const loc = container.getBoundingClientRect();
+            const mousePos = e.clientX - loc.left;
 
-            container.addEventListener("mousemove", (e) => {
-                const bounds = container.getBoundingClientRect();
-                const x = e.clientX - bounds.left;
+            const scrollSpeed = 1.5;
 
-                const threshold = 100;
-                const speed = 50;
+            clearInterval(scrollInterval);
 
-                clearInterval(scrollInterval);
+            scrollInterval = setInterval(() => {
+            if (mousePos < loc.width * 0.25) {
+                container.scrollLeft -= scrollSpeed; //scroll left is a built in property
+            } else if (mousePos > loc.width * 0.75) {
+                container.scrollLeft += scrollSpeed;
+            }
+        }, 10);
+    });
 
-                if (x < threshold) {
-                    scrollInterval = setInterval(() => {
-                        scrollArea.scrollLeft -= speed;
-                    }, 5);
-                } else if (x > bounds.width - threshold) {
-                    scrollInterval = setInterval(() => {
-                        scrollArea.scrollLeft += speed;
-                    }, 5);
-                }
-            });
+    container.addEventListener("mouseleave", () => {
+        clearInterval(scrollInterval);
+    });
+});
 
-            container.addEventListener("mouseleave", () => {
-                clearInterval(scrollInterval);
-            });
-        });
     </script>
-
-
 </head>
 
 <body>
@@ -270,12 +265,12 @@
 
     <div class="featured-listings">
         <h2><%=__("Featured Cars")%></h2>
-        <div class="listings">
+            <div class="listings">
 
-            <!-- Inner listings -->
-           <!--dynamically inserted here-->
+                <!-- Inner listings -->
+            <!--dynamically inserted here-->
 
-        </div>
+            </div>
     </div>
 
     <script>
