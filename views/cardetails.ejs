@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= car.name %> Details</title>
+    <link rel="stylesheet" href="/css/cardetailscss.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <script type="text/javascript" src="/JavaScript/logicCarDetails.js"></script>
+    <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/model-viewer/3.1.1/model-viewer.min.js"></script>
+</head>
+
+<body>
+    <%- include('partials/nav') %>
+
+<div class="container">
+    <div class="carName"><h1><%= car.name %></h1></div>
+
+    <div class="carDetails">
+        <p><%= car.description || "No description provided for this car." %></p>
+    </div>
+
+    <div class="moreDetailsbutt">
+        <button onclick="togglePopup()">More Details</button>
+    </div>
+
+    <div class="popup" id="popup">
+        <div class="overlay"></div>
+        <div class="popup-content">
+            <h2>More Details</h2>
+            <ul>
+                <li> <%= car.horsepower || "158" %>-horsepower</li>
+                <li> <%= car.engine || "1,169 cc" %></li>
+                <li> <%= car.cylinders || "4-cylinder" %></li>
+                <li>Max Speed: <%= car.maxSpeed || "200 km/h" %></li>
+                <li>Fuel Consumption: <%= car.fuelConsumption || "6.0 (L/100km)" %></li>
+            </ul>
+            <div class="controls">
+                <button class="close" onclick="togglePopup()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modelWrapper">
+        <model-viewer
+            id="floatingModel"
+            src="<%= car.model3D || '/models/honda_civic_type_r_fl5_custom.glb' %>"
+            alt="3D model of <%= car.name %>"
+            camera-orbit="-150deg 80deg"
+            camera-target="0m 0.2m 0m"
+            min-camera-orbit="auto 80deg auto"
+            max-camera-orbit="auto 80deg auto"
+            disable-zoom
+            ar
+            shadow-intensity="1.5"
+            environment-image="neutral"
+            exposure="0.85"
+            field-of-view="100deg">
+            
+            <div class="progress-bar" slot="progress-bar"></div>
+            <div slot="poster">Loading 3D Model...</div>
+        </model-viewer>
+    </div>
+
+    <div class="rental-details" data-animate="autoshow">
+        <div class="rating">Rating: <%= car.rating || "5 stars" %></div>
+        <div class="NofUsers"><%= car.users || "1000+" %> users</div>
+    </div>
+
+    <div class="receipt" data-animate="autoshow">
+        <h2 class="receipt-title">Receipt</h2>
+        <hr>
+        <p class="receipt-detail">Rate/Day: <span class="car's-ratePday"><%= car.price %>$</span></p>
+        <hr>
+         <p class="receipt-detail">start-end dates <span class="start-end"><%= rentalDates?.startDate %> - <%= rentalDates?.endDate %> </span></p>
+        <hr>
+        <p class="receipt-detail">Number of Days: <span class="days"><%= rentalDates?.days%></span></p>
+        <hr>
+        <p class="receipt-detail">14% VAT: <span class="vat14"><%= (car.price *rentalDates?.days* 0.14).toFixed(2) %></span></p>
+        <hr>
+        <p class="receipt-detail">Total: <span class="total-price"><%= (car.price *rentalDates?.days * 1.14 ).toFixed(2) %></span></p>
+    </div>
+
+    <div class="currency">
+        <input type="radio" name="curr" id="Egp" checked="checked"/>
+        <label for="Egp">EGP</label>
+        <input type="radio" name="curr" id="USD"> 
+        <label for="USD">USD</label>
+        <input type="radio" name="curr" id="eur">
+        <label for="eur">EUR</label>
+        <input type="radio" name="curr" id="Aed"> 
+        <label for="Aed">AED</label>
+    </div>
+
+    <a href="/checkout" class="checkout-link">
+        <button class="proceed" onclick="proceedToCheckout()">Rent Now</button>
+    </a> 
+
+
+<button class="edit" onclick="toggleRentalPopup()">Set Rental Dates</button>
+
+<div class="popup" id="rentalDatePopup">
+  <div class="overlay" onclick="toggleRentalPopup()"></div>
+  <div class="popup-content">
+    <h2>Set start and end dates</h2>
+      <label for="startDate">Start Date:</label>
+      <input type="date" id="startDate" name="startDate" required><br><br>
+      <label for="endDate">End Date:</label>
+      <input type="date" id="endDate" name="endDate" required><br><br>
+      <button onclick="setRentalDates()" class="close">Done</button>
+  </div>
+</div>
+
+            
+            
+
+    <div class="AllImages">
+        <div class="image-container">
+               <div class="image"><img src="<%= car.image %>" alt="img1"></div>
+                <div class="image"><img src="<%= car.image %>" alt="img2"></div>  
+                <div class="image"><img src="<%= car.image %>" alt="img3"></div>
+                <div class="image"><img src="<%= car.image %>" alt="img4"></div>
+        </div>
+
+        <div class="popup-image">
+            <span>&times;</span>
+            <img src="" alt="popup">
+        </div>
+    </div>
+</div>
+
+ <%- include('partials/footer') %>
+
+</body>
+</html>
