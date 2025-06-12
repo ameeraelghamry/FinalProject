@@ -108,7 +108,7 @@ button{
 
 .ex:hover {
     color: white;
-    border: none;
+     border-color: transparent;
 }
 
 span{
@@ -127,7 +127,7 @@ button:hover span{
     width: 100%;
 }
 button:hover{
-    border: none;
+    border-color: transparent;
 }
 
 

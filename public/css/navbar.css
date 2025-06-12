@@ -69,14 +69,14 @@ a {
     padding: 5px 10px;
     font-size: 16px;
     height: 35px;
-    border-radius: 20px;
+    border-radius: 8px;
     border: 2px solid #061524;
     outline: none;
 }
 
 .search-container button {
-    padding: 5px 15px;
-    border-radius: 20px;
+    padding: 6px 8px;
+    border-radius: 8px;
     width: 70px;
     height: 30px;
     border: none;
@@ -91,6 +91,29 @@ a {
     background-color: #061524;
     color: white;
 }
+
+
+select[name="locale"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    padding: 4px 6px;
+    font-size: 16px;
+    border: 2px solid #061524;
+    border-radius: 8px;
+    background-color: white;
+    color: #061524;
+    outline: none;
+    margin-right: 10px;
+    transition: 0.3s;
+}
+
+select[name="locale"]:hover {
+    border-color: white;
+    cursor: pointer;
+}
+
 
 
 @media (max-width: 750px) {

@@ -3,23 +3,25 @@ const app = express()
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const mongoose = require('mongoose')
-const session = require('express-session');
+const session = require('express-session'); // enables session support 
 const path = require('path');
 const i18n = require('i18n');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 
 require('dotenv/config')
 
 const api = process.env.API_URL
 const carsRoutes = require('./routers/cars')
-const userRoutes = require('./routers/users')
+const userRoutes = require('./routers/users') // makes the routes be recognized by express 
 const adminRoutes = require('./routers/admins');
 
-app.set('view engine', 'ejs');
+app.set('view engine', 'ejs'); //can render html files like the ejs with dynamic data 
 app.set('views', path.join(__dirname, 'views'));
 
-app.use(express.static('public'));
+app.use(express.static('public')); //makes the frontend files be accessible in the browser 
 app.use(cookieParser());
+app.use(cors());
 
 i18n.configure({
   locales: ['en', 'fr'],
@@ -32,15 +34,15 @@ i18n.configure({
 });
 app.use(i18n.init);
 
-app.use(bodyParser.json());
+app.use(bodyParser.json()); 
 app.use(morgan('tiny'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.use(session({
-  secret: 'your_secret_key',
-  resave: false,
-  saveUninitialized: true,
+app.use(session({  //stores user data across requests 
+  secret: 'your_secret_key',    // used to sign the session id cookie 
+  resave: false,               // wont save the session without it  
+  saveUninitialized: true,      // wont  create the session until smth is stored 
   cookie: { secure: false }
 }));
 
@@ -53,12 +55,13 @@ app.use((req, res, next) => {
 
 // Then mount routes
 app.use(`${api}/cars`, carsRoutes);
-app.use(`${api}/users`, userRoutes);
+app.use(`${api}/users`, userRoutes);  
 app.use(`${api}/admin`, adminRoutes);
 
 mongoose.connect(process.env.CONNECTION_STRING)
   .then(() => console.log('Database connection is ready...'))
   .catch(err => console.log(err));
+
 
 app.get('/', (req, res) => {
   res.render('home', { user: req.session?.user });
@@ -77,7 +80,7 @@ app.get('/policy', (req, res) => {
 });
 
 app.get('/signup', (req, res) => {
-  res.render('SignUp', { user: req.session?.user });
+  res.render('signup', { user: req.session?.user });
 });
 
 app.get('/admin', (req, res) => {
@@ -87,6 +90,25 @@ app.get('/admin', (req, res) => {
 app.get('/explore', (req, res) => {
   res.render('Explore', { user: req.session?.user });
 });
+
+
+app.get('/login', (req, res) => {
+  res.render('login', { user: req.session?.user }); // renders the login.ejs 
+
+});
+
+app.get('/forgotpassword', (req, res) => {
+  res.render('forgotpassword', { user: req.session.user });
+});
+
+app.get('/verify', (req, res) => {
+  res.render('verify', { user: req.session.user });
+});
+
+app.get('/resetpass', (req, res) => {
+  res.render('resetpass', { user: req.session.user });
+});
+
 
 // Language switcher
 app.get('/lang/:locale', (req, res) => {

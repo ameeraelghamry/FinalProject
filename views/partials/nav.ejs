@@ -21,17 +21,12 @@
                 <%= __("Policy") %>
             </a></li>
 
-        <% if (!user) { %>
-            <li><a href="#">
-                    <%= __("Sign Up") %>
-                </a></li>
-            <% } else { %>
-                <li><a href="#">
-                        <%= __("Profile") %>
-                    </a></li>
-                <li><a href="#">
-                        <%= __("Logout") %>
-                    </a></li>
+
+
+                <% if (!user) { %>
+                    <li><a href="/signup"><%=__("Sign Up")%></a></li>
+                    <% } else { %>
+                    <li><a href="/api/v1/users/logout"><%=__("Logout")%></a></li>
                 <% } %>
     </ul>
 

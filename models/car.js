@@ -36,7 +36,11 @@ const carSchema = mongoose.Schema({
     available:{ //whether car is booked according to date or not
         type: Boolean,
         default: true
-    }
+    },
+    featured: {   //whether to be featured in home
+    type: Boolean,
+    default: false
+  }
 })
 
 //exporting product itself

@@ -59,12 +59,12 @@
 
 
             <div class="content">
-                <h1>
+                
                     <h1>
-                        <%= __( "Comfortable glide" ) %>
+                        <%= __( "Comfortable glide" ) %> <br>
+                         <%= __("in Egypt!") %>
                     </h1>
-                    <%= __("in Egypt!") %>
-                </h1>
+                
                 <button type="button" class="ex"><span></span>
                     <%= __("EXPLORE ALL") %>
                 </button> <!-- shop all page -->
@@ -102,7 +102,7 @@
                 <option>Sharm El Sheikh</option>
             </select>
         </div>
-        <button type="submit" id="search-btn">
+        <button type="button" id="search-btn">
             <%=__("Search")%>
         </button>
     </div>
@@ -111,11 +111,12 @@
     <script>
 
         //global variable of today
+        //converts to a proper format but removes the time part
         const today = new Date().toISOString().split('T')[0];
 
         //make sure dates are not in the past
         window.addEventListener('DOMContentLoaded', () => {
-            //converts to a proper format but removes the time part
+            
             document.getElementById('start-date').setAttribute('min', today);
             document.getElementById('end-date').setAttribute('min', today);
         })
@@ -136,8 +137,8 @@
             }
 
             try {
-                const response = await fetch(`/api/v1/cars/available?startDate=${startDate}&endDate=${endDate}&city=${encodeURIComponent(city)}`);
-                const data = await response.json();
+               const response = `/api/v1/cars/available?startDate=${startDate}&endDate=${endDate}&city=${encodeURIComponent(city)}`;
+                window.location.href = response;
             } catch (err) {
                 console.error('Error:', err);
             }
@@ -272,82 +273,47 @@
         <div class="listings">
 
             <!-- Inner listings -->
-
-            <!-- First -->
-        <div class="list">
-            <div class="image-container">
-                <img src="/images/1st feature.avif" alt="Toyota Camry New">
-                <span class="tag green"><%= __('Best Seller') %></span>
-            </div>
-
-            <h3><%= __('Toyota Camry New') %></h3>
-            <p><%= __('15,000 miles • Automatic • Petrol') %></p>
-
-            <div class="price"><%= __('600EGP/day') %></div>
-            <a href="#" class="view"><%= __('View') %></a>
-        </div>
-
-        <!-- Second -->
-        <div class="list">
-            <div class="image-container">
-                <img src="/images/second-feature.jpeg" alt="T-Cross - 2023">
-            </div>
-
-            <h3><%= __('T-Cross - 2023') %></h3>
-            <p><%= __('10,000 miles • Automatic • Petrol') %></p>
-
-            <div class="price"><%= __('700EGP/day') %></div>
-            <a href="#" class="view"><%= __('View') %></a>
-        </div>
-
-        <!-- Third -->
-        <div class="list">
-            <div class="image-container">
-                <img src="/images/3rd-feature.avif" alt="C-Class 202">
-            </div>
-
-            <h3><%= __('C-Class 2023') %></h3>
-            <p><%= __('8,500 miles • Automatic • Petrol') %></p>
-
-            <div class="price"><%= __('900EGP/day') %></div>
-            <a href="#" class="view"><%= __('View') %></a>
-        </div>
-
-        <!-- Fourth -->
-        <div class="list">
-            <div class="image-container">
-                <img src="/images/fourth-feature.webp" alt="New GLC 2023">
-            </div>
-
-            <h3><%= __('New GLC 2023') %></h3>
-            <p><%= __('5,000 miles • Automatic • Petrol') %></p>
-
-            <div class="price"><%= __('800EGP/day') %></div>
-            <a href="#" class="view"><%= __('View') %></a>
-        </div>
-
-        <!-- Fifth -->
-        <div class="list">
-            <div class="image-container">
-                <img src="/images/fifth-feature.jpg" alt="Ford Mustang 2024">
-            </div>
-
-            <h3><%= __('Ford Mustang 2024') %></h3>
-            <p><%= __('3,000 miles • Manual • Petrol') %></p>
-
-            <div class="price"><%= __('1000EGP/day') %></div>
-            <a href="#" class="view"><%= __('View') %></a> <!-- directing to the car page -->
-        </div>
-
-        <div class="view-all-container">
-            <a href="#" class="view"><%= __('View All') %></a> <!-- directing to shop all page -->
-        </div>
+           <!--dynamically inserted here-->
 
         </div>
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            try{
+                const response = await fetch('/api/v1/cars/featured');
+                const result = await response.json();
+                if(result.success){
+                    const cars = result.data;
+                    const listingsContainer = document.querySelector('.featured-listings .listings');
+                    listingsContainer.innerHTML = '';
+
+                    cars.forEach(car => {
+                     const carHTML = `
+                    <div class="list">
+                    <div class="image-container">
+                        <img src="${car.image}" alt="${car.name}">
+                    </div>
+
+                    <h3>${car.name}</h3>
+                    <p>${car.miles.toLocaleString()} miles • Automatic • Petrol</p>
+                    
+                    <div class="price">${car.price} EGP/day</div>
+                    <a href="/cars/${car._id}" class="view">View</a>
+                    </div>
+                `;
+                listingsContainer.insertAdjacentHTML('beforeend', carHTML);
+                });
+                }
+                
+            }catch (err) {
+                console.log(err);
+            }
+        })
+    </script>
+
     <!-- FOOTER -->
-    <<%- include('partials/footer', { __: __, locale: locale }) %>
+    <%- include('partials/footer', { __: __, locale: locale }) %>
 
 
 </body>

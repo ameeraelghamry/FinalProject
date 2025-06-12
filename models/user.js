@@ -18,7 +18,7 @@ const userSchema = mongoose.Schema({
         required: true,
     },
     Birthdate: {
-        type: Date,
+        type: String,
         required: true,
     },
     Password:  {
@@ -27,8 +27,11 @@ const userSchema = mongoose.Schema({
     },
     Type: {
         type: String,
+        enum: ['client','admin'],  //because we have two options a client/user and an admin to use in login 
         default: 'client',
      },
+  resetCode: String,
+  resetCodeExpires: Date
 })
 
 //exporting product itself

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Reset Password</title>
+
+    <!-- Link to CSS file (served via Express static middleware) -->
+    <link rel="stylesheet" href="/css/forgotpassword.css" />
+
+    <!-- Link to JavaScript -->
+    <script src="/JavaScript/All.js" defer></script>
+</head>
+<body>
+    <form id="signupForm" onsubmit="return validateresetpass(event)">
+        <div class="container">
+            <h2>Reset Password</h2>
+
+            <input 
+                type="password" 
+                id="pass1" 
+                name="pass1" 
+                placeholder="Enter new password" 
+                required 
+            />
+            
+            <input 
+                type="password" 
+                id="pass2" 
+                name="pass2" 
+                placeholder="Confirm new password" 
+                required 
+            />
+
+            <button type="submit">Reset Password</button>
+
+            <!-- Replace local file path with route -->
+            <a href="/logIn" class="back">Back to login</a>
+        </div>
+    </form>
+</body>
+</html>

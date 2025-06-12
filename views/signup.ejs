@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up</title>
+
+    <!-- Static CSS (adjust paths if using Express static middleware) -->
+    <link rel="stylesheet" href="/css/google.css" />
+    <link rel="stylesheet" href="/css/signup.css" />
+
+    <!-- JS file (served statically) -->
+    <script src="/JavaScript/All.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <div class="left" id="leftContainer">
+            <!-- Using relative or public path for video instead of D: drive -->
+            <video id="signupVideo" src="/images/carvideoo.mp4" style="width: 100%; height: 100%; object-fit: cover;" muted>
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+        <div class="right">
+            <div class="row">
+                <form class="signup-form" id="signupForm">
+                    <h2>Sign Up</h2>
+                    <hr />
+                    <div class="column">
+                        <label for="fname">First Name</label> 
+                        <input type="text" id="fname" name="FirstName" placeholder="First Name" required>
+
+                        <label for="lname">Last Name</label> 
+                        <input type="text" id="lname" name="LastName" placeholder="Last Name" required>
+
+                        <label for="email">Email</label> 
+                        <input type="email" id="email" name="Email" placeholder="Email" required>
+
+                        <label for="phonenumber">Phone Number</label> 
+                        <input type="tel" id="phonenumber" name="Phone" placeholder="Phone Number" required>
+                    </div>
+                    <div class="column">
+                        <label for="bdate">Birth Date</label> 
+                        <input type="date" id="bdate" name="Birthdate" required>
+
+                        <label for="pass1">Password</label>
+                        <input type="password" id="pass1" name="Password" placeholder="Password" required>
+
+                        <label for="pass2">Confirm Password</label>
+                        <input type="password" id="pass2" name="ConfirmPassword" placeholder="Confirm Password" required>
+                    </div>
+
+                    <button type="submit">Sign Up</button>
+
+                    <p class="signup-link">
+                        Already have an account? <br/>
+                        <a href="/logIn" onclick="playVideoAndAnimate(event)">Log In</a>
+                    </p>
+                </form>
+            </div>
+
+            <script>
+                window.addEventListener('DOMContentLoaded', () => {
+                    document.getElementById('signupForm').addEventListener('submit', async (e) => {
+                        e.preventDefault();
+
+                        const FirstName = document.getElementById('fname').value;
+                        const LastName = document.getElementById('lname').value;
+                        const Email = document.getElementById('email').value;
+                        const Phone = document.getElementById('phonenumber').value;
+                        const Birthdate = document.getElementById('bdate').value;
+                        const Password = document.getElementById('pass1').value;
+                        const ConfirmPassword = document.getElementById('pass2').value;
+
+                        const bDate = new Date(Birthdate);
+                        const age = new Date().getFullYear() - bDate.getFullYear(); //calculate age
+
+                        if(Password !== ConfirmPassword){
+                            alert('Passwords must match!');
+                            return;
+                        }
+
+                        //age validation
+                        if(age < 21){
+                            alert('You must be 21+ years old to sign up');
+                            return;
+                        }
+
+                        const user = {
+                            FirstName,
+                            LastName,
+                            Email,
+                            Phone,
+                            Birthdate,
+                            Password,
+                            ConfirmPassword
+                        };
+
+                        try{
+                            const response = await fetch('/api/v1/users/signup', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type':'application/json'
+                                },
+                                body: JSON.stringify(user)
+                            })
+
+                            const result = await response.json();
+
+                            if (response.ok){
+                                alert('User registered!');
+                                window.location.href = '/';
+                            }else{
+                                alert(result.message || 'Registration failed');
+                                return;
+                            }
+                        }catch (err) {
+                            console.log(err);
+                        }
+
+                    })
+                })
+            </script>
+
+        </div>
+    </div>
+</body>
+</html>

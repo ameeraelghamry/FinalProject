@@ -35,10 +35,10 @@ const getAllCars = async (req, res) => {//veronia search bar
             })
         }
 
-        res.send(carList);// for testing
+    //res.send(carList);// for testing
 
-        //res.render('carSearchResults', { cars: carList, search: search });//might need to be edited
-
+    res.render('Admin/adminInventory', { cars: carList, search: search });//might need to be edited
+    console.log("getAllCars route hit");//to see if the route hits currently the cars.find() bufferring times out
 
     } catch (error) {
         console.error('Error searching cars:', error);
@@ -73,12 +73,14 @@ const searchByDate = async (req, res) => {//veronia
             _id: { $nin: rentedCarIds },
             city: city
         };
-
+    
         const availableCars = await Car.find(filter);
 
+        res.render('Admin/adminInventory', { cars: availableCars, search: city });
+    
         //res.render('availableCars', { cars: availableCars }); //might need to be edited
 
-        res.json({ cars: availableCars }); // for testing
+       // res.json({ cars: availableCars }); // for testing
 
     } catch (error) {
         console.error('Error searching cars:', error);
@@ -130,9 +132,19 @@ const editCar = async (req, res) => {//veronia
     }
 }
 
+const getFeatured = async (req, res) => {
+    try{
+        const featured = await Car.find({featured: true});//fetching
+        res.json({success: true, data: featured});
+    } catch(error){
+        res.status(500).json({ success: false, message: error.message });
+    }
+}
+
 module.exports = {
     editCar,
     addCar,
     searchByDate,
-    getAllCars
+    getAllCars,
+    getFeatured
 };
