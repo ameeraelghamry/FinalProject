@@ -5,6 +5,7 @@ const getAllCars = async (req, res) => {//veronia search bar
     try {
         const category = req.query.category;
         const search = req.query.search;
+        const user = req.session.user;
 
         let filter = {};
 
@@ -36,8 +37,12 @@ const getAllCars = async (req, res) => {//veronia search bar
         }
 
     //res.send(carList);// for testing
-
-    res.render('Admin/adminInventory', { cars: carList, search: search });//might need to be edited
+      if(user?.Type === 'client'){
+        res.render('explore', { cars: carList, search: search });
+      }
+      else{
+    res.render('Admin/adminInventory', { cars: carList, search: search });
+}
     console.log("getAllCars route hit");//to see if the route hits currently the cars.find() bufferring times out
 
     } catch (error) {
@@ -140,11 +145,46 @@ const getFeatured = async (req, res) => {
         res.status(500).json({ success: false, message: error.message });
     }
 }
+const tempStoreDates = async (req, res)=>{
+req.session.rentalDates = {
+  startDate: req.query.start,
+  endDate: req.query.end,
+  days: parseInt(req.query.days)
 
+};
+res.redirect (`/api/v1/cars/inside/${ req.session.selectedCar._id}`)
+
+}
+
+const getIndividualCar = async (req, res)=>{
+    const user = req.session.user;
+       try{
+       const Carid = req.params.id;
+       const individualCar = await Car.findById(Carid)
+       if (!individualCar){
+              return res.status(404).send('Car not found')
+       }
+       req.session.selectedCar = individualCar //store the selected car in session
+        if(user?.Type === 'client'){
+        res.render('cardetails', { car: individualCar , user: user , rentalDates: req.session.rentalDates});
+      }
+      else{
+    res.send('carPage');
+       }
+
+
+}
+catch (err) {
+        console.error(err);
+        res.status(500).send('Server error');
+    }
+}
 module.exports = {
     editCar,
     addCar,
     searchByDate,
     getAllCars,
-    getFeatured
+    getFeatured,
+    tempStoreDates,
+    getIndividualCar
 };
