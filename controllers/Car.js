@@ -1,5 +1,5 @@
 const Car = require('../models/car');
-const Rental = require('../models/bookings');
+const booked = require('../models/bookings');
 
 const getAllCars = async (req, res) => {//veronia search bar
     try {
@@ -55,22 +55,21 @@ const searchByDate = async (req, res) => {//veronia
         const start = new Date(startDate);
         const end = new Date(endDate);
 
-        const rentedCars = await Rental.find({
-            $or: [
+        const rentedCars = await booked.find({
+           
+            //checks for booked dates inside bookings model
+            //startDate <= requestedEndDate AND endDate >= requestedStartDate, extra check for overlapping dates
+            startDate: { $lte: end }, // less than or equal
+            endDate: { $gte: start } //more than or equal
+                
+           
+        }).select('carId');
 
-                //startDate <= requestedEndDate AND endDate >= requestedStartDate
-                {
-                    startDate: { $lte: end },
-                    endDate: { $gte: start }
-                }
-            ]
-        }).select('product');
-
-        const rentedCarIds = rentedCars.map(r => r.product);
+        const rentedCarIds = rentedCars.map(r => r.carId);
 
 
         const filter = {
-            _id: { $nin: rentedCarIds },
+            _id: { $nin: rentedCarIds }, //not in
             city: city
         };
     
