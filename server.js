@@ -280,7 +280,7 @@ app.post('/api/checkout/process', async (req, res) => {
     }
 });
 
-// Handle 404 errors for API routes
+//Handle 404 errors for API routes
 app.use('/api/*', (req, res) => {
     res.status(404).json({
         success: false,
