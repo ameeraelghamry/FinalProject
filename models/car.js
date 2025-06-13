@@ -40,7 +40,18 @@ const carSchema = mongoose.Schema({
     featured: {   //whether to be featured in home
     type: Boolean,
     default: false
-  }
+    },
+    //for car details
+    description: String,
+    horsepower: String,
+    cylinders: String,
+    maxSpeed: String,
+    Model: String,
+    image2: String,
+    image3: String,
+    image4: String,
+    image5: String
+
 })
 
 //exporting product itself

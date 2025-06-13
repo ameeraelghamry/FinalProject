@@ -82,7 +82,7 @@ app.get('/policy', (req, res) => {
 app.get('/signup', (req, res) => {
   res.render('signup', { 
     user: req.session?.user,
-    email: req.query.email || ''
+    email: req.query.email || '' //user input in footer transfered too
   });
 });
 

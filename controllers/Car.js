@@ -7,6 +7,7 @@ const getAllCars = async (req, res) => {//veronia search bar
         const search = req.query.search;
 
         let filter = {};
+        let message = '';
 
         if (category) {
             //case insensitive
@@ -26,18 +27,16 @@ const getAllCars = async (req, res) => {//veronia search bar
             }));
         }
 
-        const carList = await Car.find(filter);
+        let carList = await Car.find(filter);
 
         if (!carList || carList.length === 0) {
-            return res.status(404).json({
-                success: false,
-                message: 'No cars found'
-            })
+            message = `No cars found for "${search}". Showing all available cars instead.`;
+            carList = await Car.find();
         }
 
     //res.send(carList);// for testing
 
-    res.render('Admin/adminInventory', { cars: carList, search: search });//might need to be edited
+    res.render('Admin/adminInventory', { cars: carList, search: search, message: message });
     console.log("getAllCars route hit");//to see if the route hits currently the cars.find() bufferring times out
 
     } catch (error) {
