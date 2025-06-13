@@ -10,16 +10,8 @@ const {
   resetPassword
 } = require('../controllers/User');  // reset-forgotpass and verify 
 
-//signup 
-router.get('/signup', (req, res) => {
-  res.render('signup', { user: (req.session.user === undefined ? "" : req.session.user) });
-});
-
-
-//jomana
-router.get('/login', (req, res) => { // renders-retrives the login view "login.ejs"
-  res.render('login', { user: req.session.user || null }); // means if  user is logged in then session exists ,if not then null.(same concept as the one in the sign up.)
-  });
+// Note: signup and login page routes are handled in main app.js
+// These routes handle the form submissions only
  
   
 // Sign up

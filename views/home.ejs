@@ -7,40 +7,35 @@
     <title>NileWay Rentals</title>
     <link rel="stylesheet" href="/css/HomeStyle.css">
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const container = document.querySelector(".featured-listings");
-            const scrollArea = container.querySelector(".listings");
+    <script>//for the featured listings scrolling
+        document.addEventListener("DOMContentLoaded", () => {
+        const container = document.querySelector(".listings");
+        let scrollInterval;
 
-            let scrollInterval;
+        container.addEventListener("mousemove", (e) => {
+            //return position of html element relevant to the screen
+            const loc = container.getBoundingClientRect();
+            const mousePos = e.clientX - loc.left;
 
-            container.addEventListener("mousemove", (e) => {
-                const bounds = container.getBoundingClientRect();
-                const x = e.clientX - bounds.left;
+            const scrollSpeed = 1.5;
 
-                const threshold = 100;
-                const speed = 50;
+            clearInterval(scrollInterval);
 
-                clearInterval(scrollInterval);
+            scrollInterval = setInterval(() => {
+            if (mousePos < loc.width * 0.25) {
+                container.scrollLeft -= scrollSpeed; //scroll left is a built in property
+            } else if (mousePos > loc.width * 0.75) {
+                container.scrollLeft += scrollSpeed;
+            }
+        }, 10);
+    });
 
-                if (x < threshold) {
-                    scrollInterval = setInterval(() => {
-                        scrollArea.scrollLeft -= speed;
-                    }, 5);
-                } else if (x > bounds.width - threshold) {
-                    scrollInterval = setInterval(() => {
-                        scrollArea.scrollLeft += speed;
-                    }, 5);
-                }
-            });
+    container.addEventListener("mouseleave", () => {
+        clearInterval(scrollInterval);
+    });
+});
 
-            container.addEventListener("mouseleave", () => {
-                clearInterval(scrollInterval);
-            });
-        });
     </script>
-
-
 </head>
 
 <body>
@@ -59,15 +54,16 @@
 
 
             <div class="content">
-                <h1>
+                
                     <h1>
-                        <%= __( "Comfortable glide" ) %>
+                        <%= __( "Comfortable glide" ) %> <br>
+                         <%= __("in Egypt!") %>
                     </h1>
-                    <%= __("in Egypt!") %>
-                </h1>
+                <a href="/api/v1/cars">
                 <button type="button" class="ex"><span></span>
                     <%= __("EXPLORE ALL") %>
                 </button> <!-- shop all page -->
+                </a>
             </div>
 
     </div>
@@ -102,7 +98,7 @@
                 <option>Sharm El Sheikh</option>
             </select>
         </div>
-        <button type="submit" id="search-btn">
+        <button type="button" id="search-btn">
             <%=__("Search")%>
         </button>
     </div>
@@ -137,8 +133,8 @@
             }
 
             try {
-                const response = await fetch(`/api/v1/cars/available?startDate=${startDate}&endDate=${endDate}&city=${encodeURIComponent(city)}`);
-                const data = await response.json();
+               const response = `/api/v1/cars/available?startDate=${startDate}&endDate=${endDate}&city=${encodeURIComponent(city)}`;
+                window.location.href = response;
             } catch (err) {
                 console.error('Error:', err);
             }
@@ -149,7 +145,7 @@
 
     <div class="browse">
         <h2>
-            <%=__("Browse by Type")%>
+            <%=__("Browse by Category")%>
         </h2>
         <div class="browser-container">
 
@@ -159,7 +155,7 @@
 
                 <img src="/images/browse1.jpeg" alt="Sedan">
                 <p>
-                    <%=__("7 cars")%>
+                    <%=__("5 cars")%>
                 </p><br>
                 <strong>
                     <%=__("Sedan")%>
@@ -172,7 +168,7 @@
 
                 <img src="/images/browse 2.avif" alt="Hatchback">
                 <p>
-                    <%=__("1 car")%>
+                    <%=__("3 cars")%>
                 </p><br>
                 <strong>
                     <%=__("Hatchback")%>
@@ -185,7 +181,7 @@
 
                 <img src="/images/browse 3.webp" alt="Convertible">
                 <p>
-                    <%=__("3 cars")%>
+                    <%=__("4 cars")%>
                 </p><br>
                 <strong>
                     <%=__("Convertible")%>
@@ -211,7 +207,7 @@
 
                 <img src="/images/fifth type.jpeg" alt="Coupe">
                 <p>
-                    <%=__("6 cars")%>
+                    <%=__("3 cars")%>
                 </p><br>
                 <strong>
                     <%=__("Coupe")%>
@@ -270,82 +266,12 @@
 
     <div class="featured-listings">
         <h2><%=__("Featured Cars")%></h2>
-        <div class="listings">
+            <div class="listings">
 
-            <!-- Inner listings -->
+                <!-- Inner listings -->
+            <!--dynamically inserted here-->
 
-            <!-- First -->
-        <div class="list">
-            <div class="image-container">
-                <img src="/images/1st feature.avif" alt="Toyota Camry New">
-                <span class="tag green"><%= __('Best Seller') %></span>
             </div>
-
-            <h3><%= __('Toyota Camry New') %></h3>
-            <p><%= __('15,000 miles • Automatic • Petrol') %></p>
-
-            <div class="price"><%= __('600EGP/day') %></div>
-            <a href="#" class="view"><%= __('View') %></a>
-        </div>
-
-        <!-- Second -->
-        <div class="list">
-            <div class="image-container">
-                <img src="/images/second-feature.jpeg" alt="T-Cross - 2023">
-            </div>
-
-            <h3><%= __('T-Cross - 2023') %></h3>
-            <p><%= __('10,000 miles • Automatic • Petrol') %></p>
-
-            <div class="price"><%= __('700EGP/day') %></div>
-            <a href="#" class="view"><%= __('View') %></a>
-        </div>
-
-        <!-- Third -->
-        <div class="list">
-            <div class="image-container">
-                <img src="/images/3rd-feature.avif" alt="C-Class 202">
-            </div>
-
-            <h3><%= __('C-Class 2023') %></h3>
-            <p><%= __('8,500 miles • Automatic • Petrol') %></p>
-
-            <div class="price"><%= __('900EGP/day') %></div>
-            <a href="#" class="view"><%= __('View') %></a>
-        </div>
-
-        <!-- Fourth -->
-        <div class="list">
-            <div class="image-container">
-                <img src="/images/fourth-feature.webp" alt="New GLC 2023">
-            </div>
-
-            <h3><%= __('New GLC 2023') %></h3>
-            <p><%= __('5,000 miles • Automatic • Petrol') %></p>
-
-            <div class="price"><%= __('800EGP/day') %></div>
-            <a href="#" class="view"><%= __('View') %></a>
-        </div>
-
-        <!-- Fifth -->
-        <div class="list">
-            <div class="image-container">
-                <img src="/images/fifth-feature.jpg" alt="Ford Mustang 2024">
-            </div>
-
-            <h3><%= __('Ford Mustang 2024') %></h3>
-            <p><%= __('3,000 miles • Manual • Petrol') %></p>
-
-            <div class="price"><%= __('1000EGP/day') %></div>
-            <a href="#" class="view"><%= __('View') %></a> <!-- directing to the car page -->
-        </div>
-
-        <div class="view-all-container">
-            <a href="#" class="view"><%= __('View All') %></a> <!-- directing to shop all page -->
-        </div>
-           <!--dynamically inserted here-->
-
-        </div>
     </div>
 
     <script>
@@ -383,7 +309,7 @@
     </script>
 
     <!-- FOOTER -->
-    <<%- include('partials/footer', { __: __, locale: locale }) %>
+    <%- include('partials/footer', { __: __, locale: locale }) %>
 
 
    <!-- Chatbot HTML --> 

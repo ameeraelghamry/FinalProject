@@ -108,7 +108,7 @@ button{
 
 .ex:hover {
     color: white;
-    border: none;
+     border-color: transparent;
 }
 
 span{
@@ -127,10 +127,8 @@ button:hover span{
     width: 100%;
 }
 button:hover{
-    border: none;
+    border-color: transparent;
 }
-
-
 
 /*SEARCH*/
 
@@ -421,21 +419,7 @@ input[type="date"]:hover {
     transform: scale(1.05);
 }
 
-.tag{
-    display: inline-block;
-    position: absolute;
-    height: 37px;
-    width: 70px;
-    top: 10px;
-    left: 10px;
-    background: green;
-    color: white;
-    padding: 5px 6px;
-    font-size: 12px;
-    border-radius: 4px;
-    z-index: 1;
-}
-
+/*view button for each card*/
 .view{
     display: inline-block;
     margin-top: 15px;

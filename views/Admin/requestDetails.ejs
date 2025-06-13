@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Request Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="/css/Admin/requestDetails.css" />
+
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2 class="mb-4">Rent Request Details</h2>
+
+    <!-- Renter Info -->
+    <div class="card mb-4">
+        <div class="card-header">Renter Information</div>
+        <div class="card-body">
+            <p><strong>Name:</strong> <%= request.userId?.FirstName %> <%= request.userId?.LastName %></p>
+            <p><strong>Email:</strong> <%= request.userId?.Email %></p>
+            <p><strong>Phone:</strong> <%= request.userId?.Phone %></p>
+            <p><strong>ID:</strong> <%= request.userId?._id %></p>
+
+        </div>
+    </div>
+
+    <!-- Car Info -->
+    <div class="card mb-4">
+        <div class="card-header">Car Information</div>
+        <div class="card-body">
+            <p><strong>Brand:</strong> <%= request.carId?.brand %></p>
+            <p><strong>Name:</strong> <%= request.carId?.name %></p>
+            <p><strong>City:</strong> <%= request.carId?.city %></p>
+            <p><strong>Price:</strong> $<%= request.carId?.price %> per day</p>
+            <p><strong>Category:</strong> <%= request.carId?.category %></p>
+            <p><strong>ID:</strong> <%= request.carId?._id %></p>
+
+        </div>
+    </div>
+
+    <!-- Rent Request Info -->
+    <div class="card mb-4">
+        <div class="card-header >Request Details</div>
+        <div class="card-body">
+            <p><strong>Request ID:</strong> <%= request._id %></p>
+            <p><strong>Start Date:</strong> <%= request.rentStart?.toISOString().split('T')[0] %></p>
+            <p><strong>End Date:</strong> <%= request.rentEnd?.toISOString().split('T')[0] %></p>
+            <p><strong>Status:</strong> <%= request.available ? 'Pending' : 'Processed' %></p>
+        </div>
+    </div>
+
+    <div class="d-flex gap-3">
+        <a href="/admin/requests/accept/<%= request._id %>" class="btn btn-success">Approve</a>
+        <a href="/admin/requests/decline/<%= request._id %>" class="btn btn-danger">Decline</a>
+        <a href="/api/v1/admin/requests" class="btn btn-secondary">Back to Requests</a>
+    </div>
+</div>
+
+</body>
+</html>

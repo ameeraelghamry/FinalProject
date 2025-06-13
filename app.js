@@ -80,11 +80,18 @@ app.get('/policy', (req, res) => {
 });
 
 app.get('/signup', (req, res) => {
-  res.render('signup', { user: req.session?.user });
+  res.render('signup', { 
+    user: req.session?.user,
+    email: req.query.email || ''
+  });
 });
 
 app.get('/admin', (req, res) => {
   res.render('admin/requests', { user: req.session?.user });
+});
+
+app.get('/admin/requests/details', (req, res) => {
+  res.render('admin/requests/requests/details', { user: req.session?.user });
 });
 
 app.get('/explore', (req, res) => {
@@ -118,6 +125,7 @@ app.get('/lang/:locale', (req, res) => {
   res.redirect(backURL);
 });
 
-app.listen(3000, () => {
-  console.log('server is running on port 3000')
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });

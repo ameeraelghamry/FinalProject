@@ -1,12 +1,14 @@
+const booked = require('../models/bookings');
 const Car = require('../models/car');
-const Rental = require('../models/bookings');
 
 const getAllCars = async (req, res) => {//veronia search bar
     try {
         const category = req.query.category;
         const search = req.query.search;
+        const user = req.session.user;
 
         let filter = {};
+        let message = '';
 
         if (category) {
             //case insensitive
@@ -26,19 +28,22 @@ const getAllCars = async (req, res) => {//veronia search bar
             }));
         }
 
-        const carList = await Car.find(filter);
+        let carList = await Car.find(filter);
 
         if (!carList || carList.length === 0) {
-            return res.status(404).json({
-                success: false,
-                message: 'No cars found'
-            })
+            message = `No cars found for "${search}". Showing all available cars instead.`;
+            carList = await Car.find();
         }
 
     //res.send(carList);// for testing
 
-    res.render('Admin/adminInventory', { cars: carList, search: search });//might need to be edited
-console.log("getAllCars route hit");//to see if the route hits currently the cars.find() bufferring times out
+    if(user?.Type === 'Admin'){
+        res.render('Admin/adminInventory', { cars: carList, search: search, message: message });
+    }else{
+        res.render('Explore', { cars: carList, search: search, message: message });
+    }
+    
+    console.log("getAllCars route hit");//to see if the route hits currently the cars.find() bufferring times out
 
     } catch (error) {
         console.error('Error searching cars:', error);
@@ -55,26 +60,27 @@ const searchByDate = async (req, res) => {//veronia
         const start = new Date(startDate);
         const end = new Date(endDate);
 
-        const rentedCars = await Rental.find({
-            $or: [
+        const rentedCars = await booked.find({
+           
+            //checks for booked dates inside bookings model
+            //startDate <= requestedEndDate AND endDate >= requestedStartDate, extra check for overlapping dates
+            startDate: { $lte: end }, // less than or equal
+            endDate: { $gte: start } //more than or equal
+                
+           
+        }).select('carId');
 
-                //startDate <= requestedEndDate AND endDate >= requestedStartDate
-                {
-                    startDate: { $lte: end },
-                    endDate: { $gte: start }
-                }
-            ]
-        }).select('product');
-
-        const rentedCarIds = rentedCars.map(r => r.product);
+        const rentedCarIds = rentedCars.map(r => r.carId);
 
 
         const filter = {
-            _id: { $nin: rentedCarIds },
+            _id: { $nin: rentedCarIds }, //not in
             city: city
         };
     
-    //    const availableCars = await Car.find(filter);// this line is a duplicate of line 29,
+        const availableCars = await Car.find(filter);
+
+        res.render('Explore', { cars: availableCars, search: city, message: null });
     
         //res.render('availableCars', { cars: availableCars }); //might need to be edited
 
@@ -138,11 +144,46 @@ const getFeatured = async (req, res) => {
         res.status(500).json({ success: false, message: error.message });
     }
 }
+const tempStoreDates = async (req, res)=>{
+req.session.rentalDates = {
+  startDate: req.query.start,
+  endDate: req.query.end,
+  days: parseInt(req.query.days)
 
+};
+res.redirect (`/api/v1/cars/inside/${ req.session.selectedCar._id}`)
+
+}
+
+const getIndividualCar = async (req, res)=>{
+    const user = req.session.user;
+       try{
+       const Carid = req.params.id;
+               const individualCar = await Car.findById(Carid)
+       if (!individualCar){
+              return res.status(404).send('Car not found')
+       }
+       req.session.selectedCar = individualCar //store the selected car in session
+        if(user?.Type === 'client'){
+        res.render('cardetails', { car: individualCar , user: user , rentalDates: req.session.rentalDates});
+      }
+      else{
+    res.send('carPage');
+       }
+
+
+}
+catch (err) {
+        console.error(err);
+        res.status(500).send('Server error');
+    }
+}
 module.exports = {
     editCar,
     addCar,
     searchByDate,
     getAllCars,
-    getFeatured
+    getFeatured,
+    tempStoreDates,
+    getIndividualCar
 };
