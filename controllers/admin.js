@@ -17,6 +17,21 @@ exports.getAllRequests = async (req, res) => {
     }
 };
 
+const Request = require('../models/rentRequest'); // adjust path to your model
+
+exports.getRequestDetails = async (req, res) => {
+  try {
+    const request = await Request.findById(req.params.id).populate('carId').populate('userId');
+    if (!request) return res.status(404).send('Request not found');
+    
+    res.render('admin/requestDetails', { request }); // EJS file
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server error');
+  }
+};
+
+
 exports.getAllBookings = async (req, res) => {
     try {
         const bookings = await Booking.find()
