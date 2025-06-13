@@ -44,11 +44,7 @@ exports.acceptRequest = async (req, res) => {
         });
         await booking.save();
 
-<<<<<<< HEAD
-        await Car.findByIdAndUpdate(rentRequest.carId, { available: false }); //available not recognised!!!!!!!!!!!!!!!!!!!!!!!!!!!
-=======
-        await CarModel.findByIdAndUpdate(request.carId, { available: false }); //available not recognised!!!!!!!!!!!!!!!!!!!!!!!!!!!
->>>>>>> origin
+        await Car.findByIdAndUpdate(rentRequest.carId, { available: false });
 
         // Create notification for user
         await Notification.create({
