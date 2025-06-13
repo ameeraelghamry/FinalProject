@@ -1,7 +1,7 @@
 const rentRequest = require('../models/rentRequest');
 const Booking = require('../models/bookings');
 //const Message = require('../models/Message');
-const Car = require('../models/car');
+const { CarModel } = require('./Car');
 const Notification = require('../models/notification');
 
 exports.getAllRequests = async (req, res) => {
@@ -44,7 +44,11 @@ exports.acceptRequest = async (req, res) => {
         });
         await booking.save();
 
+<<<<<<< HEAD
         await Car.findByIdAndUpdate(rentRequest.carId, { available: false }); //available not recognised!!!!!!!!!!!!!!!!!!!!!!!!!!!
+=======
+        await CarModel.findByIdAndUpdate(request.carId, { available: false }); //available not recognised!!!!!!!!!!!!!!!!!!!!!!!!!!!
+>>>>>>> origin
 
         // Create notification for user
         await Notification.create({
