@@ -9,11 +9,56 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="success-container">
-        <div class="logo-container">
-            <img src="/images/logo (2).png" alt="NileWay Rentals Logo" class="logo">
+    <!-- Modern Professional Header -->
+    <header class="modern-header">
+        <div class="header-container">
+            <!-- Brand Section -->
+            <div class="brand-section">
+                <a href="/">
+                    <img src="/images/nilewayrental-02.png" alt="NileWay Rentals" class="brand-logo">
+                </a>
+            </div>
+
+            <!-- Navigation Section -->
+            <nav class="nav-section">
+                <ul class="main-nav">
+                    <li class="nav-item">
+                        <a href="/" class="nav-link">
+                            <i class="fas fa-home"></i>
+                            Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/explore" class="nav-link">
+                            <i class="fas fa-car"></i>
+                            Explore Cars
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/about" class="nav-link">
+                            <i class="fas fa-info-circle"></i>
+                            About Us
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/contact" class="nav-link">
+                            <i class="fas fa-phone"></i>
+                            Contact
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <div class="success-indicator">
+                            <div class="success-checkmark"></div>
+                            <i class="fas fa-check-circle"></i>
+                            Booking Complete
+                        </div>
+                    </li>
+                </ul>
+            </nav>
         </div>
-        
+    </header>
+
+    <main class="success-container">
         <div class="success-header">
             <div class="success-icon">
                 <i class="fas fa-check-circle"></i>
@@ -23,15 +68,21 @@
             
             <div class="checkout-progress">
                 <div class="progress-step completed">
-                    <i class="fas fa-car"></i>
+                    <div class="step-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
                     <span>Vehicle Selected</span>
                 </div>
                 <div class="progress-step completed">
-                    <i class="fas fa-credit-card"></i>
+                    <div class="step-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
                     <span>Payment</span>
                 </div>
                 <div class="progress-step completed">
-                    <i class="fas fa-check-circle"></i>
+                    <div class="step-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
                     <span>Confirmation</span>
                 </div>
             </div>
@@ -147,7 +198,118 @@
                 Return to Home
             </a>
         </div>
-    </div>
-    <script src="/js/success.js"></script>
+    </main>
+
+    <!-- Modern Professional Footer -->
+    <footer class="modern-footer">
+        <div class="footer-container">
+            <!-- Main Footer Content -->
+            <div class="footer-content">
+                <!-- Brand Section -->
+                <div class="footer-section brand-section">
+                    <div class="footer-brand">
+                        <img src="/images/nilewayrental-02.png" alt="NileWay Rentals" class="footer-logo">
+                        <h3>NileWay Rentals</h3>
+                        <p>Your trusted partner for premium car rental experiences. Drive with confidence, explore with freedom.</p>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="/"><i class="fas fa-home"></i>Home</a></li>
+                        <li><a href="/explore"><i class="fas fa-car"></i>Explore Cars</a></li>
+                        <li><a href="/about"><i class="fas fa-info-circle"></i>About Us</a></li>
+                        <li><a href="/contact"><i class="fas fa-phone"></i>Contact Us</a></li>
+                        <li><a href="/policy"><i class="fas fa-shield-alt"></i>Our Policy</a></li>
+                    </ul>
+                </div>
+
+                <!-- Services -->
+                <div class="footer-section">
+                    <h4>Our Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="/explore?category=luxury"><i class="fas fa-star"></i>Luxury Rentals</a></li>
+                        <li><a href="/explore?category=economy"><i class="fas fa-dollar-sign"></i>Economy Cars</a></li>
+                        <li><a href="/explore?category=suv"><i class="fas fa-truck"></i>SUV Rentals</a></li>
+                        <li><a href="/contact"><i class="fas fa-headset"></i>24/7 Support</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="footer-section">
+                    <h4>Contact Information</h4>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <span>Address</span>
+                                <p>123 Nile Street, Cairo, Egypt</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <span>Phone</span>
+                                <p>+20 (2) 123-4567</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <span>Email</span>
+                                <p>info@nileway.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <div class="copyright">
+                        <p>&copy; 2024 NileWay Rentals. All rights reserved.</p>
+                        <p>Designed with <i class="fas fa-heart text-red"></i> by NileWay Team</p>
+                    </div>
+                    <div class="footer-bottom-links">
+                        <a href="/policy">Privacy Policy</a>
+                        <a href="/policy">Terms of Service</a>
+                        <a href="/contact">Support</a>
+                    </div>
+                    <div class="payment-methods">
+                        <span>Secure Booking:</span>
+                        <div class="payment-icons">
+                            <i class="fab fa-cc-visa"></i>
+                            <i class="fab fa-cc-mastercard"></i>
+                            <i class="fab fa-cc-paypal"></i>
+                            <i class="fas fa-shield-check"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/JavaScript/success.js"></script>
+    <script src="/js/navigation.js"></script>
+
+    <!-- Cookie Consent Banner -->
+    <%- include('partials/cookie-consent') %>
 </body>
 </html> 

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Analytics - NileWay Rentals Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-navy: #061524;
+            --secondary-gray: #d4cdcd;
+            --accent-cyan: #00d4ff;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--primary-navy) 0%, #0a1f35 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .navbar {
+            background: rgba(6, 21, 36, 0.95) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--accent-cyan);
+        }
+
+        .main-content {
+            padding: 2rem;
+        }
+
+        .stats-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .stats-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.3);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .consent-chart {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .recent-consents {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .consent-item {
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            padding: 1rem;
+            transition: background 0.2s ease;
+        }
+
+        .consent-item:hover {
+            background: rgba(0, 212, 255, 0.05);
+        }
+
+        .consent-item:last-child {
+            border-bottom: none;
+        }
+
+        .progress-modern {
+            height: 8px;
+            border-radius: 4px;
+            background: rgba(6, 21, 36, 0.1);
+            overflow: hidden;
+        }
+
+        .progress-bar-modern {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-navy), var(--accent-cyan));
+            border-radius: 4px;
+            transition: width 0.8s ease;
+        }
+
+        .badge-consent {
+            border-radius: 12px;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .page-header {
+            color: white;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .loading-spinner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+        }
+
+        .refresh-btn {
+            background: linear-gradient(135deg, var(--primary-navy), var(--accent-cyan));
+            border: none;
+            border-radius: 12px;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .refresh-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/admin">
+                <i class="fas fa-car"></i> NileWay Admin
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/admin">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a>
+                <a class="nav-link" href="/admin/bookings">
+                    <i class="fas fa-calendar-check"></i> Bookings
+                </a>
+                <a class="nav-link active" href="/admin/cookie-analytics">
+                    <i class="fas fa-cookie-bite"></i> Cookie Analytics
+                </a>
+                <a class="nav-link" href="/admin/inventory">
+                    <i class="fas fa-warehouse"></i> Inventory
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="page-header">
+            <h1><i class="fas fa-cookie-bite"></i> Cookie Consent Analytics</h1>
+            <p class="lead">Monitor user privacy preferences and GDPR compliance</p>
+            <button class="refresh-btn" onclick="loadAnalytics()">
+                <i class="fas fa-sync-alt"></i> Refresh Data
+            </button>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="row mb-4" id="statsCards">
+            <div class="col-md-3 mb-3">
+                <div class="stats-card p-4 text-center">
+                    <div class="stat-icon mx-auto" style="background: linear-gradient(135deg, #061524, #00d4ff); color: white;">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="mb-1" id="totalConsents">-</h3>
+                    <p class="text-muted mb-0">Total Consents</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="stats-card p-4 text-center">
+                    <div class="stat-icon mx-auto" style="background: linear-gradient(135deg, #28a745, #20c997); color: white;">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3 class="mb-1" id="functionalRate">-</h3>
+                    <p class="text-muted mb-0">Functional Accepted</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="stats-card p-4 text-center">
+                    <div class="stat-icon mx-auto" style="background: linear-gradient(135deg, #007bff, #6c757d); color: white;">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="mb-1" id="analyticsRate">-</h3>
+                    <p class="text-muted mb-0">Analytics Accepted</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="stats-card p-4 text-center">
+                    <div class="stat-icon mx-auto" style="background: linear-gradient(135deg, #fd7e14, #e83e8c); color: white;">
+                        <i class="fas fa-bullhorn"></i>
+                    </div>
+                    <h3 class="mb-1" id="marketingRate">-</h3>
+                    <p class="text-muted mb-0">Marketing Accepted</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts and Recent Activity -->
+        <div class="row">
+            <div class="col-lg-8 mb-4">
+                <div class="consent-chart">
+                    <h4 class="mb-4"><i class="fas fa-chart-bar"></i> Consent Distribution</h4>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span><i class="fas fa-cogs text-success"></i> Functional Cookies</span>
+                            <span id="functionalPercent">-</span>
+                        </div>
+                        <div class="progress-modern">
+                            <div class="progress-bar-modern" id="functionalBar" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span><i class="fas fa-chart-line text-primary"></i> Analytics Cookies</span>
+                            <span id="analyticsPercent">-</span>
+                        </div>
+                        <div class="progress-modern">
+                            <div class="progress-bar-modern" id="analyticsBar" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span><i class="fas fa-bullhorn text-warning"></i> Marketing Cookies</span>
+                            <span id="marketingPercent">-</span>
+                        </div>
+                        <div class="progress-modern">
+                            <div class="progress-bar-modern" id="marketingBar" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 mb-4">
+                <div class="recent-consents">
+                    <div class="p-3 border-bottom">
+                        <h5 class="mb-0"><i class="fas fa-clock"></i> Recent Consents</h5>
+                    </div>
+                    <div id="recentConsentsList" style="max-height: 400px; overflow-y: auto;">
+                        <div class="loading-spinner">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Load analytics data on page load
+        document.addEventListener('DOMContentLoaded', loadAnalytics);
+
+        async function loadAnalytics() {
+            try {
+                const response = await fetch('/api/cookie-consent/stats');
+                const result = await response.json();
+
+                if (result.success) {
+                    updateStatistics(result.data.stats);
+                    updateRecentConsents(result.data.recentConsents);
+                } else {
+                    showError('Failed to load analytics data');
+                }
+            } catch (error) {
+                console.error('Error loading analytics:', error);
+                showError('Error connecting to server');
+            }
+        }
+
+        function updateStatistics(stats) {
+            document.getElementById('totalConsents').textContent = stats.totalConsents || 0;
+            document.getElementById('functionalRate').textContent = Math.round(stats.functionalRate || 0) + '%';
+            document.getElementById('analyticsRate').textContent = Math.round(stats.analyticsRate || 0) + '%';
+            document.getElementById('marketingRate').textContent = Math.round(stats.marketingRate || 0) + '%';
+
+            // Update progress bars
+            setTimeout(() => {
+                document.getElementById('functionalBar').style.width = (stats.functionalRate || 0) + '%';
+                document.getElementById('analyticsBar').style.width = (stats.analyticsRate || 0) + '%';
+                document.getElementById('marketingBar').style.width = (stats.marketingRate || 0) + '%';
+            }, 300);
+
+            // Update percentage displays
+            document.getElementById('functionalPercent').textContent = Math.round(stats.functionalRate || 0) + '%';
+            document.getElementById('analyticsPercent').textContent = Math.round(stats.analyticsRate || 0) + '%';
+            document.getElementById('marketingPercent').textContent = Math.round(stats.marketingRate || 0) + '%';
+        }
+
+        function updateRecentConsents(consents) {
+            const container = document.getElementById('recentConsentsList');
+            
+            if (!consents || consents.length === 0) {
+                container.innerHTML = `
+                    <div class="consent-item text-center">
+                        <i class="fas fa-info-circle text-muted"></i>
+                        <p class="text-muted mb-0">No consent data available</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = consents.map(consent => `
+                <div class="consent-item">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="d-flex gap-2 mb-2">
+                                ${consent.consentData.functional ? '<span class="badge-consent bg-success">Functional</span>' : ''}
+                                ${consent.consentData.analytics ? '<span class="badge-consent bg-primary">Analytics</span>' : ''}
+                                ${consent.consentData.marketing ? '<span class="badge-consent bg-warning">Marketing</span>' : ''}
+                            </div>
+                            <small class="text-muted">
+                                <i class="fas fa-map-marker-alt"></i> ${consent.ipAddress} •
+                                <i class="fas fa-tag"></i> ${consent.source}
+                            </small>
+                        </div>
+                        <small class="text-muted">
+                            ${new Date(consent.consentTimestamp).toLocaleDateString()}
+                        </small>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showError(message) {
+            const container = document.getElementById('recentConsentsList');
+            container.innerHTML = `
+                <div class="consent-item text-center">
+                    <i class="fas fa-exclamation-triangle text-danger"></i>
+                    <p class="text-danger mb-0">${message}</p>
+                </div>
+            `;
+        }
+
+        // Auto-refresh every 30 seconds
+        setInterval(loadAnalytics, 30000);
+    </script>
+</body>
+</html> 
