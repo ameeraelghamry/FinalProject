@@ -1,7 +1,7 @@
 const rentRequest = require('../models/rentRequest');
 const Booking = require('../models/bookings');
 //const Message = require('../models/Message');
-const { CarModel } = require('./Car');
+const Car = require('../models/car');
 const Notification = require('../models/notification');
 
 exports.getAllRequests = async (req, res) => {
