@@ -1,4 +1,5 @@
 const booked = require('../models/bookings');
+const Car = require('../models/car');
 
 const getAllCars = async (req, res) => {//veronia search bar
     try {
@@ -72,7 +73,7 @@ const searchByDate = async (req, res) => {//veronia
             city: city
         };
     
-        const availableCars = await CarModel.find(filter);
+        const availableCars = await Car.find(filter);
 
         res.render('Admin/adminInventory', { cars: availableCars, search: city });
     
@@ -88,7 +89,7 @@ const searchByDate = async (req, res) => {//veronia
 
 
 const addCar = async (req, res) => {//veronia
-    const newcar = new CarModel({
+    const newcar = new Car({
         name: req.body.name,
         brand: req.body.brand,
         city: req.body.city,
@@ -114,7 +115,7 @@ const addCar = async (req, res) => {//veronia
 
 const editCar = async (req, res) => {//veronia
     try {
-        const updatedCar = await CarModel.findByIdAndUpdate(
+        const updatedCar = await Car.findByIdAndUpdate(
             req.params.id,
             req.body,
             { new: true }
@@ -132,7 +133,7 @@ const editCar = async (req, res) => {//veronia
 
 const getFeatured = async (req, res) => {
     try{
-        const featured = await CarModel.find({featured: true});//fetching
+        const featured = await Car.find({featured: true});//fetching
         res.json({success: true, data: featured});
     } catch(error){
         res.status(500).json({ success: false, message: error.message });
@@ -153,7 +154,7 @@ const getIndividualCar = async (req, res)=>{
     const user = req.session.user;
        try{
        const Carid = req.params.id;
-               const individualCar = await CarModel.findById(Carid)
+               const individualCar = await Car.findById(Carid)
        if (!individualCar){
               return res.status(404).send('Car not found')
        }
