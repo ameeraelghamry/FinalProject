@@ -23,10 +23,10 @@ const bookingsSchema = new mongoose.Schema({
         required: true
     },
 
-    status: {
-        type: String, enum: ['booked'],
-        default: 'booked'
-    }, // status for requests
+    available: { 
+        type: Boolean, 
+        default: true 
+    },
 
     createdAt: {
         type: Date,
