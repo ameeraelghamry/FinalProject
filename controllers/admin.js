@@ -31,12 +31,25 @@ exports.getRequestDetails = async (req, res) => {
   }
 };
 
+exports.getBookingDetails = async (req, res) => {
+  try {    
+    const booking = await Booking.findById(req.params.id).populate('carId').populate('userId');
+    if (!booking) return res.status(404).send('Booking not found');
+    
+    res.render('admin/bookingDetails', { booking }); // EJS file
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server error');
+  }
+};
+
 
 exports.getAllBookings = async (req, res) => {
     try {
         const bookings = await Booking.find()
             .populate('userId', 'FirstName LastName Email Phone')
             .populate('carId', 'name brand city price available category image');
+             console.log(bookings);
         res.render('admin/bookings', { bookings });
     } catch (error) {
         console.error(error);
