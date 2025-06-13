@@ -412,4 +412,268 @@ select {
     background-position: right 0.7rem center;
     background-size: 1em;
     padding-right: 2.5rem;
+}
+
+/* File Upload Styles */
+.file-upload-container {
+    position: relative;
+}
+
+.file-upload-container input[type="file"] {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.file-upload-display {
+    border: 2px dashed #d1d5db;
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    background: #f9fafb;
+    transition: all 0.3s ease;
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.file-upload-display:hover {
+    border-color: #2563eb;
+    background: #eff6ff;
+}
+
+.file-upload-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.file-upload-placeholder i {
+    font-size: 2rem;
+    color: #6b7280;
+    margin-bottom: 0.5rem;
+}
+
+.upload-text {
+    font-weight: 500;
+    color: #374151;
+    font-size: 1rem;
+}
+
+.upload-subtext {
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+.file-upload-preview {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.file-upload-preview img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid #e5e7eb;
+}
+
+.file-info {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.file-name {
+    font-weight: 500;
+    color: #374151;
+    font-size: 0.875rem;
+}
+
+.remove-file {
+    background: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.remove-file:hover {
+    background: #dc2626;
+}
+
+.form-help-text {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.form-help-text i {
+    color: #3b82f6;
+}
+
+/* File upload drag states */
+.file-upload-display.drag-over {
+    border-color: #2563eb;
+    background: #eff6ff;
+    transform: scale(1.02);
+}
+
+.file-upload-container.has-file .file-upload-display {
+    border-color: #10b981;
+    background: #f0fdf4;
+}
+
+/* Responsive file upload */
+@media (max-width: 480px) {
+    .file-upload-display {
+        padding: 1.5rem 1rem;
+        min-height: 100px;
+    }
+    
+    .file-upload-placeholder i {
+        font-size: 1.5rem;
+    }
+    
+    .upload-text {
+        font-size: 0.9rem;
+    }
+    
+    .file-upload-preview {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+/* Payment Method Selection Styles */
+.payment-method-options {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.payment-option {
+    flex: 1;
+}
+
+.payment-option input[type="radio"] {
+    display: none;
+}
+
+.payment-option label {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.payment-option label:hover {
+    border-color: var(--primary-light);
+    background: #f8f9ff;
+}
+
+.payment-option input[type="radio"]:checked + label {
+    border-color: var(--primary-color);
+    background: #f8f9ff;
+    color: var(--primary-color);
+}
+
+.payment-option label i {
+    font-size: 1.25rem;
+    margin-right: 0.75rem;
+    color: var(--primary-color);
+}
+
+.payment-option label span {
+    font-weight: 500;
+}
+
+/* Cash Payment Section Styles */
+.cash-payment-info {
+    margin-top: 1rem;
+}
+
+.cash-info-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: #f0f8ff;
+    border-left: 4px solid var(--primary-color);
+    border-radius: 8px;
+}
+
+.cash-info-card i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-top: 0.25rem;
+}
+
+.cash-info-content h3 {
+    color: var(--primary-color);
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+}
+
+.cash-info-content ul {
+    list-style: none;
+    padding: 0;
+}
+
+.cash-info-content li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.cash-info-content li:before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+/* Responsive payment method styles */
+@media (max-width: 480px) {
+    .payment-method-options {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .payment-option label {
+        padding: 0.75rem;
+        text-align: center;
+    }
+    
+    .cash-info-card {
+        flex-direction: column;
+        gap: 0.75rem;
+        padding: 1rem;
+    }
 } 
