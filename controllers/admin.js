@@ -1,15 +1,16 @@
 const rentRequest = require('../models/rentRequest');
 const Booking = require('../models/bookings');
 //const Message = require('../models/Message');
-const Car = require('../models/car');
+const { CarModel } = require('./Car');
 const Notification = require('../models/notification');
 
 exports.getAllRequests = async (req, res) => {
     try {
-        const requests = await rentRequest.find({ status: 'pending' })
+        const requests = await rentRequest.find()
             .populate('userId', 'FirstName LastName Email Phone')
             .populate('carId', 'name brand city price available category image');
-        res.render('admin/requests', { requests });
+        console.log(requests);
+        res.render('Admin/requests', { requests });
     } catch (error) {
         console.error(error);
         res.status(500).send('Server error');
@@ -43,7 +44,7 @@ exports.acceptRequest = async (req, res) => {
         });
         await booking.save();
 
-        await Car.findByIdAndUpdate(request.carId, { available: false }); //available not recognised!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        await Car.findByIdAndUpdate(rentRequest.carId, { available: false });
 
         // Create notification for user
         await Notification.create({

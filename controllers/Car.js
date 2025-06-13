@@ -1,10 +1,50 @@
-const Car = require('../models/car');
 const booked = require('../models/bookings');
+const mongoose = require('mongoose');
+
+// Car Model Schema (from test folder)
+const carSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    specs: {
+        type: String,
+        required: true
+    },
+    image: {
+        type: String,
+        required: true
+    },
+    passengers: {
+        type: Number,
+        required: true
+    },
+    luggage: {
+        type: Number,
+        required: true
+    },
+    transmission: {
+        type: String,
+        enum: ['Automatic', 'Manual'],
+        required: true
+    },
+    dailyRate: {
+        type: Number,
+        required: true
+    },
+    available: {
+        type: Boolean,
+        default: true
+    }
+});
+
+const CarModel = mongoose.model('CarNew', carSchema);
 
 const getAllCars = async (req, res) => {//veronia search bar
     try {
         const category = req.query.category;
         const search = req.query.search;
+        const user = req.session.user;
 
         let filter = {};
         let message = '';
@@ -72,7 +112,7 @@ const searchByDate = async (req, res) => {//veronia
             city: city
         };
     
-        const availableCars = await Car.find(filter);
+        const availableCars = await CarModel.find(filter);
 
         res.render('Admin/adminInventory', { cars: availableCars, search: city });
     
@@ -88,7 +128,7 @@ const searchByDate = async (req, res) => {//veronia
 
 
 const addCar = async (req, res) => {//veronia
-    const newcar = new Car({
+    const newcar = new CarModel({
         name: req.body.name,
         brand: req.body.brand,
         city: req.body.city,
@@ -114,7 +154,7 @@ const addCar = async (req, res) => {//veronia
 
 const editCar = async (req, res) => {//veronia
     try {
-        const updatedCar = await Car.findByIdAndUpdate(
+        const updatedCar = await CarModel.findByIdAndUpdate(
             req.params.id,
             req.body,
             { new: true }
@@ -132,17 +172,53 @@ const editCar = async (req, res) => {//veronia
 
 const getFeatured = async (req, res) => {
     try{
-        const featured = await Car.find({featured: true});//fetching
+        const featured = await CarModel.find({featured: true});//fetching
         res.json({success: true, data: featured});
     } catch(error){
         res.status(500).json({ success: false, message: error.message });
     }
 }
+const tempStoreDates = async (req, res)=>{
+req.session.rentalDates = {
+  startDate: req.query.start,
+  endDate: req.query.end,
+  days: parseInt(req.query.days)
 
+};
+res.redirect (`/api/v1/cars/inside/${ req.session.selectedCar._id}`)
+
+}
+
+const getIndividualCar = async (req, res)=>{
+    const user = req.session.user;
+       try{
+       const Carid = req.params.id;
+               const individualCar = await CarModel.findById(Carid)
+       if (!individualCar){
+              return res.status(404).send('Car not found')
+       }
+       req.session.selectedCar = individualCar //store the selected car in session
+        if(user?.Type === 'client'){
+        res.render('cardetails', { car: individualCar , user: user , rentalDates: req.session.rentalDates});
+      }
+      else{
+    res.send('carPage');
+       }
+
+
+}
+catch (err) {
+        console.error(err);
+        res.status(500).send('Server error');
+    }
+}
 module.exports = {
     editCar,
     addCar,
     searchByDate,
     getAllCars,
-    getFeatured
+    getFeatured,
+    tempStoreDates,
+    getIndividualCar,
+    CarModel
 };
