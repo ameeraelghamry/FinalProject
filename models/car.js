@@ -1,5 +1,6 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
+// Car Model Schema (from test folder)
 const carSchema = mongoose.Schema({
     name:  {
         type: String,
@@ -54,5 +55,5 @@ const carSchema = mongoose.Schema({
 
 })
 
-//exporting product itself
-module.exports = mongoose.model('Car', carSchema);
+const Car = mongoose.model('Cars', carSchema);
+module.exports = Car;

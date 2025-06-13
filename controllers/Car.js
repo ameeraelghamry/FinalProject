@@ -1,44 +1,4 @@
 const booked = require('../models/bookings');
-const mongoose = require('mongoose');
-
-// Car Model Schema (from test folder)
-const carSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    specs: {
-        type: String,
-        required: true
-    },
-    image: {
-        type: String,
-        required: true
-    },
-    passengers: {
-        type: Number,
-        required: true
-    },
-    luggage: {
-        type: Number,
-        required: true
-    },
-    transmission: {
-        type: String,
-        enum: ['Automatic', 'Manual'],
-        required: true
-    },
-    dailyRate: {
-        type: Number,
-        required: true
-    },
-    available: {
-        type: Boolean,
-        default: true
-    }
-});
-
-const CarModel = mongoose.model('CarNew', carSchema);
 
 const getAllCars = async (req, res) => {//veronia search bar
     try {
@@ -219,6 +179,5 @@ module.exports = {
     getAllCars,
     getFeatured,
     tempStoreDates,
-    getIndividualCar,
-    CarModel
+    getIndividualCar
 };
