@@ -6,57 +6,102 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Fill in the booking details
     if (bookingDetails.bookingReference) {
-        document.getElementById('booking-id').textContent = bookingDetails.bookingReference;
+        const bookingIdElement = document.getElementById('booking-id');
+        if (bookingIdElement) {
+            bookingIdElement.textContent = bookingDetails.bookingReference;
+        }
     }
 
     // Car Details
     if (carDetails.name) {
-        document.getElementById('car-name').textContent = carDetails.name;
+        const carNameElement = document.getElementById('car-name');
+        if (carNameElement) {
+            carNameElement.textContent = carDetails.name;
+        }
     }
     if (carDetails.specifications) {
-        document.getElementById('car-specs').textContent = carDetails.specifications;
+        const carSpecsElement = document.getElementById('car-specs');
+        if (carSpecsElement) {
+            carSpecsElement.textContent = carDetails.specifications;
+        }
     }
     if (carDetails.image) {
-        const carImage = document.getElementById('car-image');
-        carImage.src = carDetails.image;
-        carImage.alt = carDetails.name;
+        const carImageElement = document.getElementById('car-image');
+        if (carImageElement) {
+            carImageElement.src = carDetails.image;
+            carImageElement.alt = carDetails.name;
+        }
     }
     if (carDetails.passengers) {
-        document.getElementById('passengers').textContent = `${carDetails.passengers} Passengers`;
+        const passengersElement = document.getElementById('passengers');
+        if (passengersElement) {
+            passengersElement.textContent = `${carDetails.passengers} Passengers`;
+        }
     }
     if (carDetails.luggage) {
-        document.getElementById('luggage').textContent = `${carDetails.luggage} Bags`;
+        const luggageElement = document.getElementById('luggage');
+        if (luggageElement) {
+            luggageElement.textContent = `${carDetails.luggage} Bags`;
+        }
     }
     if (carDetails.transmission) {
-        document.getElementById('transmission').textContent = carDetails.transmission;
+        const transmissionElement = document.getElementById('transmission');
+        if (transmissionElement) {
+            transmissionElement.textContent = carDetails.transmission;
+        }
     }
 
     // Rental Information
     if (rentalDates.pickup) {
         const pickupDate = new Date(rentalDates.pickup);
-        document.getElementById('pickup-date').textContent = pickupDate.toLocaleDateString();
-        document.getElementById('pickup-time').textContent = pickupDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const pickupDateElement = document.getElementById('pickup-date');
+        const pickupTimeElement = document.getElementById('pickup-time');
+        
+        if (pickupDateElement) {
+            pickupDateElement.textContent = pickupDate.toLocaleDateString();
+        }
+        if (pickupTimeElement) {
+            pickupTimeElement.textContent = pickupDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
     }
     if (rentalDates.return) {
         const returnDate = new Date(rentalDates.return);
-        document.getElementById('return-date').textContent = returnDate.toLocaleDateString();
+        const returnDateElement = document.getElementById('return-date');
+        if (returnDateElement) {
+            returnDateElement.textContent = returnDate.toLocaleDateString();
+        }
     }
     if (bookingDetails.pickupLocation) {
-        document.getElementById('pickup-location').textContent = bookingDetails.pickupLocation;
+        const pickupLocationElement = document.getElementById('pickup-location');
+        if (pickupLocationElement) {
+            pickupLocationElement.textContent = bookingDetails.pickupLocation;
+        }
     }
 
     // Payment Summary
     if (bookingDetails.rentalRate) {
-        document.getElementById('rental-rate').textContent = `$${bookingDetails.rentalRate.toFixed(2)}`;
+        const rentalRateElement = document.getElementById('rental-rate');
+        if (rentalRateElement) {
+            rentalRateElement.textContent = `$${bookingDetails.rentalRate.toFixed(2)}`;
+        }
     }
     if (bookingDetails.insuranceFee) {
-        document.getElementById('insurance-fee').textContent = `$${bookingDetails.insuranceFee.toFixed(2)}`;
+        const insuranceFeeElement = document.getElementById('insurance-fee');
+        if (insuranceFeeElement) {
+            insuranceFeeElement.textContent = `$${bookingDetails.insuranceFee.toFixed(2)}`;
+        }
     }
     if (bookingDetails.taxes) {
-        document.getElementById('taxes').textContent = `$${bookingDetails.taxes.toFixed(2)}`;
+        const taxesElement = document.getElementById('taxes');
+        if (taxesElement) {
+            taxesElement.textContent = `$${bookingDetails.taxes.toFixed(2)}`;
+        }
     }
     if (bookingDetails.totalAmount) {
-        document.getElementById('total-amount').textContent = `$${bookingDetails.totalAmount.toFixed(2)}`;
+        const totalAmountElement = document.getElementById('total-amount');
+        if (totalAmountElement) {
+            totalAmountElement.textContent = `$${bookingDetails.totalAmount.toFixed(2)}`;
+        }
     }
 
     // Handle download confirmation button
@@ -77,10 +122,33 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Navigation functionality for mobile menu
+    const navToggle = document.getElementById('mobile-menu');
+    const navMenu = document.querySelector('.nav-menu');
+    
+    if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function() {
+            navToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+    }
+
     // Clear the booking details from localStorage after displaying everything
-    localStorage.removeItem('bookingDetails');
-    localStorage.removeItem('selectedCar');
-    localStorage.removeItem('rentalDates');
+    // Note: We might want to keep this data for a while in case user refreshes
+    // setTimeout(() => {
+    //     localStorage.removeItem('bookingDetails');
+    //     localStorage.removeItem('selectedCar');
+    //     localStorage.removeItem('rentalDates');
+    // }, 5000); // Clear after 5 seconds
 });
 
 // Function to generate and download confirmation
@@ -89,22 +157,22 @@ function generateAndDownloadConfirmation(bookingDetails, carDetails, rentalDates
 BOOKING CONFIRMATION
 ===================
 
-Booking Reference: ${bookingDetails.bookingReference}
+Booking Reference: ${bookingDetails.bookingReference || 'N/A'}
 Date: ${new Date().toLocaleDateString()}
 
 VEHICLE DETAILS
 --------------
-Car: ${carDetails.name}
-Specifications: ${carDetails.specifications}
-Passengers: ${carDetails.passengers}
-Luggage Capacity: ${carDetails.luggage} Bags
-Transmission: ${carDetails.transmission}
+Car: ${carDetails.name || 'N/A'}
+Specifications: ${carDetails.specifications || 'N/A'}
+Passengers: ${carDetails.passengers || 'N/A'}
+Luggage Capacity: ${carDetails.luggage || 'N/A'} Bags
+Transmission: ${carDetails.transmission || 'N/A'}
 
 RENTAL INFORMATION
 -----------------
-Pickup Date: ${new Date(rentalDates.pickup).toLocaleDateString()}
-Pickup Time: ${new Date(rentalDates.pickup).toLocaleTimeString()}
-Return Date: ${new Date(rentalDates.return).toLocaleDateString()}
+Pickup Date: ${rentalDates.pickup ? new Date(rentalDates.pickup).toLocaleDateString() : 'N/A'}
+Pickup Time: ${rentalDates.pickup ? new Date(rentalDates.pickup).toLocaleTimeString() : 'N/A'}
+Return Date: ${rentalDates.return ? new Date(rentalDates.return).toLocaleDateString() : 'N/A'}
 Location: ${bookingDetails.pickupLocation || 'Not specified'}
 
 PAYMENT SUMMARY
@@ -116,10 +184,10 @@ Total Paid: $${bookingDetails.totalAmount?.toFixed(2) || '0.00'}
 
 CUSTOMER INFORMATION
 -------------------
-Name: ${bookingDetails.customerName}
-Email: ${bookingDetails.email}
+Name: ${bookingDetails.customerName || 'N/A'}
+Email: ${bookingDetails.email || 'N/A'}
 
-Thank you for choosing our service!
+Thank you for choosing NileWay Rentals!
 `;
 
     // Create blob and download
@@ -127,7 +195,7 @@ Thank you for choosing our service!
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `booking-confirmation-${bookingDetails.bookingReference}.txt`;
+    a.download = `booking-confirmation-${bookingDetails.bookingReference || 'unknown'}.txt`;
     document.body.appendChild(a);
     a.click();
     window.URL.revokeObjectURL(url);

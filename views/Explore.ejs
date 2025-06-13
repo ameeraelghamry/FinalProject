@@ -35,6 +35,12 @@
         </div>
     </nav>
 
+    <% if (message) { %>
+            <div class="alert">
+            <%= message %>
+            </div>
+        <% } %>
+        
     <div class="container mt-4">
         <div class="row" id="inventory-container">
             <!-- Cards go here -->
@@ -49,67 +55,38 @@
                 d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
         </svg>
     </button>
-
-    <script>
-        // Dummy data for sample inventory
-        const cars = [
-            {
-                name: "Nissan Sentra",
-                year: 2012,
-                image: "https://img.carswp.com/nissan/juke/nissan_juke_2013_pictures_7_b.jpg",
-                specs: ["5 People", "Hybrid", "6.1km / 1-litre", "Automatic"],
-                price: "$440 / month"
-            },
-            {
-                name: "BMW 3 Series",
-                year: 2019,
-                image: "https://img.carswp.com/nissan/sunny/nissan_sunny_2011_photos_1_b.jpg",
-                specs: ["4 People", "Gasoline", "8.2km / 1-litre", "Automatic"],
-                price: "$350 / month"
-            },
-            {
-                name: "Volkswagen T-Cross",
-                year: 2020,
-                image: "https://img.carswp.com/nissan/sentra/photos_nissan_sentra_2012_2_b.jpg",
-                specs: ["4 People", "Gasoline", "5.3km / 1-litre", "Automatic"],
-                price: "$400 / month"
-            }
-        ];
-
-        function renderCards() {
-            const container = document.getElementById('inventory-container');
-            container.innerHTML = '';
-
-            cars.forEach(car => {
-                const card = document.createElement('div');
-                card.className = 'col-md-4';
-                card.innerHTML = `
+    
+  <div class="row">
+         <% cars.forEach(car => { %>
+            <% if(car.available) {%>
+                <div class="col-md-3">
+                
+                    <a href="/api/v1/cars/inside/<%= car._id %>" class="text-decoration-none text-dark">
                     <div class="card mb-4">
-                        <img src="${car.image}" class="card-img-top" alt="${car.name}">
+                        <img src="<%= car.image %>" class="card-img-top" alt="<%= car.name %>">
                         <div class="card-body">
-                            <h5 class="card-title">${car.name}</h5>
-                            <span class="badge bg-light text-dark">${car.year}</span>
+                            <h5 class="card-title"><%= car.name %></h5>
+                            <span class="badge bg-light text-dark"><%= car.year %></span>
                             <ul class="list-unstyled mt-2">
-                                ${car.specs.map(spec => `<li>${spec}</li>`).join('')}
+                                <li>category: <%= car.category %> </li>
+                            <li><%= car.capacity %>: People</li>
+                            
+                            <li><%= car.miles %>:miles</li>
+                            
                             </ul>
                             <div class="d-flex justify-content-between align-items-center">
-                                <h5 class="text">${car.price}</h5>
+                                <h5 class="text"><%= car.price %>/day</h5>
                                 <button class="btn">Edit</button>
                             </div>
                         </div>
                     </div>
-                `;
-                container.appendChild(card);
-            });
-        }
+                    </a>
+                </div>
+                <% } %> 
+            <% }) %>
+        </div>
+    
 
-        function addNewItem() {
-            alert("Add new car functionality is not implemented yet.");
-        }
-
-        // Initial render
-        renderCards();
-    </script>
 </body>
 
 </html>

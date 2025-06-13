@@ -7,6 +7,10 @@ const carController = require('../controllers/Car');
 //routers for webpage
 router.get('/', carController.getAllCars);//handles browse cards
 
+router.get('/inside/:id', carController.getIndividualCar);//handles individual car page
+
+router.get('/store-dates', carController.tempStoreDates); //stores the dates set by the user in session then redirects to the cardetails page
+
 //featured cars api
 router.get('/featured', carController.getFeatured);
 

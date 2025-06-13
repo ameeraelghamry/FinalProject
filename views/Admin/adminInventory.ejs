@@ -46,6 +46,13 @@
         </button>
 
        <div class="row">
+        
+        <% if (message) { %>
+            <div class="alert">
+            <%= message %>
+            </div>
+        <% } %>
+
     <% if (cars.length > 0) { %>
         <% cars.forEach(car => { %>
             <div class="col-md-3">

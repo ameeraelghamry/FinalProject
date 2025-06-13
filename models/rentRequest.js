@@ -23,11 +23,11 @@ const rentRequestSchema = new mongoose.Schema({
         required: true
     },
 
-    carStatus: {
-        type: String,
-        enum: ['pending', 'Booked'],
-        default: 'pending'
+    available: { 
+        type: Boolean, 
+        default: true 
     },
+
 
     createdAt: {
         type: Date,
