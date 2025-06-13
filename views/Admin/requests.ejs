@@ -43,7 +43,7 @@
                 <div class="mt-2">
                     Start: <%= request.rentStart?.toISOString().split('T')[0] || "N/A" %> |
                     End: <%= request.rentEnd?.toISOString().split('T')[0] || "N/A" %> |
-                    Price: $<%= request.carId?.price || 0 %> |
+                    Price: EGP <%= request.carId?.price || 0 %> |
                     Request ID: <%= request._id %>
                 </div>
             </div>
