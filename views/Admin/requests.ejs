@@ -38,7 +38,6 @@ window.location.href = `/api/v1/admin/requests/details/${requestId}`;
                 <div><strong>Car:</strong> 
                     <%= request.carId?.brand || "No Brand" %> 
                     <%= request.carId?.name || "No Name" %> 
-                    (<%= request.carId?._id || "No Car ID" %>)
                 </div>
                 <div class="mt-2">
                     Start: <%= request.rentStart?.toISOString().split('T')[0] || "N/A" %> |
