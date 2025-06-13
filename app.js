@@ -140,26 +140,11 @@ app.get('/about', (req, res) => {
 });
 
 app.get('/policy', (req, res) => {
-<<<<<<< HEAD
-  res.render('OurPolicy', { user: req.session?.user });
-});
-
-app.get('/signup', (req, res) => {
-  res.render('signup', { 
-    user: req.session?.user,
-    email: req.query.email || '' //user input in footer transfered too
-  });
-});
-
-app.get('/admin', (req, res) => {
-  res.render('admin/requests', { user: req.session?.user });
-=======
     res.render('OurPolicy', { 
         user: req.session?.user,
         locale: req.getLocale(),
         __: req.__
     });
->>>>>>> origin/main
 });
 
 app.get('/explore', (req, res) => {
