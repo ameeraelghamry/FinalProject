@@ -37,7 +37,12 @@ const getAllCars = async (req, res) => {//veronia search bar
 
     //res.send(carList);// for testing
 
-    res.render('Admin/adminInventory', { cars: carList, search: search, message: message });
+    if(user?.Type === 'Admin'){
+        res.render('Admin/adminInventory', { cars: carList, search: search, message: message });
+    }else{
+        res.render('Explore', { cars: carList, search: search, message: message });
+    }
+    
     console.log("getAllCars route hit");//to see if the route hits currently the cars.find() bufferring times out
 
     } catch (error) {
@@ -75,7 +80,7 @@ const searchByDate = async (req, res) => {//veronia
     
         const availableCars = await Car.find(filter);
 
-        res.render('Admin/adminInventory', { cars: availableCars, search: city });
+        res.render('Explore', { cars: availableCars, search: city, message: null });
     
         //res.render('availableCars', { cars: availableCars }); //might need to be edited
 

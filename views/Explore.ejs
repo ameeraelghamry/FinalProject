@@ -35,6 +35,12 @@
         </div>
     </nav>
 
+    <% if (message) { %>
+            <div class="alert">
+            <%= message %>
+            </div>
+        <% } %>
+        
     <div class="container mt-4">
         <div class="row" id="inventory-container">
             <!-- Cards go here -->
