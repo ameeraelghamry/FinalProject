@@ -90,6 +90,10 @@ app.get('/admin', (req, res) => {
   res.render('admin/requests', { user: req.session?.user });
 });
 
+// app.get('/admin/requests/details', (req, res) => {
+//   res.render('admin/requests/requests/details', { user: req.session?.user });
+// });
+
 app.get('/explore', (req, res) => {
   res.render('Explore', { user: req.session?.user });
 });

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>booking Details</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/Admin/requestDetails.css" />
+</head>
+<body>
+  <div class="container mt-5">
+    <h2 class="mb-4">Rent booking Details</h2>
+
+    <!-- Renter Info -->
+    <div class="card mb-4">
+      <div class="card-header">Renter Information</div>
+      <div class="card-body">
+        <p><strong>Name:</strong> <%= booking.userId?.FirstName %> <%= booking.userId?.LastName %></p>
+        <p><strong>Email:</strong> <%= booking.userId?.Email %></p>
+        <p><strong>Phone:</strong> <%= booking.userId?.Phone %></p>
+        <p><strong>ID:</strong> <%= booking.userId?._id %></p>
+      </div>
+    </div>
+
+    <!-- Car Info -->
+    <div class="card mb-4">
+      <div class="card-header">Car Information</div>
+      <div class="card-body">
+        <p><strong>Brand:</strong> <%= booking.carId?.brand %></p>
+        <p><strong>Name:</strong> <%= booking.carId?.name %></p>
+        <p><strong>City:</strong> <%= booking.carId?.city %></p>
+        <p><strong>Price:</strong> $<%= booking.carId?.price %> per day</p>
+        <p><strong>Category:</strong> <%= booking.carId?.category %></p>
+        <p><strong>ID:</strong> <%= booking.carId?._id %></p>
+      </div>
+    </div>
+
+    <!-- Rent booking Info -->
+     <div class="card mb-4">
+        <div class="card-header >Booking Details</div>
+        <div class="card-body">
+            <p><strong>booking ID:</strong> <%= booking._id %></p>
+            <p><strong>Start Date:</strong> <%= booking.rentStart?.toISOString().split('T')[0] %></p>
+            <p><strong>End Date:</strong> <%= booking.rentEnd?.toISOString().split('T')[0] %></p>
+        </div>
+    </div>
+
+  </div>
+</body>
+</html>

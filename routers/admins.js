@@ -9,6 +9,10 @@ router.get('/', carController.getAllCars);
 
 router.get('/requests', adminController.getAllRequests);
 
+router.get('/requests/details/:id', adminController.getRequestDetails );
+
+router.get('/bookings/details/:id', adminController.getBookingDetails );
+
 router.get('/bookings', adminController.getAllBookings);
 
 router.post('/requests/accept/:id', adminController.acceptRequest);

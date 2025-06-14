@@ -36,6 +36,7 @@ const getAllCars = async (req, res) => {//veronia search bar
             carList = await Car.find();
         }
 
+<<<<<<< HEAD
     if(user?.Type === 'admin'){
          res.render('Admin/adminInventory', { cars: carList, search: search });
         console.log('i am admin')
@@ -46,6 +47,16 @@ const getAllCars = async (req, res) => {//veronia search bar
      console.log('not admin')
      
 }
+=======
+    //res.send(carList);// for testing
+
+    if(user?.Type === 'Admin'){
+        res.render('Admin/adminInventory', { cars: carList, search: search, message: message });
+    }else{
+        res.render('Explore', { cars: carList, search: search, message: message });
+    }
+    
+>>>>>>> 23579ef0bce86e2e54f89bb413dd3ed6f61b8bfe
     console.log("getAllCars route hit");//to see if the route hits currently the cars.find() bufferring times out
 
     } catch (error) {
@@ -83,7 +94,7 @@ const searchByDate = async (req, res) => {//veronia
     
         const availableCars = await Car.find(filter);
 
-        res.render('Admin/adminInventory', { cars: availableCars, search: city });
+        res.render('Explore', { cars: availableCars, search: city, message: null });
     
         //res.render('availableCars', { cars: availableCars }); //might need to be edited
 
