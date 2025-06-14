@@ -1,6 +1,6 @@
 const User = require('../models/user'); // import the user model 
 const bcrypt = require('bcrypt');
-// const sendEmail = require('../utils/sendEmail'); // used for the forgot pass 
+const sendEmail = require('../utils/sendEmails'); // used for the forgot pass 
 //signup 
 const getAllUsers = async (req, res) => {
     try{
@@ -133,11 +133,11 @@ const sendResetCode = async (req, res) => {
   user.resetCodeExpires = Date.now() + 10 * 60 * 1000; // valid for 10 min
   await user.save();
 
-//   await sendEmail({
-//     to: Email,
-//     subject: "Your Password Reset Code",
-//     html: `<p>Your reset code is <strong>${code}</strong>. It expires in 10 minutes.</p>`
-//   });
+  await sendEmail({
+    to: Email,
+    subject: "Your Password Reset Code",
+    html: `<p>Your reset code is <strong>${code}</strong>. It expires in 10 minutes.</p>`
+  });
 
   return res.status(200).json({ message: "Verification code sent to email." });
 };
