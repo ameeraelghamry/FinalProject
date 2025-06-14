@@ -1,0 +1,421 @@
+<!-- Cookie Analytics Template - GDPR Compliant -->
+<!-- This template is loaded when analytics cookies are accepted -->
+
+<!-- Google Analytics 4 (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXX"></script>
+<script>
+    // Only load if analytics consent is given
+    if (window.cookieConsentUtils && window.cookieConsentUtils.canUseAnalytics()) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        
+        // Configure GA4 with enhanced ecommerce for car rentals
+        gtag('config', 'G-XXXXXXXX', {
+            // Basic configuration
+            page_title: document.title,
+            page_location: window.location.href,
+            
+            // Enhanced ecommerce settings
+            custom_map: {
+                'custom_parameter_1': 'booking_stage',
+                'custom_parameter_2': 'customer_type',
+                'custom_parameter_3': 'vehicle_category'
+            },
+            
+            // Car rental specific settings
+            content_group1: '<%= locals.pageCategory || "general" %>',
+            content_group2: '<%= locals.pageType || "unknown" %>',
+            
+            // Privacy settings
+            anonymize_ip: true,
+            allow_google_signals: false,
+            allow_ad_personalization_signals: false
+        });
+        
+        // Track initial page view with custom dimensions
+        gtag('event', 'page_view', {
+            custom_parameter_1: '<%= locals.bookingStage || "browsing" %>',
+            custom_parameter_2: '<%= locals.customerType || "visitor" %>',
+            custom_parameter_3: '<%= locals.vehicleCategory || "all" %>',
+            page_title: document.title,
+            page_location: window.location.href
+        });
+        
+        console.log('Google Analytics 4 loaded with consent');
+    }
+</script>
+
+<!-- Google Tag Manager (Optional) -->
+<% if (locals.enableGTM !== false) { %>
+<script>
+    if (window.cookieConsentUtils && window.cookieConsentUtils.canUseAnalytics()) {
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-XXXXXXX');
+        
+        console.log('Google Tag Manager loaded with consent');
+    }
+</script>
+
+<!-- GTM noscript fallback -->
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+<% } %>
+
+<!-- Car Rental Specific Analytics -->
+<script>
+    // Car rental business analytics
+    if (window.cookieConsentUtils && window.cookieConsentUtils.canUseAnalytics()) {
+        
+        // Enhanced Ecommerce for Car Rentals
+        function trackCarView(carData) {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'view_item', {
+                    currency: 'USD',
+                    value: parseFloat(carData.price) || 0,
+                    items: [{
+                        item_id: carData.id,
+                        item_name: carData.name,
+                        category: carData.category,
+                        brand: carData.brand,
+                        price: parseFloat(carData.price) || 0,
+                        quantity: 1
+                    }]
+                });
+            }
+        }
+        
+        // Track car selection/add to cart
+        function trackCarSelection(carData) {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'add_to_cart', {
+                    currency: 'USD',
+                    value: parseFloat(carData.price) || 0,
+                    items: [{
+                        item_id: carData.id,
+                        item_name: carData.name,
+                        category: carData.category,
+                        brand: carData.brand,
+                        price: parseFloat(carData.price) || 0,
+                        quantity: 1,
+                        rental_duration: carData.duration || 1
+                    }]
+                });
+            }
+        }
+        
+        // Track booking initiation
+        function trackBookingStart(carData) {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'begin_checkout', {
+                    currency: 'USD',
+                    value: parseFloat(carData.totalPrice) || 0,
+                    items: [{
+                        item_id: carData.id,
+                        item_name: carData.name,
+                        category: carData.category,
+                        brand: carData.brand,
+                        price: parseFloat(carData.price) || 0,
+                        quantity: 1,
+                        rental_start: carData.startDate,
+                        rental_end: carData.endDate,
+                        rental_duration: carData.duration
+                    }]
+                });
+            }
+        }
+        
+        // Track booking completion
+        function trackBookingComplete(bookingData) {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'purchase', {
+                    transaction_id: bookingData.bookingId,
+                    currency: 'USD',
+                    value: parseFloat(bookingData.totalPrice) || 0,
+                    coupon: bookingData.coupon || '',
+                    items: [{
+                        item_id: bookingData.carId,
+                        item_name: bookingData.carName,
+                        category: bookingData.carCategory,
+                        brand: bookingData.carBrand,
+                        price: parseFloat(bookingData.carPrice) || 0,
+                        quantity: 1,
+                        rental_start: bookingData.startDate,
+                        rental_end: bookingData.endDate,
+                        rental_duration: bookingData.duration,
+                        pickup_location: bookingData.pickupLocation,
+                        return_location: bookingData.returnLocation
+                    }]
+                });
+                
+                // Track conversion
+                gtag('event', 'conversion', {
+                    send_to: 'G-XXXXXXXX/CONVERSION_ID',
+                    value: parseFloat(bookingData.totalPrice) || 0,
+                    currency: 'USD',
+                    transaction_id: bookingData.bookingId
+                });
+            }
+        }
+        
+        // Track search queries
+        function trackSearch(searchData) {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'search', {
+                    search_term: searchData.query || '',
+                    pickup_location: searchData.pickup || '',
+                    return_location: searchData.return || '',
+                    pickup_date: searchData.startDate || '',
+                    return_date: searchData.endDate || '',
+                    vehicle_type: searchData.vehicleType || ''
+                });
+            }
+        }
+        
+        // Track filter usage
+        function trackFilter(filterData) {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'filter_vehicles', {
+                    filter_type: filterData.type,
+                    filter_value: filterData.value,
+                    results_count: filterData.resultsCount || 0
+                });
+            }
+        }
+        
+        // Track user engagement
+        function trackEngagement(engagementData) {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'user_engagement', {
+                    engagement_time_msec: engagementData.timeSpent || 0,
+                    page_title: document.title,
+                    page_location: window.location.href
+                });
+            }
+        }
+        
+        // Make tracking functions globally available
+        window.carRentalAnalytics = {
+            trackCarView,
+            trackCarSelection,
+            trackBookingStart,
+            trackBookingComplete,
+            trackSearch,
+            trackFilter,
+            trackEngagement
+        };
+        
+        // Auto-track common events
+        document.addEventListener('DOMContentLoaded', function() {
+            // Track car card views
+            const carCards = document.querySelectorAll('.car-card, .vehicle-card, .rental-car');
+            carCards.forEach(card => {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const carData = {
+                                id: card.dataset.carId || 'unknown',
+                                name: card.querySelector('.car-name, .vehicle-name')?.textContent || 'Unknown',
+                                category: card.dataset.category || 'unknown',
+                                brand: card.dataset.brand || 'unknown',
+                                price: card.dataset.price || '0'
+                            };
+                            trackCarView(carData);
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                });
+                observer.observe(card);
+            });
+            
+            // Track form submissions
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    const formData = new FormData(form);
+                    const formType = form.dataset.type || form.className || 'unknown';
+                    
+                    gtag('event', 'form_submit', {
+                        form_type: formType,
+                        form_location: window.location.pathname
+                    });
+                });
+            });
+        });
+    }
+</script>
+
+<!-- Facebook Pixel (Optional - requires marketing consent) -->
+<% if (locals.enableFacebookPixel !== false) { %>
+<script>
+    // Only load if both analytics and marketing consent are given
+    if (window.cookieConsentUtils && 
+        window.cookieConsentUtils.canUseAnalytics() && 
+        window.cookieConsentUtils.canUseMarketing()) {
+        
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        
+        fbq('init', 'YOUR_FACEBOOK_PIXEL_ID');
+        fbq('track', 'PageView');
+        
+        // Track car rental specific events
+        window.fbTrack = {
+            viewContent: (carData) => fbq('track', 'ViewContent', {
+                content_ids: [carData.id],
+                content_type: 'vehicle',
+                value: carData.price,
+                currency: 'USD'
+            }),
+            initiateCheckout: (carData) => fbq('track', 'InitiateCheckout', {
+                content_ids: [carData.id],
+                value: carData.price,
+                currency: 'USD'
+            }),
+            purchase: (bookingData) => fbq('track', 'Purchase', {
+                content_ids: [bookingData.carId],
+                value: bookingData.totalPrice,
+                currency: 'USD'
+            })
+        };
+        
+        console.log('Facebook Pixel loaded with consent');
+    }
+</script>
+<% } %>
+
+<!-- Hotjar Analytics (Optional) -->
+<% if (locals.enableHotjar !== false) { %>
+<script>
+    if (window.cookieConsentUtils && window.cookieConsentUtils.canUseAnalytics()) {
+        (function(h,o,t,j,a,r){
+            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+            h._hjSettings={hjid:YOUR_HOTJAR_ID,hjsv:6};
+            a=o.getElementsByTagName('head')[0];
+            r=o.createElement('script');r.async=1;
+            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+        
+        console.log('Hotjar loaded with consent');
+    }
+</script>
+<% } %>
+
+<!-- Custom Analytics Event Tracking -->
+<script>
+    // Custom event tracking for NileWay Rentals
+    if (window.cookieConsentUtils && window.cookieConsentUtils.canUseAnalytics()) {
+        
+        // Track scroll depth
+        let maxScroll = 0;
+        window.addEventListener('scroll', function() {
+            const scrollPercent = Math.round((window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100);
+            if (scrollPercent > maxScroll && scrollPercent % 25 === 0) {
+                maxScroll = scrollPercent;
+                gtag('event', 'scroll', {
+                    percent_scrolled: scrollPercent
+                });
+            }
+        });
+        
+        // Track time on page
+        let startTime = Date.now();
+        window.addEventListener('beforeunload', function() {
+            const timeSpent = Math.round((Date.now() - startTime) / 1000);
+            gtag('event', 'timing_complete', {
+                name: 'page_view_duration',
+                value: timeSpent
+            });
+        });
+        
+        // Track external link clicks
+        document.addEventListener('click', function(e) {
+            const link = e.target.closest('a');
+            if (link && link.hostname !== window.location.hostname) {
+                gtag('event', 'click', {
+                    event_category: 'external_link',
+                    event_label: link.href,
+                    transport_type: 'beacon'
+                });
+            }
+        });
+        
+        // Track file downloads
+        document.addEventListener('click', function(e) {
+            const link = e.target.closest('a');
+            if (link && /\.(pdf|doc|docx|xls|xlsx|zip|dmg|exe)$/i.test(link.href)) {
+                gtag('event', 'file_download', {
+                    event_category: 'downloads',
+                    event_label: link.href,
+                    transport_type: 'beacon'
+                });
+            }
+        });
+    }
+</script>
+
+<!-- Performance Monitoring -->
+<script>
+    if (window.cookieConsentUtils && window.cookieConsentUtils.canUseAnalytics()) {
+        // Track Core Web Vitals
+        function trackWebVitals() {
+            if ('PerformanceObserver' in window) {
+                // Track LCP (Largest Contentful Paint)
+                new PerformanceObserver((entryList) => {
+                    const entries = entryList.getEntries();
+                    const lastEntry = entries[entries.length - 1];
+                    gtag('event', 'web_vitals', {
+                        metric_name: 'LCP',
+                        metric_value: Math.round(lastEntry.startTime),
+                        metric_id: 'v1'
+                    });
+                }).observe({entryTypes: ['largest-contentful-paint']});
+                
+                // Track FID (First Input Delay)
+                new PerformanceObserver((entryList) => {
+                    for (const entry of entryList.getEntries()) {
+                        gtag('event', 'web_vitals', {
+                            metric_name: 'FID',
+                            metric_value: Math.round(entry.processingStart - entry.startTime),
+                            metric_id: 'v1'
+                        });
+                    }
+                }).observe({entryTypes: ['first-input']});
+                
+                // Track CLS (Cumulative Layout Shift)
+                let clsValue = 0;
+                new PerformanceObserver((entryList) => {
+                    for (const entry of entryList.getEntries()) {
+                        if (!entry.hadRecentInput) {
+                            clsValue += entry.value;
+                            gtag('event', 'web_vitals', {
+                                metric_name: 'CLS',
+                                metric_value: Math.round(clsValue * 1000),
+                                metric_id: 'v1'
+                            });
+                        }
+                    }
+                }).observe({entryTypes: ['layout-shift']});
+            }
+        }
+        
+        // Initialize web vitals tracking
+        if (document.readyState === 'complete') {
+            trackWebVitals();
+        } else {
+            window.addEventListener('load', trackWebVitals);
+        }
+    }
+</script> 

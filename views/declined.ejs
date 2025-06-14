@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Declined - NileWay Rentals</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/pending.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/cookies.css">
+</head>
+<body>
+    <header class="modern-header">
+        <div class="header-container">
+            <div class="brand-section">
+                <a href="/">
+                    <img src="/images/nilewayrental-02.png" alt="NileWay Rentals" class="brand-logo">
+                </a>
+            </div>
+            <nav class="nav-section">
+                <ul class="main-nav">
+                    <li class="nav-item">
+                        <a href="/" class="nav-link">
+                            <i class="fas fa-home"></i>
+                            Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <div class="success-indicator declined">
+                            <i class="fas fa-times-circle"></i>
+                            Booking Declined
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="success-container">
+        <div class="success-header">
+            <div class="success-icon declined">
+                <i class="fas fa-times-circle"></i>
+            </div>
+            <h1>Booking Request Declined</h1>
+            <p>We regret to inform you that your booking request could not be approved at this time.</p>
+
+            <div class="checkout-progress">
+                <div class="progress-step completed">
+                    <div class="step-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <span>Vehicle Selected</span>
+                </div>
+                <div class="progress-step completed">
+                    <div class="step-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <span>Payment</span>
+                </div>
+                <div class="progress-step completed">
+                    <div class="step-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <span>Review</span>
+                </div>
+                <div class="progress-step declined">
+                    <div class="step-icon">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <span>Declined</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="booking-details">
+            <div class="confirmation-number">
+                <h2><i class="fas fa-ticket-alt"></i>Reference Number</h2>
+                <p class="booking-id"><%= booking?.bookingReference || 'NW-2024-001234' %></p>
+                <p class="reference-note">Please keep this reference number for your records</p>
+            </div>
+
+            <div class="status-info">
+                <h2><i class="fas fa-info-circle"></i>What This Means</h2>
+                <div class="status-card">
+                    <div class="status-icon declined">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <div class="status-content">
+                        <h3>Common Reasons for Decline</h3>
+                        <ul class="decline-reasons">
+                            <li>Incomplete or invalid documentation</li>
+                            <li>Payment verification issues</li>
+                            <li>Vehicle availability changes</li>
+                            <li>Booking requirements not met</li>
+                        </ul>
+                        <p>For specific details about your booking decline, please contact our support team.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="next-steps">
+            <h2>What You Can Do Next</h2>
+            <div class="steps-grid">
+                <div class="step-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <h3>Contact Support</h3>
+                    <p>Call us at +20 (2) 123-4567 for detailed information about your booking decline.</p>
+                </div>
+                <div class="step-item">
+                    <i class="fas fa-car"></i>
+                    <h3>Try Different Vehicle</h3>
+                    <p>Browse our fleet for alternative vehicles that might better suit your needs.</p>
+                </div>
+                <div class="step-item">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>Different Dates</h3>
+                    <p>Check availability for different dates if the decline was due to scheduling.</p>
+                </div>
+                <div class="step-item">
+                    <i class="fas fa-redo"></i>
+                    <h3>New Booking</h3>
+                    <p>Start a new booking process with updated information and requirements.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <a href="/explore" class="secondary-button">
+                <i class="fas fa-car"></i>
+                Browse More Cars
+            </a>
+            <a href="/contact" class="primary-button">
+                <i class="fas fa-headset"></i>
+                Contact Support
+            </a>
+        </div>
+    </main>
+
+    <%- include('partials/cookie-consent', { isHomePage: false }) %>
+
+</body>
+</html> 
