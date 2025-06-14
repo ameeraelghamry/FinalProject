@@ -15,7 +15,6 @@ const api = process.env.API_URL
 const carsRoutes = require('./routers/cars')
 const userRoutes = require('./routers/users') // makes the routes be recognized by express 
 const adminRoutes = require('./routers/admins');
-const sendEmail = require('../utils/sendEmail'); //for herokuku fixing error!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
 
 app.set('view engine', 'ejs'); //can render html files like the ejs with dynamic data 
 app.set('views', path.join(__dirname, 'views'));
