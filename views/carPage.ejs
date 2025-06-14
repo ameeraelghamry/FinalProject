@@ -1,0 +1,190 @@
+<script type="text/javascript" src="/JavaScript/carPageLogic.js"></script>
+<!-- edit-car.ejs -->
+<form id="editCarForm">
+    <input type="hidden" name="_method" value="PUT">
+    
+    <!-- Basic Information Section -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="mb-3">
+
+                  <input type="hidden" id="carId" value="<%= car._id %>">
+
+                <label class="form-label">Car Name*</label>
+                <input type="text" class="form-control" name="name" value="<%= car.name %>" required>
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">Brand*</label>
+                <input type="text" class="form-control" name="brand" value="<%= car.brand %>" required>
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">City*</label>
+                <input type="text" class="form-control" name="city" value="<%= car.city %>" required>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label class="form-label">Price ($/day)*</label>
+                <input type="number" class="form-control" name="price" value="<%= car.price %>" required>
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">Mileage*</label>
+                <input type="number" class="form-control" name="miles" value="<%= car.miles %>" required>
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">Seats*</label>
+                <input type="number" class="form-control" name="seats" value="<%= car.seats %>" required>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Status Section -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label class="form-label">Availability</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="available" id="availableTrue" 
+                           value="true" <%= car.available ? 'checked' : '' %>>
+                    <label class="form-check-label" for="availableTrue">Available</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="available" id="availableFalse" 
+                           value="false" <%= !car.available ? 'checked' : '' %>>
+                    <label class="form-check-label" for="availableFalse">Not Available</label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" name="featured" 
+                       id="featured" value="true" <%= car.featured ? 'checked' : '' %>>
+                <label class="form-check-label" for="featured">Featured Car</label>
+            </div>
+        </div>
+    </div>
+    
+  <div class="mb-4">
+    <h5 class="mb-3">Car Images</h5>
+    <div class="row">
+        <!-- Image 1 -->
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <% if (car.image) { %>
+                        <img src="<%= car.image %>" class="img-fluid mb-2" alt="Car Image 1" style="max-height: 150px;">
+                    <% } else { %>
+                        <div class="bg-light d-flex align-items-center justify-content-center" style="height: 150px;">
+                            <span class="text-muted">No image</span>
+                        </div>
+                    <% } %>
+                    <input type="text" class="form-control mt-2" name="image" value="<%= car.image || '' %>" placeholder="Main Image text">
+                </div>
+            </div>
+        </div>
+
+        <!-- Image 2 -->
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <% if (car.image2) { %>
+                        <img src="<%= car.image2 %>" class="img-fluid mb-2" alt="Car Image 2" style="max-height: 150px;">
+                    <% } else { %>
+                        <div class="bg-light d-flex align-items-center justify-content-center" style="height: 150px;">
+                            <span class="text-muted">No image</span>
+                        </div>
+                    <% } %>
+                    <input type="text" class="form-control mt-2" name="image2" value="<%= car.image2 || '' %>" placeholder="Image 2 text">
+                </div>
+            </div>
+        </div>
+
+        <!-- Image 3 -->
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <% if (car.image3) { %>
+                        <img src="<%= car.image3 %>" class="img-fluid mb-2" alt="Car Image 3" style="max-height: 150px;">
+                    <% } else { %>
+                        <div class="bg-light d-flex align-items-center justify-content-center" style="height: 150px;">
+                            <span class="text-muted">No image</span>
+                        </div>
+                    <% } %>
+                    <input type="text" class="form-control mt-2" name="image3" value="<%= car.image3 || '' %>" placeholder="Image 3 text">
+                </div>
+            </div>
+        </div>
+
+        <!-- Image 4 -->
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <% if (car.image4) { %>
+                        <img src="<%= car.image4 %>" class="img-fluid mb-2" alt="Car Image 4" style="max-height: 150px;">
+                    <% } else { %>
+                        <div class="bg-light d-flex align-items-center justify-content-center" style="height: 150px;">
+                            <span class="text-muted">No image</span>
+                        </div>
+                    <% } %>
+                    <input type="text" class="form-control mt-2" name="image4" value="<%= car.image4 || '' %>" placeholder="Image 4 text">
+                </div>
+            </div>
+        </div>
+
+        <!-- Image 5 -->
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <% if (car.image5) { %>
+                        <img src="<%= car.image5 %>" class="img-fluid mb-2" alt="Car Image 5" style="max-height: 150px;">
+                    <% } else { %>
+                        <div class="bg-light d-flex align-items-center justify-content-center" style="height: 150px;">
+                            <span class="text-muted">No image</span>
+                        </div>
+                    <% } %>
+                    <input type="text" class="form-control mt-2" name="image5" value="<%= car.image5 || '' %>" placeholder="Image 5 text">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+    <!-- Specifications Section -->
+    <div class="mb-4">
+        <h5 class="mb-3">Specifications</h5>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-control" name="description" rows="3"><%= car.description || '' %></textarea>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label class="form-label">Horsepower</label>
+                    <input type="text" class="form-control" name="horsepower" value="<%= car.horsepower || '' %>">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Cylinders</label>
+                    <input type="text" class="form-control" name="cylinders" value="<%= car.cylinders || '' %>">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Max Speed</label>
+                    <input type="text" class="form-control" name="maxSpeed" value="<%= car.maxSpeed || '' %>">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Form Actions -->
+    <div class="d-flex justify-content-between">
+        <a href="/api/v1/admin" class="btn btn-outline-secondary">Cancel</a>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </div>
+</form>
