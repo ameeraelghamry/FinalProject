@@ -448,28 +448,6 @@ input[type="date"]:hover {
     border-radius: 10px;
 }
 
-.view-all-container{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.view-all {
-    display: inline-block;
-    width: auto;
-    padding: 10px 20px;
-    border: 2px solid #061524;
-    font-weight: bold;
-    transition: 0.5s;
-    background: transparent;
-    color: #061524;
-}
-
-.view-all:hover {
-    background: #061524;
-    color: white;
-}
-
 
 /*chatbot*/
 /* Circle button */
@@ -640,4 +618,3 @@ input[type="date"]:hover {
   align-self: flex-start;
   margin-right: auto;
 }
-
