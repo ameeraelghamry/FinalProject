@@ -17,11 +17,13 @@ router.get('/featured', carController.getFeatured);
 //search bar
 router.get(`/search`, carController.getAllCars);
 
+router.get('/AddCars',carController.getform);
+
 //adding a new car
-router.post(`/add`,carController.addCar);
+router.post('/',carController.addCar);
 
 //for editing cars
-router.put('/edit/:id', carController.editCar)
+router.put('/inside/:id', carController.editCar)
 
 //connecting to frontend 
 //in script frontend when button is clicked it gathers the info and renders/avaialable which is in this route
