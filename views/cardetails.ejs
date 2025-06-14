@@ -9,9 +9,9 @@
     <script type="text/javascript" src="/JavaScript/logicCarDetails.js"></script>
     <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/model-viewer/3.1.1/model-viewer.min.js"></script>
 </head>
-
+ <%- include('partials/nav') %>
 <body>
-    <%- include('partials/nav') %>
+   
 
 <div class="container">
     <div class="carName"><h1><%= car.name %></h1></div>
@@ -30,7 +30,7 @@
             <h2>More Details</h2>
             <ul>
                 <li> <%= car.horsepower || "158" %>-horsepower</li>
-                <li> <%= car.engine || "1,169 cc" %></li>
+                 <li> <%= car.seats || "4" %></li>
                 <li> <%= car.cylinders || "4-cylinder" %></li>
                 <li>Max Speed: <%= car.maxSpeed || "200 km/h" %></li>
                 <li>Fuel Consumption: <%= car.fuelConsumption || "6.0 (L/100km)" %></li>
@@ -44,7 +44,7 @@
     <div id="modelWrapper">
         <model-viewer
             id="floatingModel"
-            src="<%= car.model3D || '/models/honda_civic_type_r_fl5_custom.glb' %>"
+            src="<%= car.Model || '/models/honda_civic_type_r_fl5_custom.glb' %>"
             alt="3D model of <%= car.name %>"
             camera-orbit="-150deg 80deg"
             camera-target="0m 0.2m 0m"
@@ -62,10 +62,7 @@
         </model-viewer>
     </div>
 
-    <div class="rental-details" data-animate="autoshow">
-        <div class="rating">Rating: <%= car.rating || "5 stars" %></div>
-        <div class="NofUsers"><%= car.users || "1000+" %> users</div>
-    </div>
+
 
     <div class="receipt" data-animate="autoshow">
         <h2 class="receipt-title">Receipt</h2>
@@ -92,9 +89,10 @@
         <label for="Aed">AED</label>
     </div>
 
-    <a href="/checkout" class="checkout-link">
+    <div class="checkout-link">
+        <input type="hidden" id="userr" value="<%= user?.Type %>">
         <button class="proceed" onclick="proceedToCheckout()">Rent Now</button>
-    </a> 
+    </div> 
 
 
 <button class="edit" onclick="toggleRentalPopup()">Set Rental Dates</button>
@@ -116,10 +114,10 @@
 
     <div class="AllImages">
         <div class="image-container">
-               <div class="image"><img src="<%= car.image %>" alt="img1"></div>
-                <div class="image"><img src="<%= car.image %>" alt="img2"></div>  
-                <div class="image"><img src="<%= car.image %>" alt="img3"></div>
-                <div class="image"><img src="<%= car.image %>" alt="img4"></div>
+               <div class="image"><img src="<%= car.image2 %>" alt="img1"></div>
+                <div class="image"><img src="<%= car.image3 %>" alt="img2"></div>  
+                <div class="image"><img src="<%= car.image4 %>" alt="img3"></div>
+                <div class="image"><img src="<%= car.image5 %>" alt="img4"></div>
         </div>
 
         <div class="popup-image">
@@ -129,7 +127,8 @@
     </div>
 </div>
 
- <%- include('partials/footer') %>
 
 </body>
-</html>
+ <%- include('partials/footer') %>
+
+</html> 
