@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmed - NileWay Rentals</title>
+
+    <!-- Modern Font Imports -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="/css/success.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/cookies.css">
+</head>
+<body>
+
+<!-- Modern Professional Header -->
+<header class="modern-header">
+    <div class="header-container">
+        <!-- Brand Section -->
+        <div class="brand-section">
+            <a href="/">
+                <img src="/images/nilewayrental-02.png" alt="NileWay Rentals" class="brand-logo">
+            </a>
+        </div>
+
+        <!-- Navigation Section -->
+        <nav class="nav-section">
+            <ul class="main-nav">
+                <li class="nav-item">
+                    <a href="/" class="nav-link">
+                        <i class="fas fa-home"></i>
+                        Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/explore" class="nav-link">
+                        <i class="fas fa-car"></i>
+                        Explore Cars
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/about" class="nav-link">
+                        <i class="fas fa-info-circle"></i>
+                        About Us
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/contact" class="nav-link">
+                        <i class="fas fa-phone"></i>
+                        Contact
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <div class="success-indicator">
+                        <div class="success-checkmark"></div>
+                        <i class="fas fa-check-circle"></i>
+                        Booking Complete
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main class="success-container">
+    <!-- Success Header -->
+    <div class="success-header">
+        <div class="success-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <h1>Booking Confirmed!</h1>
+        <p>Thank you for choosing NileWay Rentals. Your reservation has been successfully processed.</p>
+
+        <!-- Progress Indicator -->
+        <div class="checkout-progress">
+            <div class="progress-step completed">
+                <div class="step-icon">
+                    <i class="fas fa-car"></i>
+                </div>
+                <span>Vehicle Selected</span>
+            </div>
+            <div class="progress-step completed">
+                <div class="step-icon">
+                    <i class="fas fa-credit-card"></i>
+                </div>
+                <span>Payment</span>
+            </div>
+            <div class="progress-step completed">
+                <div class="step-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <span>Pending</span>
+            </div>
+            <div class="progress-step completed">
+                <div class="step-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <span>Confirmation</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Details -->
+    <div class="booking-details">
+        <!-- Confirmation Number -->
+        <div class="confirmation-number">
+            <h2><i class="fas fa-ticket-alt"></i>Confirmation Number</h2>
+            <p class="booking-id" id="booking-id"><%= booking?.bookingReference || 'NW-2024-001234' %></p>
+        </div>
+
+        <!-- Car Summary -->
+        <div class="car-summary">
+            <h2><i class="fas fa-car"></i>Vehicle Details</h2>
+            <div class="car-card">
+                <img id="confirmed-car-image" src="<%= booking?.carImage || '/images/placeholder-car.jpg' %>" alt="Booked Vehicle" onerror="this.src='/images/placeholder-car.jpg'">
+                <div class="car-info">
+                    <h3 id="confirmed-car-name"><%= booking?.carName || 'Toyota Camry 2024' %></h3>
+                    <p id="confirmed-car-specs">Mid-size • Automatic • 5 Seats • AC</p>
+                    <div class="car-features">
+                        <span><i class="fas fa-users"></i> 5 Passengers</span>
+                        <span><i class="fas fa-suitcase"></i> 2 Large Bags</span>
+                        <span><i class="fas fa-cog"></i> Automatic</span>
+                        <span><i class="fas fa-snowflake"></i> AC</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rental Information -->
+        <div class="rental-info">
+            <h2><i class="fas fa-calendar-alt"></i>Rental Information</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Pickup Location</span>
+                    <p id="pickup-location"><%= booking?.pickupLocation || 'Cairo International Airport' %></p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-calendar-plus"></i>
+                    <span>Pickup Date & Time</span>
+                    <p id="pickup-datetime"><%= booking?.pickupDate || 'Dec 25, 2024 - 10:00 AM' %></p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Return Location</span>
+                    <p id="return-location"><%= booking?.pickupLocation || 'Cairo International Airport' %></p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-calendar-minus"></i>
+                    <span>Return Date & Time</span>
+                    <p id="return-datetime"><%= booking?.returnDate || 'Dec 30, 2024 - 10:00 AM' %></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Summary -->
+        <div class="payment-summary">
+            <h2><i class="fas fa-receipt"></i>Payment Summary</h2>
+            <div class="summary-details">
+                <div class="summary-row">
+                    <span>Rental Rate</span>
+                    <span id="rental-total">$<%= booking?.rentalRate?.toFixed(2) || '250.00' %></span>
+                </div>
+                <div class="summary-row">
+                    <span>Insurance Coverage</span>
+                    <span id="insurance-total">$<%= booking?.insurance?.toFixed(2) || '25.00' %></span>
+                </div>
+                <div class="summary-row">
+                    <span>Taxes & Fees</span>
+                    <span id="taxes-total">$<%= booking?.taxes?.toFixed(2) || '37.50' %></span>
+                </div>
+                <div class="summary-row total">
+                    <span>Total Paid</span>
+                    <span id="total-paid">$<%= booking?.totalAmount?.toFixed(2) || '312.50' %></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Next Steps -->
+    <div class="next-steps">
+        <h2>What's Next?</h2>
+        <div class="steps-grid">
+            <div class="step-item">
+                <i class="fas fa-envelope"></i>
+                <h3>Check Your Email</h3>
+                <p>We've sent a confirmation email with your booking details and pickup instructions.</p>
+            </div>
+            <div class="step-item">
+                <i class="fas fa-id-card"></i>
+                <h3>Prepare Documents</h3>
+                <p>Bring your driver's license, credit card, and booking confirmation to pickup.</p>
+            </div>
+            <div class="step-item">
+                <i class="fas fa-clock"></i>
+                <h3>Arrive on Time</h3>
+                <p>Please arrive 15 minutes before your scheduled pickup time for a smooth experience.</p>
+            </div>
+            <div class="step-item">
+                <i class="fas fa-phone"></i>
+                <h3>Need Help?</h3>
+                <p>Contact our 24/7 customer support at +20 (2) 123-4567 for any assistance.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+        <a href="/explore" class="secondary-button">
+            <i class="fas fa-car"></i>
+            Book Another Car
+        </a>
+        <a href="/" class="primary-button">
+            <i class="fas fa-home"></i>
+            Return to Home
+        </a>
+    </div>
+</main>
+
+<!-- Modern Professional Footer -->
+<footer class="modern-footer">
+    <div class="footer-container">
+        <!-- Main Footer Content -->
+        <div class="footer-content">
+            <!-- Brand Section -->
+            <div class="footer-section brand-section">
+                <div class="footer-brand">
+                    <img src="/images/nilewayrental-02.png" alt="NileWay Rentals" class="footer-logo">
+                    <h3>NileWay Rentals</h3>
+                    <p>Your trusted partner for premium car rental experiences. Drive with confidence, explore with freedom.</p>
+                </div>
+                <div class="social-links">
+                    <a href="#" class="social-link" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="social-link" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="social-link" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="social-link" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="/"><i class="fas fa-home"></i>Home</a></li>
+                    <li><a href="/explore"><i class="fas fa-car"></i>Explore Cars</a></li>
+                    <li><a href="/about"><i class="fas fa-info-circle"></i>About Us</a></li>
+                    <li><a href="/contact"><i class="fas fa-phone"></i>Contact Us</a></li>
+                    <li><a href="/policy"><i class="fas fa-shield-alt"></i>Our Policy</a></li>
+                </ul>
+            </div>
+
+            <!-- Services -->
+            <div class="footer-section">
+                <h4>Our Services</h4>
+                <ul class="footer-links">
+                    <li><a href="/explore?category=luxury"><i class="fas fa-star"></i>Luxury Rentals</a></li>
+                    <li><a href="/explore?category=economy"><i class="fas fa-dollar-sign"></i>Economy Cars</a></li>
+                    <li><a href="/explore?category=suv"><i class="fas fa-truck"></i>SUV Rentals</a></li>
+                    <li><a href="/contact"><i class="fas fa-headset"></i>24/7 Support</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="footer-section">
+                <h4>Contact Information</h4>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <span>Address</span>
+                            <p>123 Nile Street, Cairo, Egypt</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <span>Phone</span>
+                            <p>+20 (2) 123-4567</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <span>Email</span>
+                            <p>info@nileway.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <div class="copyright">
+                    <p>&copy; 2024 NileWay Rentals. All rights reserved.</p>
+                    <p>Designed with <i class="fas fa-heart text-red"></i> by NileWay Team</p>
+                </div>
+                <div class="footer-bottom-links">
+                    <a href="/policy">Privacy Policy</a>
+                    <a href="/policy">Terms of Service</a>
+                    <a href="/contact">Support</a>
+                </div>
+                <div class="payment-methods">
+                    <span>Secure Booking:</span>
+                    <div class="payment-icons">
+                        <i class="fab fa-cc-visa"></i>
+                        <i class="fab fa-cc-mastercard"></i>
+                        <i class="fab fa-cc-paypal"></i>
+                        <i class="fas fa-shield-check"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Cookie System Scripts (no popup banner) -->
+<%- include('partials/cookie-consent', { isHomePage: false }) %>
+
+<script src="/JavaScript/success.js"></script>
+
+</body>
+</html> 

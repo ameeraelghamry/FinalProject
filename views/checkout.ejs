@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - NileWay Rentals</title>
+    
+    <!-- Modern Font Imports -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- CSS Files -->
+        <link rel="stylesheet" href="/css/checkout.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/cookies.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+    <script src="/JavaScript/logicCarDetails.js"></script>
+    <script src="/JavaScript/checkout.js"></script>
+</head>
+<body onload="loadCheckoutDetails()">
+    <!-- Modern Professional Header -->
+    <header class="modern-header">
+        <div class="header-container">
+            <!-- Brand Section -->
+            <div class="brand-section">
+                <a href="/">
+                    <img src="/images/nilewayrental-02.png" alt="NileWay Rentals" class="brand-logo">
+                </a>
+            </div>
+
+            <!-- Navigation Section -->
+            <nav class="nav-section">
+                <ul class="main-nav">
+                    <li class="nav-item">
+                        <a href="/" class="nav-link">
+                            <i class="fas fa-home"></i>
+                            Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/explore" class="nav-link">
+                            <i class="fas fa-car"></i>
+                            Explore Cars
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/about" class="nav-link">
+                            <i class="fas fa-info-circle"></i>
+                            About Us
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/contact" class="nav-link">
+                            <i class="fas fa-phone"></i>
+                            Contact
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <div class="checkout-indicator">
+                            <div class="progress-dot"></div>
+                            <i class="fas fa-credit-card"></i>
+                            Secure Checkout
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="checkout-container">
+        <div class="checkout-header">
+            <h1>Complete Your Reservation</h1>
+            <div class="checkout-progress">
+                <div class="progress-step completed">
+                    <div class="step-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <span>Vehicle Selected</span>
+                </div>
+                <div class="progress-step active">
+                    <div class="step-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <span>Payment</span>
+                </div>
+                <div class="progress-step">
+                    <div class="step-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <span>Pending</span>
+                </div>
+                <div class="progress-step">
+                    <div class="step-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <span>Confirmation</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="checkout-content">
+            <div class="checkout-summary">
+                <div class="summary-card">
+                    <h2>Rental Summary</h2>
+                    <div class="car-details">
+                        <img src="" alt="Selected Car" id="selected-car-image">
+                        <div class="car-info">
+                            <h3 id="car-name">Car Name</h3>
+                            <p id="car-specs">Specifications</p>
+                        </div>
+                    </div>
+                    <div class="rental-dates">
+                        <div class="date-group">
+                            <i class="fas fa-calendar-alt"></i>
+                            <div>
+                                <span>Pickup Date</span>
+                                <p id="pickup-date">Date</p>
+                            </div>
+                        </div>
+                        <div class="date-group">
+                            <i class="fas fa-calendar-alt"></i>
+                            <div>
+                                <span>Return Date</span>
+                                <p id="return-date">Date</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <form id="checkout-form" class="checkout-form" action="/pending" method="POST">
+                <div class="form-section">
+                    <h2>Personal Information</h2>
+                    <div class="form-group">
+                        <label for="fullname">Full Name (First and Last Name Required)</label>
+                        <input type="text" id="fullname" name="fullname" placeholder="e.g. John Smith" required>
+                        <span class="validation-message"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="identity-image">Identity Document (Driver's License or ID)</label>
+                        <div class="file-upload-container">
+                            <input type="file" id="identity-image" name="identityImage" accept="image/*" required>
+                            <div class="file-upload-display">
+                                <div class="file-upload-placeholder">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <span class="upload-text">Click to upload or drag and drop</span>
+                                    <span class="upload-subtext">PNG, JPG, JPEG up to 5MB</span>
+                                </div>
+                                <div class="file-upload-preview" style="display: none;">
+                                    <img id="identity-preview" src="" alt="Identity Preview">
+                                    <div class="file-info">
+                                        <span class="file-name"></span>
+                                        <button type="button" class="remove-file" onclick="removeIdentityFile()">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="form-help-text">
+                            <i class="fas fa-info-circle"></i>
+                            Please upload a clear photo of your driver's license or government-issued ID for verification
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>Address Information</h2>
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <select id="country" name="country" required>
+                            <option value="">Select Country</option>
+                            <option value="US">United States</option>
+                            <option value="GB">United Kingdom</option>
+                            <option value="CA">Canada</option>
+                            <option value="AU">Australia</option>
+                            <option value="FR">France</option>
+                            <option value="DE">Germany</option>
+                            <option value="IT">Italy</option>
+                            <option value="ES">Spain</option>
+                            <option value="EG">Egypt</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <select id="city" name="city" required disabled>
+                            <option value="">Select City</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Street Address</label>
+                        <input type="text" id="address" name="address" required>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>Payment Information</h2>
+                    <div class="form-group">
+                        <label>Payment Method</label>
+                        <div class="payment-method-options">
+                            <div class="payment-option">
+                                <input type="radio" id="payment-card" name="paymentMethod" value="card" checked>
+                                <label for="payment-card">
+                                    <i class="fas fa-credit-card"></i>
+                                    <span>Credit/Debit Card</span>
+                                </label>
+                            </div>
+                            <div class="payment-option">
+                                <input type="radio" id="payment-cash" name="paymentMethod" value="cash">
+                                <label for="payment-cash">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                    <span>Cash Payment (Pay at pickup)</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="card-payment-section">
+                        <div class="form-group">
+                            <label for="cardnumber">Card Number</label>
+                        <div class="card-number-group">
+                            <input type="text" class="card-number-segment" name="card1" maxlength="4" placeholder="1234" required>
+                            <input type="text" class="card-number-segment" name="card2" maxlength="4" placeholder="5678" required>
+                            <input type="text" class="card-number-segment" name="card3" maxlength="4" placeholder="9012" required>
+                            <input type="text" class="card-number-segment" name="card4" maxlength="4" placeholder="3456" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="expMonth">Expiration Date</label>
+                            <div class="exp-date-container">
+                                <input type="text" id="expMonth" name="expMonth" placeholder="MM" maxlength="2" required>
+                                <span class="exp-date-separator">/</span>
+                                <input type="text" id="expYear" name="expYear" placeholder="YY" maxlength="2" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cvv">CVV</label>
+                            <div class="cvv-container">
+                                <input type="text" id="cvv" name="cvv" placeholder="123" maxlength="3" required>
+                                <span class="cvv-info" title="The 3-digit security code on the back of your card">
+                                    <i class="fas fa-question-circle"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                            <label for="cardName">Name on Card</label>
+                            <input type="text" id="cardName" name="cardName" placeholder="As shown on card" required>
+                        </div>
+                    </div>
+
+                    <div id="cash-payment-section" style="display: none;">
+                        <div class="cash-payment-info">
+                            <div class="cash-info-card">
+                                <i class="fas fa-info-circle"></i>
+                                <div class="cash-info-content">
+                                    <h3>Cash Payment Instructions</h3>
+                                    <ul>
+                                        <li>Payment will be collected when you pick up your vehicle</li>
+                                        <li>Please bring exact amount or be prepared for change</li>
+                                        <li>Valid identification and driver's license are required</li>
+                                        <li>A security deposit may be required (refundable)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="order-summary">
+                    <h2>Order Summary</h2>
+                    <div class="summary-row">
+                        <span>Rental Rate</span>
+                        <span id="rental-rate">$0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Insurance</span>
+                        <span id="insurance-fee">$0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Taxes & Fees</span>
+                        <span id="taxes">$0.00</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total</span>
+                        <span id="total-amount">$0.00</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-button">
+                    <span>Complete Reservation</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modern Professional Footer -->
+    <footer class="modern-footer">
+        <div class="footer-container">
+            <!-- Main Footer Content -->
+            <div class="footer-content">
+                <!-- Brand Section -->
+                <div class="footer-section brand-section">
+                    <div class="footer-brand">
+                        <img src="/images/nilewayrental-02.png" alt="NileWay Rentals" class="footer-logo">
+                        <h3>NileWay Rentals</h3>
+                        <p>Your trusted partner for premium car rental experiences. Drive with confidence, explore with freedom.</p>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="/"><i class="fas fa-home"></i>Home</a></li>
+                        <li><a href="/explore"><i class="fas fa-car"></i>Explore Cars</a></li>
+                        <li><a href="/about"><i class="fas fa-info-circle"></i>About Us</a></li>
+                        <li><a href="/contact"><i class="fas fa-phone"></i>Contact Us</a></li>
+                        <li><a href="/policy"><i class="fas fa-shield-alt"></i>Our Policy</a></li>
+                    </ul>
+                </div>
+
+                <!-- Services -->
+                <div class="footer-section">
+                    <h4>Our Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="/explore?category=luxury"><i class="fas fa-star"></i>Luxury Rentals</a></li>
+                        <li><a href="/explore?category=economy"><i class="fas fa-dollar-sign"></i>Economy Cars</a></li>
+                        <li><a href="/explore?category=suv"><i class="fas fa-truck"></i>SUV Rentals</a></li>
+                        <li><a href="/contact"><i class="fas fa-headset"></i>24/7 Support</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="footer-section">
+                    <h4>Contact Information</h4>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <span>Address</span>
+                                <p>123 Nile Street, Cairo, Egypt</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <span>Phone</span>
+                                <p>+20 (2) 123-4567</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <span>Email</span>
+                                <p>info@nileway.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <div class="copyright">
+                        <p>&copy; 2024 NileWay Rentals. All rights reserved.</p>
+                        <p>Designed with <i class="fas fa-heart text-red"></i> by NileWay Team</p>
+                    </div>
+                    <div class="footer-bottom-links">
+                        <a href="/policy">Privacy Policy</a>
+                        <a href="/policy">Terms of Service</a>
+                        <a href="/contact">Support</a>
+                    </div>
+                    <div class="payment-methods">
+                        <span>Secure Payment:</span>
+                        <div class="payment-icons">
+                            <i class="fab fa-cc-visa"></i>
+                            <i class="fab fa-cc-mastercard"></i>
+                            <i class="fab fa-cc-paypal"></i>
+                            <i class="fas fa-shield-check"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+</footer>
+
+<!-- Cookie System Scripts (no popup banner) -->
+<%- include('partials/cookie-consent', { isHomePage: false }) %>
+
+</body>
+</html> 
