@@ -38,10 +38,23 @@
     background-color: #061524;
 }
 
-z .nav-link {
+.nav-link {
     color: white;
 }
 
 .navbar-nav .nav-link:hover {
     color: gold !important;
+}
+
+.card {
+    height: 100%;
+}
+
+.card-img-top {
+    height: 180px;
+    object-fit: cover;
+}
+
+.col-md-3 {
+    padding: 15px;
 }
