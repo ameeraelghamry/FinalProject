@@ -37,13 +37,13 @@ const getAllCars = async (req, res) => {//veronia search bar
         }
 
     if(user?.Type === 'admin'){
-         res.render('Admin/adminInventory', { cars: carList, search: search });
+         res.render('Admin/adminInventory', { cars: carList, search: search, message: message});
         console.log('i am admin')
       
       }
       else{
-         res.render('explore', { cars: carList, search: search });
-     console.log('not admin')
+        res.render('Explore', { cars: carList, search: search, message: message });
+        console.log('not admin')
      
 }
     console.log("getAllCars route hit");//to see if the route hits currently the cars.find() bufferring times out

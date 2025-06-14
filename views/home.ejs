@@ -295,7 +295,7 @@
                     <p>${car.miles.toLocaleString()} miles • Automatic • Petrol</p>
                     
                     <div class="price">${car.price} EGP/day</div>
-                    <a href="/cars/${car._id}" class="view">View</a>
+                    <a href="/api/v1/cars/inside/${car._id}" class="view">View</a>
                     </div>
                 `;
                 listingsContainer.insertAdjacentHTML('beforeend', carHTML);
