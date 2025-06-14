@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NileWay Rentals</title>
+    <link rel="stylesheet" href="/css/HomeStyle.css">
+
+    <script>//for the featured listings scrolling
+        document.addEventListener("DOMContentLoaded", () => {
+        const container = document.querySelector(".listings");
+        let scrollInterval;
+
+        container.addEventListener("mousemove", (e) => {
+            //return position of html element relevant to the screen
+            const loc = container.getBoundingClientRect();
+            const mousePos = e.clientX - loc.left;
+
+            const scrollSpeed = 1.5;
+
+            clearInterval(scrollInterval);
+
+            scrollInterval = setInterval(() => {
+            if (mousePos < loc.width * 0.25) {
+                container.scrollLeft -= scrollSpeed; //scroll left is a built in property
+            } else if (mousePos > loc.width * 0.75) {
+                container.scrollLeft += scrollSpeed;
+            }
+        }, 10);
+    });
+
+    container.addEventListener("mouseleave", () => {
+        clearInterval(scrollInterval);
+    });
+});
+
+    </script>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <div class="banner">
+
+        <video autoplay muted loop id="background-video">
+            <source src="/images/carvid.mov" type="video/mp4">
+            Your browser does not support the video tag
+        </video>
+        <div class="fade-overlay"></div>
+
+        <%- include('partials/nav', { __: __, locale: locale, user: user }) %>
+
+
+            <div class="content">
+                
+                    <h1>
+                        <%= __( "Comfortable glide" ) %> <br>
+                         <%= __("in Egypt!") %>
+                    </h1>
+                <a href="/api/v1/cars">
+                <button type="button" class="ex"><span></span>
+                    <%= __("EXPLORE ALL") %>
+                </button> <!-- shop all page -->
+                </a>
+            </div>
+
+    </div>
+
+    <!-- SEARCH -->
+
+    <div class="search">
+        <h2>
+            <%= __("Find Your Perfect New or Used Cars") %>
+        </h2>
+        <p>
+            <%= __("Safe and secure car deals for you.") %>
+        </p>
+        <div class="searchBar">
+            <label for="start-date">
+                <%=__("Select Starting Date:")%>
+            </label>
+            <input type="date" id="start-date">
+
+            <label for="end-date">
+                <%=__("Select Ending Date:")%>
+            </label>
+            <input type="date" id="end-date">
+
+            <select id="city">
+                <option disabled selected>
+                    <%=__("Select City")%>
+                </option>
+                <option>Cairo</option>
+                <option>Hurghada</option>
+                <option>Alexandria</option>
+                <option>Sharm El Sheikh</option>
+            </select>
+        </div>
+        <button type="button" id="search-btn">
+            <%=__("Search")%>
+        </button>
+    </div>
+
+    <!-- for search by date -->
+    <script>
+
+        //global variable of today
+        //converts to a proper format but removes the time part
+        const today = new Date().toISOString().split('T')[0];
+
+        //make sure dates are not in the past
+        window.addEventListener('DOMContentLoaded', () => {
+            
+            document.getElementById('start-date').setAttribute('min', today);
+            document.getElementById('end-date').setAttribute('min', today);
+        })
+
+        document.getElementById('search-btn').addEventListener('click', async () => {
+            const startDate = document.getElementById('start-date').value;
+            const endDate = document.getElementById('end-date').value;
+            const city = document.getElementById('city').value;
+
+            if (!startDate || !endDate || !city || city === "Select City") {
+                alert('please fill in all fields.');
+                return;
+            }
+
+            if (startDate < today || endDate < today) {
+                alert('Select a valid date');
+                return;
+            }
+
+            try {
+               const response = `/api/v1/cars/available?startDate=${startDate}&endDate=${endDate}&city=${encodeURIComponent(city)}`;
+                window.location.href = response;
+            } catch (err) {
+                console.error('Error:', err);
+            }
+        })
+    </script>
+
+    <!-- BROWSE -->
+
+    <div class="browse">
+        <h2>
+            <%=__("Browse by Category")%>
+        </h2>
+        <div class="browser-container">
+
+            <!-- first -->
+            <!-- a href triggers a get-->
+            <a href="/api/v1/cars?category=Sedan" class="browse-card">
+
+                <img src="/images/browse1.jpeg" alt="Sedan">
+                <p>
+                    <%=__("5 cars")%>
+                </p><br>
+                <strong>
+                    <%=__("Sedan")%>
+                </strong>
+
+            </a>
+
+            <!-- second -->
+            <a href="/api/v1/cars?category=hatchback" class="browse-card">
+
+                <img src="/images/browse 2.avif" alt="Hatchback">
+                <p>
+                    <%=__("3 cars")%>
+                </p><br>
+                <strong>
+                    <%=__("Hatchback")%>
+                </strong>
+
+            </a>
+
+            <!-- third -->
+            <a href="/api/v1/cars?category=convertible" class="browse-card">
+
+                <img src="/images/browse 3.webp" alt="Convertible">
+                <p>
+                    <%=__("4 cars")%>
+                </p><br>
+                <strong>
+                    <%=__("Convertible")%>
+                </strong>
+
+            </a>
+
+            <!-- fourth -->
+            <a href="/api/v1/cars?category=suv" class="browse-card">
+
+                <img src="/images/browse 4.avif" alt="SUV">
+                <p>
+                    <%=__("4 cars")%>
+                </p><br>
+                <strong>
+                    <%=__("SUV")%>
+                </strong>
+
+            </a>
+
+            <!-- fifth -->
+            <a href="/api/v1/cars?category=coupe" class="browse-card">
+
+                <img src="/images/fifth type.jpeg" alt="Coupe">
+                <p>
+                    <%=__("3 cars")%>
+                </p><br>
+                <strong>
+                    <%=__("Coupe")%>
+                </strong>
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- WHY CHOOSE US -->
+
+    <div class="choose">
+        <h2><%=__("Why Choose Us?")%></h2>
+        <div class="features">
+
+            <!-- first -->
+            <div class="feature-card">
+                <img src="/images/first icon.png" alt="Financing Icon">
+                <h3>
+                    <%=__("Special Financing Offers")%>
+                </h3>
+                <br>
+                <p><%=__("Flexible financing solutions tailored to your budget. Get low-interest rates and easy approval!")%></p>
+            </div>
+
+            <!-- second -->
+            <div class="feature-card">
+                <img src="/images/second icon.png" alt="Dealership Icon">
+                <h3><%=__("Trusted Car Dealership")%></h3>
+                <br>
+                <p><%=__("With years of experience, we provide reliable service, certified vehicles, and honest deals.")%></p>
+            </div>
+
+            <!-- third -->
+            <div class="feature-card">
+                <img src="/images/third icon.png" alt="Pricing Icon">
+                <h3><%=__("Transparent pricing")%></h3>
+                <br>
+                <p> <%=__("No hidden fees, no surprises! What you see is what you pay—clear and upfront pricing.")%></p>
+            </div>
+
+            <!-- fourth -->
+            <div class="feature-card">
+                <img src="/images/fourth-icon.png" alt="Service Icon">
+                <h3><%=__("Expert Car Services")%></h3>
+                <br>
+                <p><%=__("From maintenance to repairs, our skilled technicians ensure your car stays in top condition.")%></p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- LISTINGS -->
+
+    <div class="featured-listings">
+        <h2><%=__("Featured Cars")%></h2>
+            <div class="listings">
+
+                <!-- Inner listings -->
+            <!--dynamically inserted here-->
+
+            </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            try{
+                const response = await fetch('/api/v1/cars/featured');
+                const result = await response.json();
+                if(result.success){
+                    const cars = result.data;
+                    const listingsContainer = document.querySelector('.featured-listings .listings');
+                    listingsContainer.innerHTML = '';
+
+                    cars.forEach(car => {
+                     const carHTML = `
+                    <div class="list">
+                    <div class="image-container">
+                        <img src="${car.image}" alt="${car.name}">
+                    </div>
+
+                    <h3>${car.name}</h3>
+                    <p>${car.miles.toLocaleString()} miles • Automatic • Petrol</p>
+                    
+                    <div class="price">${car.price} EGP/day</div>
+                    <a href="/cars/${car._id}" class="view">View</a>
+                    </div>
+                `;
+                listingsContainer.insertAdjacentHTML('beforeend', carHTML);
+                });
+                }
+                
+            }catch (err) {
+                console.log(err);
+            }
+        })
+    </script>
+
+    <!-- FOOTER -->
+    <%- include('partials/footer', { __: __, locale: locale }) %>
+
+
+</body>
+
+</html>
