@@ -447,31 +447,6 @@ input[type="date"]:hover {
     text-decoration: none;
     border-radius: 10px;
 }
-<<<<<<< HEAD
-=======
-
-.view-all-container{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.view-all {
-    display: inline-block;
-    width: auto;
-    padding: 10px 20px;
-    border: 2px solid #061524;
-    font-weight: bold;
-    transition: 0.5s;
-    background: transparent;
-    color: #061524;
-}
-
-.view-all:hover {
-    background: #061524;
-    color: white;
-}
->>>>>>> origin/main
 
 
 /*chatbot*/
@@ -642,9 +617,4 @@ input[type="date"]:hover {
   background: #e3efff;
   align-self: flex-start;
   margin-right: auto;
-<<<<<<< HEAD
 }
-=======
-}
-
->>>>>>> origin/main
