@@ -29,6 +29,16 @@ function setRentalDates(){
  window.location.href = `/api/v1/cars/store-dates?start=${startDate}&end=${endDate}&days=${days}`;
 }
 
+function proceedToCheckout() {
+  const userType = document.getElementById('userr').value;
+  
+  if (!userType) {
+    window.location.href = `/signup`;
+  } else {
+    window.location.href = `/checkout`;
+  }
+}
+
 document.addEventListener("DOMContentLoaded", function() {
     const modelViewer = document.querySelector('model-viewer');
     const resetBtn = document.getElementById('reset-camera');
