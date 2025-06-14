@@ -1,3 +1,4 @@
+const path = require('path')
 const booked = require('../models/bookings');
 const Car = require('../models/car');
 
@@ -35,9 +36,16 @@ const getAllCars = async (req, res) => {//veronia search bar
             carList = await Car.find();
         }
 
-    //res.send(carList);// for testing
-
-    res.render('Admin/adminInventory', { cars: carList, search: search, message: message });
+    if(user?.Type === 'admin'){
+         res.render('Admin/adminInventory', { cars: carList, search: search });
+        console.log('i am admin')
+      
+      }
+      else{
+         res.render('explore', { cars: carList, search: search });
+     console.log('not admin')
+     
+}
     console.log("getAllCars route hit");//to see if the route hits currently the cars.find() bufferring times out
 
     } catch (error) {
@@ -87,6 +95,10 @@ const searchByDate = async (req, res) => {//veronia
     }
 }
 
+const getform = async (req,res)=>{
+
+    res.sendFile(path.join(__dirname, '..', 'views', 'AddCars.html'));
+}
 
 const addCar = async (req, res) => {//veronia
     const newcar = new Car({
@@ -94,15 +106,30 @@ const addCar = async (req, res) => {//veronia
         brand: req.body.brand,
         city: req.body.city,
         image: req.body.image,
-        price: req.body.price,
+        price: parseInt( req.body.price),
         miles: req.body.miles,
         category: req.body.category,
+        available: req.body.available === 'true',
+        featured: req.body.featured === 'true',
+        seats: parseInt( req.body.seats),
+        description : req.body.description,
+        horsepower : req.body.horsepower,
+        cylinders : req.body.cylinders,
+        maxSpeed : req.body.maxSpeed,
+        Model : req.body.Model,
+        image2 : req.body.image2,
+        image3: req.body.image3,
+        image4: req.body.image4,
+        image5: req.body.image5
+
+
     })
 
     //save in database
     newcar
         .save()
         .then((createdCar) => {
+            console.log('This is the created car:', createdCar);
             res.status(201).json(createdCar)
         })
         .catch((err) => {
@@ -112,24 +139,67 @@ const addCar = async (req, res) => {//veronia
             })
         })
 }
-
-const editCar = async (req, res) => {//veronia
+const editCar = async (req, res) => {
     try {
-        const updatedCar = await Car.findByIdAndUpdate(
-            req.params.id,
-            req.body,
-            { new: true }
-        );
-
-        if (!updatedCar) {
+        const carId = req.params.id;
+        const updateData = {};
+        
+        // Get existing car first
+        const existingCar = await Car.findById(carId);
+        if (!existingCar) {
             return res.status(404).json({ success: false, message: 'Car not found' });
         }
 
+        // List all possible fields (including optional ones)
+        const allFields = [
+            'name', 'brand', 'city', 'price', 'miles', 'category', 'seats',
+            'available', 'featured', 'description', 'horsepower', 
+            'cylinders', 'maxSpeed', 'Model',
+            'image', 'image2', 'image3', 'image4', 'image5'
+        ];
+
+        // Process all fields
+        allFields.forEach(field => {
+            if (req.body[field] !== undefined) {
+                // Convert empty strings to null, preserve other values
+                updateData[field] = req.body[field] === null ? null : req.body[field];
+            }
+        });
+
+        // Special handling for numbers and booleans
+        if (updateData.price) updateData.price = Number(updateData.price);
+        if (updateData.miles) updateData.miles = Number(updateData.miles);
+        if (updateData.seats) updateData.seats = Number(updateData.seats);
+        
+        if (updateData.available !== undefined) {
+            updateData.available = updateData.available === 'true';
+        }
+        if (updateData.featured !== undefined) {
+            updateData.featured = updateData.featured === 'true';
+        }
+
+        const updatedCar = await Car.findByIdAndUpdate(
+            carId,
+            updateData,
+            { 
+                new: true,
+                runValidators: true,
+                context: 'query' // This helps with update validation
+            }
+        );
+
         res.json({ success: true, data: updatedCar });
     } catch (error) {
-        res.status(500).json({ success: false, message: error.message });
+        console.error('Error updating car:', error);
+        res.status(500).json({ 
+            success: false, 
+            message: error.message,
+            errors: error.errors
+        });
     }
-}
+};
+
+
 
 const getFeatured = async (req, res) => {
     try{
@@ -159,11 +229,16 @@ const getIndividualCar = async (req, res)=>{
               return res.status(404).send('Car not found')
        }
        req.session.selectedCar = individualCar //store the selected car in session
-        if(user?.Type === 'client'){
-        res.render('cardetails', { car: individualCar , user: user , rentalDates: req.session.rentalDates});
+        if(user?.Type === 'admin'){
+            res.render('carPage', {car: individualCar});
+            
+        
       }
       else{
-    res.send('carPage');
+            res.render('cardetails', { car: individualCar , user: user , rentalDates: req.session.rentalDates});
+        console.log(req.session.selectedCar.name)
+      
+    
        }
 
 
@@ -180,5 +255,6 @@ module.exports = {
     getAllCars,
     getFeatured,
     tempStoreDates,
-    getIndividualCar
+    getIndividualCar,
+    getform
 };
