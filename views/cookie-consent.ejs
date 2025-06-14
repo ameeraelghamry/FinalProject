@@ -1,0 +1,166 @@
+<!-- Cookie Consent Banner - GDPR Compliant -->
+<div id="cookie-consent-banner" class="cookie-consent-banner" style="display: none;">
+    <div class="cookie-consent-container">
+        <div class="cookie-consent-content">
+            <div class="cookie-icon">
+                <i class="fas fa-cookie-bite"></i>
+            </div>
+            <div class="cookie-text">
+                <h3>We value your privacy</h3>
+                <p>We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze our traffic. By clicking "Accept All", you consent to our use of cookies.</p>
+            </div>
+        </div>
+        
+        <div class="cookie-controls">
+            <div class="cookie-preferences">
+                <div class="preference-item">
+                    <label>
+                        <input type="checkbox" id="necessary-cookies" checked disabled>
+                        <span class="checkmark"></span>
+                        <span class="preference-label">Necessary</span>
+                    </label>
+                    <span class="preference-description">Required for basic site functionality</span>
+                </div>
+                
+                <div class="preference-item">
+                    <label>
+                        <input type="checkbox" id="analytics-cookies">
+                        <span class="checkmark"></span>
+                        <span class="preference-label">Analytics</span>
+                    </label>
+                    <span class="preference-description">Help us improve your experience</span>
+                </div>
+                
+                <div class="preference-item">
+                    <label>
+                        <input type="checkbox" id="marketing-cookies">
+                        <span class="checkmark"></span>
+                        <span class="preference-label">Marketing</span>
+                    </label>
+                    <span class="preference-description">Personalized ads and content</span>
+                </div>
+                
+                <div class="preference-item">
+                    <label>
+                        <input type="checkbox" id="functional-cookies">
+                        <span class="checkmark"></span>
+                        <span class="preference-label">Functional</span>
+                    </label>
+                    <span class="preference-description">Enhanced features and personalization</span>
+                </div>
+            </div>
+            
+            <div class="cookie-actions">
+                <button id="accept-all-cookies" class="cookie-btn primary">
+                    <i class="fas fa-check"></i>
+                    Accept All
+                </button>
+                <button id="accept-selected-cookies" class="cookie-btn secondary">
+                    <i class="fas fa-cog"></i>
+                    Accept Selected
+                </button>
+                <button id="decline-cookies" class="cookie-btn tertiary">
+                    <i class="fas fa-times"></i>
+                    Decline All
+                </button>
+            </div>
+        </div>
+        
+        <div class="cookie-footer">
+            <a href="/privacy-policy" class="privacy-link">
+                <i class="fas fa-shield-alt"></i>
+                Privacy Policy
+            </a>
+            <a href="/cookie-policy" class="privacy-link">
+                <i class="fas fa-info-circle"></i>
+                Cookie Policy
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Cookie Preferences Modal -->
+<div id="cookie-preferences-modal" class="cookie-modal" style="display: none;">
+    <div class="cookie-modal-content">
+        <div class="cookie-modal-header">
+            <h2>Cookie Preferences</h2>
+            <button id="close-cookie-modal" class="close-modal">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="cookie-modal-body">
+            <div class="cookie-category">
+                <div class="category-header">
+                    <label>
+                        <input type="checkbox" id="modal-necessary" checked disabled>
+                        <span class="checkmark"></span>
+                        <span class="category-title">Strictly Necessary Cookies</span>
+                    </label>
+                </div>
+                <p class="category-description">
+                    These cookies are essential for the website to function properly. They enable core functionality such as security, network management, and accessibility.
+                </p>
+            </div>
+            
+            <div class="cookie-category">
+                <div class="category-header">
+                    <label>
+                        <input type="checkbox" id="modal-analytics">
+                        <span class="checkmark"></span>
+                        <span class="category-title">Analytics Cookies</span>
+                    </label>
+                </div>
+                <p class="category-description">
+                    These cookies help us understand how visitors interact with our website by collecting and reporting information anonymously.
+                </p>
+            </div>
+            
+            <div class="cookie-category">
+                <div class="category-header">
+                    <label>
+                        <input type="checkbox" id="modal-marketing">
+                        <span class="checkmark"></span>
+                        <span class="category-title">Marketing Cookies</span>
+                    </label>
+                </div>
+                <p class="category-description">
+                    These cookies are used to deliver relevant advertisements and track the effectiveness of our marketing campaigns.
+                </p>
+            </div>
+            
+            <div class="cookie-category">
+                <div class="category-header">
+                    <label>
+                        <input type="checkbox" id="modal-functional">
+                        <span class="checkmark"></span>
+                        <span class="category-title">Functional Cookies</span>
+                    </label>
+                </div>
+                <p class="category-description">
+                    These cookies enable enhanced functionality and personalization, such as remembering your preferences and settings.
+                </p>
+            </div>
+        </div>
+        
+        <div class="cookie-modal-footer">
+            <button id="save-cookie-preferences" class="cookie-btn primary">
+                <i class="fas fa-save"></i>
+                Save Preferences
+            </button>
+            <button id="accept-all-modal" class="cookie-btn secondary">
+                <i class="fas fa-check-circle"></i>
+                Accept All
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Floating Cookie Settings Button -->
+<button id="cookie-settings-btn" class="cookie-settings-btn" style="display: none;" title="Cookie Settings">
+    <i class="fas fa-cookie-bite"></i>
+</button>
+
+<!-- Scripts are now loaded via the partial for better integration -->
+<!-- <script src="/JavaScript/cookies.js"></script> -->
+<!-- <script src="/JavaScript/cookieConsent.js"></script> --> 
