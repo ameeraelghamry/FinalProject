@@ -5,7 +5,7 @@ const carController = require('../controllers/Car');
 
 //now instead of app.get we use router.get
 //routers for webpage
-router.get('/', carController.getAllCars);//handles browse cards
+router.get('/cars', carController.getAllCars);//handles browse cards heroku
 
 router.get('/inside/:id', carController.getIndividualCar);//handles individual car page
 
