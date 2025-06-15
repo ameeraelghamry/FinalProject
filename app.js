@@ -104,6 +104,11 @@ app.get('/login', (req, res) => {
 
 });
 
+app.use((req, res, next) => { //for debugging
+  console.log(`${req.method}  ${req.originalUrl}`);
+  next();
+});
+
 app.get('/forgotpassword', (req, res) => {
   res.render('forgotpassword', { user: req.session.user });
 });
