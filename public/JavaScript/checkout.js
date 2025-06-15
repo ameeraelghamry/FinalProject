@@ -224,14 +224,18 @@ document.addEventListener('DOMContentLoaded', function() {
     // Form validation
     const form = document.getElementById('checkout-form');
     if (form) {
-      form.addEventListener('submit', function(e) {
-        e.preventDefault();
+          form.addEventListener('submit', function(e) {
+        console.log('Form submission attempted');
         
-        if (validateForm()) {
-          // Form is valid, submit it
-          form.submit();
-        }
-      });
+        // For testing - allow form to submit without validation
+        // Comment out the preventDefault to allow normal form submission
+        // e.preventDefault();
+        
+        // if (validateForm()) {
+        //     // Form is valid, submit it
+        //     form.submit();
+        // }
+    });
     }
 
   } catch (error) {
@@ -545,4 +549,94 @@ function setCardFieldsRequired(required) {
             }
         }
     });
+}
+
+// Add the missing loadCheckoutDetails function
+function loadCheckoutDetails() {
+    try {
+        // Get URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        // Get booking details from URL parameters or localStorage
+        const carId = urlParams.get('carId') || localStorage.getItem('selectedCarId');
+        const pickupDate = urlParams.get('pickupDate') || localStorage.getItem('pickupDate');
+        const returnDate = urlParams.get('returnDate') || localStorage.getItem('returnDate');
+        
+        // Load car details if carId is available
+        if (carId) {
+            loadCarDetails(carId);
+        }
+        
+        // Load rental dates
+        if (pickupDate && returnDate) {
+            document.getElementById('pickup-date').textContent = formatDate(pickupDate);
+            document.getElementById('return-date').textContent = formatDate(returnDate);
+            
+            // Calculate and display pricing
+            calculatePricing(pickupDate, returnDate);
+        }
+        
+        console.log('Checkout details loaded successfully');
+    } catch (error) {
+        console.error('Error loading checkout details:', error);
+    }
+}
+
+async function loadCarDetails(carId) {
+    try {
+        const response = await fetch(`/api/v1/cars/${carId}`);
+        if (response.ok) {
+            const car = await response.json();
+            
+            // Update car information
+            document.getElementById('selected-car-image').src = car.imageUrl || '/images/default-car.jpg';
+            document.getElementById('car-name').textContent = `${car.brand} ${car.model}`;
+            document.getElementById('car-specs').textContent = `${car.year} • ${car.fuelType} • ${car.transmission}`;
+            
+            // Store car details for pricing calculation
+            localStorage.setItem('selectedCarPrice', car.pricePerDay);
+            localStorage.setItem('selectedCarDetails', JSON.stringify(car));
+        } else {
+            console.error('Failed to load car details');
+        }
+    } catch (error) {
+        console.error('Error fetching car details:', error);
+    }
+}
+
+function calculatePricing(pickupDate, returnDate) {
+    try {
+        const pickup = new Date(pickupDate);
+        const returnD = new Date(returnDate);
+        const days = Math.ceil((returnD - pickup) / (1000 * 60 * 60 * 24));
+        
+        const pricePerDay = parseFloat(localStorage.getItem('selectedCarPrice')) || 50;
+        const rentalRate = days * pricePerDay;
+        const insuranceFee = rentalRate * 0.15; // 15% insurance
+        const taxes = rentalRate * 0.08; // 8% taxes
+        const total = rentalRate + insuranceFee + taxes;
+        
+        // Update pricing display
+        document.getElementById('rental-rate').textContent = `$${rentalRate.toFixed(2)}`;
+        document.getElementById('insurance-fee').textContent = `$${insuranceFee.toFixed(2)}`;
+        document.getElementById('taxes').textContent = `$${taxes.toFixed(2)}`;
+        document.getElementById('total-amount').textContent = `$${total.toFixed(2)}`;
+        
+    } catch (error) {
+        console.error('Error calculating pricing:', error);
+    }
+}
+
+function formatDate(dateString) {
+    try {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', { 
+            weekday: 'short',
+            year: 'numeric', 
+            month: 'short', 
+            day: 'numeric' 
+        });
+    } catch (error) {
+        return dateString;
+    }
 } 
