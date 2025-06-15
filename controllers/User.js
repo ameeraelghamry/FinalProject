@@ -1,6 +1,6 @@
 const User = require('../models/user'); // import the user model 
 const bcrypt = require('bcrypt');
-const sendEmail = require('../utils/sendEmail'); // used for the forgot pass 
+const sendEmail = require('../Utils/sendEmail'); // used for the forgot pass 
 //signup 
 const getAllUsers = async (req, res) => {
     try{
