@@ -9,9 +9,11 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    Email: {
-        type: String, //for email and passwords, string can handle the special characters
-        required: true, 
+    Email: { type: String, //for email and passwords, string can handle the special characters
+        unique: true,
+         lowercase: true, 
+         trim: true , 
+         required: true, 
     },
     Phone: {
         type: Number,

@@ -1,0 +1,186 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Pending - NileWay Rentals</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/pending.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/cookies.css">
+    <meta name="booking-reference" content="<%= booking?.bookingReference || '' %>">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <header class="modern-header">
+        <div class="header-container">
+            <div class="brand-section">
+                <a href="/">
+                    <img src="/images/nilewayrental-02.png" alt="NileWay Rentals" class="brand-logo">
+                </a>
+            </div>
+            <nav class="nav-section">
+                <ul class="main-nav">
+                    <li class="nav-item">
+                        <a href="/" class="nav-link">
+                            <i class="fas fa-home"></i>
+                            Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <div class="success-indicator pending">
+                            <i class="fas fa-clock"></i>
+                            Booking Pending
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="success-container">
+        <div class="success-header">
+            <div class="success-icon pending">
+                <i class="fas fa-clock"></i>
+            </div>
+            <h1>Booking Request Submitted!</h1>
+            <p>Thank you for choosing NileWay Rentals. Your booking request is currently being reviewed by our team.</p>
+
+            <div class="checkout-progress">
+                <div class="progress-step completed">
+                    <div class="step-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <span>Vehicle Selected</span>
+                </div>
+                <div class="progress-step completed">
+                    <div class="step-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <span>Payment</span>
+                </div>
+                <div class="progress-step active">
+                    <div class="step-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <span>Pending</span>
+                </div>
+                <div class="progress-step">
+                    <div class="step-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <span>Confirmation</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="booking-details">
+            <div class="confirmation-number">
+                <h2><i class="fas fa-ticket-alt"></i>Reference Number</h2>
+                <p class="booking-id" id="booking-reference"><%= booking?.bookingReference || '' %></p>
+                <p class="reference-note">Please save this reference number for your records</p>
+            </div>
+
+            <div class="status-info">
+                <h2><i class="fas fa-info-circle"></i>What's Happening Now?</h2>
+                <div class="status-card">
+                    <div class="status-icon">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <div class="status-content">
+                        <h3>Admin Review in Progress</h3>
+                        <p>Our team is currently reviewing your booking request and verifying your documents. This process typically takes 2-4 hours during business hours.</p>
+                        <div class="timeline-info">
+                            <div class="timeline-item completed">
+                                <i class="fas fa-check"></i>
+                                <span>Request Received</span>
+                            </div>
+                            <div class="timeline-item active">
+                                <i class="fas fa-clock"></i>
+                                <span>Under Review</span>
+                            </div>
+                            <div class="timeline-item">
+                                <i class="fas fa-envelope"></i>
+                                <span>Email Confirmation</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="next-steps">
+            <h2>What Happens Next?</h2>
+            <div class="steps-grid">
+                <div class="step-item">
+                    <i class="fas fa-search"></i>
+                    <h3>Document Verification</h3>
+                    <p>Our team will verify your identity document and payment information to ensure everything is in order.</p>
+                </div>
+                <div class="step-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <h3>Possible Contact</h3>
+                    <p>If we need additional information, we'll contact you using the phone number or email you provided.</p>
+                </div>
+                <div class="step-item">
+                    <i class="fas fa-envelope-open"></i>
+                    <h3>Email Notification</h3>
+                    <p>Once approved, you'll receive a confirmation email with pickup instructions and final details.</p>
+                </div>
+                <div class="step-item">
+                    <i class="fas fa-headset"></i>
+                    <h3>Need Help?</h3>
+                    <p>Contact our support team at +20 (2) 123-4567 if you have any questions about your booking.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button id="check-status-btn" class="primary-button">
+                <i class="fas fa-sync"></i>
+                Check Status
+            </button>
+            <a href="/explore" class="secondary-button">
+                <i class="fas fa-car"></i>
+                Browse More Cars
+            </a>
+            <a href="/" class="secondary-button">
+                <i class="fas fa-home"></i>
+                Return to Home
+            </a>
+        </div>
+    </main>
+
+    <%- include('partials/cookie-consent', { isHomePage: false }) %>
+    <script src="/JavaScript/pending.js"></script>
+    <script>
+        function checkStatus() {
+            const bookingRef = '<%= booking?.bookingReference %>';
+            if (!bookingRef) return;
+
+            $.get('/api/booking/status/' + bookingRef)
+                .done(function(response) {
+                    if (response.status === 'confirmed') {
+                        window.location.href = '/success?ref=' + bookingRef;
+                    } else if (response.status === 'declined') {
+                        window.location.href = '/declined?ref=' + bookingRef;
+                    }
+                })
+                .fail(function(error) {
+                    console.error('Error checking status:', error);
+                });
+        }
+
+        // Check status every 5 seconds
+        const interval = setInterval(checkStatus, 5000);
+
+        // Clean up interval when leaving page
+        window.onbeforeunload = function() {
+            clearInterval(interval);
+        };
+    </script>
+</body>
+</html>

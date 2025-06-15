@@ -1,16 +1,25 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Generate a random booking ID each time
+    const generateBookingId = () => {
+        const year = new Date().getFullYear();
+        const randomNumber = Math.floor(Math.random() * 900000) + 100000; // 6-digit random number
+        return `NW-${year}-${randomNumber}`;
+    };
+
     // Get booking details from localStorage
     const bookingDetails = JSON.parse(localStorage.getItem('bookingDetails') || '{}');
     const carDetails = JSON.parse(localStorage.getItem('selectedCar') || '{}');
     const rentalDates = JSON.parse(localStorage.getItem('rentalDates') || '{}');
 
-    // Fill in the booking details
-    if (bookingDetails.bookingReference) {
-        const bookingIdElement = document.getElementById('booking-id');
-        if (bookingIdElement) {
-            bookingIdElement.textContent = bookingDetails.bookingReference;
-        }
+    // Generate and display random booking ID
+    const randomBookingId = generateBookingId();
+    const bookingIdElement = document.getElementById('booking-id');
+    if (bookingIdElement) {
+        bookingIdElement.textContent = randomBookingId;
     }
+
+    // Store the generated booking ID for potential future use
+    bookingDetails.bookingReference = randomBookingId;
 
     // Car Details
     if (carDetails.name) {

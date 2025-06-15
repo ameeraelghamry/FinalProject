@@ -130,10 +130,11 @@ async function sendEmailCode(event) {
     const email = document.getElementById('email').value;
 
     try {
-        const response = await fetch('/api/v1/users/forgotpassword', {
+        const response = await fetch('/api/v1/users/forgot-password', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email })
+            body: JSON.stringify({ Email: email })  
+
         });
 
         const data = await response.json();
@@ -164,10 +165,10 @@ async function verifyEmailCode() {
     }
 
     try {
-        const response = await fetch('/api/v1/users/verify-reset-code', {  //make sure of this line 
+        const response = await fetch('/api/v1/users/verify-code', {  //make sure of this line 
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, code })
+            body: JSON.stringify({ Email: email , code })
         });
 
         const data = await response.json();
@@ -213,10 +214,10 @@ async function validateresetpass(event) {
     }
 
     try {
-        const response = await fetch('/api/v1/users/resetpass', {
+        const response = await fetch('/api/v1/users/reset-pass', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, newPassword: pass })
+            body: JSON.stringify({ Email: email , newPassword: pass })
         });
 
         const data = await response.json();

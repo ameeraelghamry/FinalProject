@@ -1,0 +1,187 @@
+<!-- Cookie Consent System - NileWay Rentals -->
+<!-- This partial includes all cookie-related functionality -->
+
+<!-- Cookie CSS Styles -->
+<link rel="stylesheet" href="/css/cookies.css">
+
+<!-- Only show cookie banner and modal on home page, but load scripts everywhere -->
+<% if (typeof isHomePage !== 'undefined' && isHomePage) { %>
+    <!-- Cookie Consent Banner -->
+    <div id="cookie-consent-banner" class="cookie-consent-banner">
+        <div class="cookie-consent-container">
+            <div class="cookie-consent-content">
+                <i class="fas fa-cookie-bite cookie-icon"></i>
+                <div class="cookie-text">
+                    <h3>Cookie Preferences</h3>
+                    <p>We use cookies to enhance your experience. Choose your preferences below.</p>
+                </div>
+            </div>
+            <div class="cookie-controls">
+                <button onclick="window.cookieConsent.acceptAllCookies()" class="btn btn-primary">Accept All</button>
+                <button onclick="window.cookieConsent.showPreferencesModal()" class="btn btn-outline-light">Customize</button>
+                <button onclick="window.cookieConsent.declineAllCookies()" class="btn btn-link text-light">Decline All</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookie Preferences Modal -->
+    <div id="cookie-preferences-modal" class="cookie-preferences-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Cookie Preferences</h3>
+                <button onclick="window.cookieConsent.hidePreferencesModal()" class="close-button">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="cookie-type">
+                    <div class="cookie-type-header">
+                        <h4>Necessary Cookies</h4>
+                        <label class="switch">
+                            <input type="checkbox" checked disabled>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <p>Essential for website functionality. Cannot be disabled.</p>
+                </div>
+                <div class="cookie-type">
+                    <div class="cookie-type-header">
+                        <h4>Analytics Cookies</h4>
+                        <label class="switch">
+                            <input type="checkbox" id="modal-analytics">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <p>Help us improve our website by collecting anonymous usage data.</p>
+                </div>
+                <div class="cookie-type">
+                    <div class="cookie-type-header">
+                        <h4>Marketing Cookies</h4>
+                        <label class="switch">
+                            <input type="checkbox" id="modal-marketing">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <p>Allow us to personalize your experience and send relevant ads.</p>
+                </div>
+                <div class="cookie-type">
+                    <div class="cookie-type-header">
+                        <h4>Functional Cookies</h4>
+                        <label class="switch">
+                            <input type="checkbox" id="modal-functional">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <p>Enable advanced features and personalization.</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button onclick="window.cookieConsent.acceptAllFromModal()" class="btn btn-primary">Accept All</button>
+                <button onclick="window.cookieConsent.savePreferences()" class="btn btn-success">Save Preferences</button>
+                <button onclick="window.cookieConsent.hidePreferencesModal()" class="btn btn-secondary">Close</button>
+            </div>
+        </div>
+    </div>
+<% } %>
+
+<!-- Cookie Analytics Template (loads conditionally) -->
+<%- include('../cookie-analytics') %>
+
+<!-- Cookie Management Scripts - Load on all pages for consent persistence -->
+<script src="/JavaScript/cookies.js"></script>
+<script src="/JavaScript/cookieConsent.js"></script>
+<script src="/JavaScript/cookie-analytics.js"></script>
+<script src="/JavaScript/analytics-example.js"></script>
+
+<!-- Integration Script - Ensures everything works together -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const isHomePage = window.location.pathname === '/' || window.location.pathname === '/home';
+    
+    console.log('🍪 Cookie system integration check:');
+    console.log('📍 Current page:', window.location.pathname);
+    console.log('🏠 Is home page:', isHomePage);
+    
+    // Initialize cookie consent system
+    if (window.CookieConsentManager) {
+        window.cookieConsent = new CookieConsentManager();
+        
+        // If not on home page, check for existing consent and apply it
+        if (!isHomePage) {
+            const existingConsent = localStorage.getItem('cookieConsent');
+            if (existingConsent) {
+                try {
+                    const consentData = JSON.parse(existingConsent);
+                    console.log('📋 Applying existing consent on non-home page:', consentData.consentData);
+                    
+                    // Apply existing consent settings without showing banner
+                    window.cookieConsent.applyConsentSettings(consentData.consentData);
+                } catch (error) {
+                    console.error('Error applying existing consent:', error);
+                }
+            }
+        }
+        
+        console.log('✅ CookieConsentManager loaded');
+    } else {
+        console.error('❌ CookieConsentManager not loaded');
+    }
+    
+    // Check if cookie utilities are available
+    if (window.cookieConsentUtils) {
+        console.log('✅ Cookie utilities loaded');
+    } else {
+        console.error('❌ Cookie utilities not loaded');
+    }
+    
+    // Check if analytics system is available
+    if (window.CookieAnalytics) {
+        console.log('✅ CookieAnalytics class loaded');
+    } else {
+        console.error('❌ CookieAnalytics class not loaded');
+    }
+    
+    // Check if car rental analytics functions are available
+    if (window.carRentalAnalytics) {
+        console.log('✅ Car rental analytics loaded');
+    } else {
+        console.error('❌ Car rental analytics not loaded');
+    }
+    
+    // Set up integration event listeners
+    window.addEventListener('cookieConsentApplied', function(event) {
+        const consent = event.detail;
+        console.log('🔄 Cookie consent updated:', consent);
+        
+        // Ensure analytics system responds to consent changes
+        if (consent.analytics && window.cookieAnalytics) {
+            console.log('📊 Analytics enabled via consent update');
+        } else if (!consent.analytics && window.cookieAnalytics) {
+            console.log('🚫 Analytics disabled via consent update');
+        }
+    });
+    
+    console.log('🎉 Cookie system integration complete');
+});
+
+// Global function to open cookie preferences from any page
+window.openCookiePreferences = function() {
+    if (window.cookieConsent && window.cookieConsent.showPreferencesModal) {
+        window.cookieConsent.showPreferencesModal();
+    } else {
+        // If on non-home page, redirect to home with preferences flag
+        const url = new URL(window.location.origin);
+        url.searchParams.set('openCookiePreferences', 'true');
+        window.location.href = url.toString();
+    }
+};
+
+// Handle opening preferences if redirected from another page
+if (window.location.search.includes('openCookiePreferences=true')) {
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(() => {
+            if (window.openCookiePreferences) {
+                window.openCookiePreferences();
+            }
+        }, 1000);
+    });
+}
+</script> 
