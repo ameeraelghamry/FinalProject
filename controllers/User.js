@@ -120,9 +120,14 @@ const loginUser = async (req, res) => {
 
 
 //forgot password  (sends a code)
+// helper to get email no matter which casing the frontend sends
+function getEmail(req) {
+  return (req.body.Email || req.body.email || '').trim().toLowerCase();
+}
+
 const sendResetCode = async (req, res) => {
-  const { Email } = req.body;
-  const user = await User.findOne({ Email });
+  const Email = getEmail(req);            
+  const user  = await User.findOne({ Email });
 
   if (!user) {
     return res.status(400).json({ message: "User not found. Try again." });
@@ -144,8 +149,9 @@ const sendResetCode = async (req, res) => {
 
 //verifaction code (checks the code )
 const verifyResetCode = async (req, res) => {
-  const { Email, code } = req.body;
-  const user = await User.findOne({ Email });
+
+   const Email = getEmail(req);            
+  const user  = await User.findOne({ Email });
 
   if (!user || user.resetCode !== code || user.resetCodeExpires < Date.now()) {
     return res.status(400).json({ message: "Invalid or expired code." });
