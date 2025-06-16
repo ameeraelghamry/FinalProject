@@ -17,20 +17,28 @@
             <h2>Reset Password</h2>
 
             <input 
-                type="password" 
-                id="pass1" 
-                name="pass1" 
-                placeholder="Enter new password" 
-                required 
+             type="hidden" 
+             id="email" 
+             name="email" 
+              value="<%= email %>" 
             />
-            
-            <input 
-                type="password" 
-                id="pass2" 
-                name="pass2" 
-                placeholder="Confirm new password" 
-                required 
-            />
+<input 
+  type="password" 
+  id="pass1" 
+  name="newPassword" 
+  placeholder="Enter new password" 
+  required 
+/>
+
+<input 
+  type="password" 
+  id="pass2" 
+  name="confirmPassword" 
+  placeholder="Confirm new password" 
+  required 
+/>
+
+          
 
             <button type="submit">Reset Password</button>
 

@@ -148,21 +148,32 @@ const sendResetCode = async (req, res) => {
 };
 
 //verifaction code (checks the code )
+// verification code (checks the code)
 const verifyResetCode = async (req, res) => {
+  try {
+    const Email = getEmail(req);             // safely get the email from the body
+    const { code } = req.body;               // make sure 'code' is being sent in request body
 
-   const Email = getEmail(req);            
-  const user  = await User.findOne({ Email });
+    const user = await User.findOne({ Email });
 
-  if (!user || user.resetCode !== code || user.resetCodeExpires < Date.now()) {
-    return res.status(400).json({ message: "Invalid or expired code." });
+    if (!user || user.resetCode !== code || user.resetCodeExpires < Date.now()) {
+      return res.status(400).json({ message: "Invalid or expired code." });
+    }
+
+    return res.status(200).json({ message: "Code verified." });
+  } catch (err) {
+    console.error(" Error in verifyResetCode:", err); // logs the error to the terminal
+    return res.status(500).json({ message: "Server error during code verification." });
   }
-
-  return res.status(200).json({ message: "Code verified." });
 };
 
+
+
 //resetpassword 
+// reset password
 const resetPassword = async (req, res) => {
-  const { Email, newPassword, confirmPassword } = req.body;
+  const Email = getEmail(req);  // Fix: standardize the casing
+  const { newPassword, confirmPassword } = req.body;
 
   if (newPassword !== confirmPassword) {
     return res.status(400).json({ message: "Passwords do not match." });
@@ -180,6 +191,7 @@ const resetPassword = async (req, res) => {
 
   return res.status(200).json({ message: "Password has been reset successfully." });
 };
+
 
 
 

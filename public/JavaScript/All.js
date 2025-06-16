@@ -126,8 +126,8 @@ rightContainer.classList.add('shrinkRight');
 //forgot pass js 
 async function sendEmailCode(event) {
     event.preventDefault();
+const email = document.getElementById('email').value.trim().toLowerCase();
 
-    const email = document.getElementById('email').value;
 
     try {
         const response = await fetch('/api/v1/users/forgot-password', {
@@ -157,7 +157,8 @@ async function sendEmailCode(event) {
 // js of verify 
 async function verifyEmailCode() {
     const code = document.getElementById('emailCode').value;
-    const email = sessionStorage.getItem('resetEmail');
+const email = sessionStorage.getItem('resetEmail')?.trim().toLowerCase();
+
 
     if (!email || !code) {
         alert('Missing email or code.');
@@ -173,10 +174,12 @@ async function verifyEmailCode() {
 
         const data = await response.json();
 
-        if (response.ok) {
-            alert(data.message || 'Code verified.');
-            window.location.href = '/resetpass'; // Page with reset form
-        } else {
+       if (response.ok) {
+  alert(data.message || 'Code verified.');
+  const email = sessionStorage.getItem('resetEmail') || '';
+  window.location.href = `/resetpass?email=${encodeURIComponent(email)}`;
+}
+ else {
             document.getElementById('errorMessage').textContent = data.message || 'Invalid code.';
         }
     } catch (err) {
@@ -189,50 +192,51 @@ async function verifyEmailCode() {
 
 
  //reset password 
-async function validateresetpass(event) {
-    event.preventDefault();
 
-    const pass = document.getElementById("pass1").value;
-    const confirmpassw = document.getElementById("pass2").value;
-    const email = sessionStorage.getItem('resetEmail');
+  async function validateresetpass(event) {
+  event.preventDefault();
+const email = document.getElementById('email').value.trim().toLowerCase();
 
-    if (!email) {
-        alert("Session expired. Please restart the process.");
-        window.location.href = '/forgotpassword';
-        return;
+  const newPassword    = document.getElementById('pass1').value.trim();
+  const confirmPassword = document.getElementById('pass2').value.trim();
+
+  // strength check: ≥8 chars, at least one lowercase + one uppercase
+  const strong =  newPassword.length >= 8 &&
+                  /[a-z]/.test(newPassword) &&
+                  /[A-Z]/.test(newPassword) &&
+                   /\d/.test(newPassword); // checks for at least one digit
+
+  if (!strong) {
+    alert("Password must be at least 8 characters and include both upper ,lower‑case letters and at least one digit .");
+    return;
+  }
+
+  // confirm match
+  if (newPassword !== confirmPassword) {
+    alert("Passwords do not match.");
+    return;
+  }
+
+  try {
+    const response = await fetch("/api/v1/users/reset-password", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ Email: email, newPassword, confirmPassword })
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      alert("Password reset successful!");
+      window.location.href = "/login";
+    } else {
+      alert(" " + result.message);
     }
-
-    const isValid = pass.length >= 8 && /[A-Z]/.test(pass) && /\d/.test(pass);
-
-    if (!pass || pass.length < 8 || !isValid) {
-        alert("Password must be at least 8 characters, include an uppercase letter and a digit.");
-        return false;
-    }
-    if (pass !== confirmpassw) {
-        alert("Passwords do not match.");
-        return false;
-    }
-
-    try {
-        const response = await fetch('/api/v1/users/reset-pass', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ Email: email , newPassword: pass })
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-            alert(data.message || "Password reset successfully!");
-            sessionStorage.removeItem('resetEmail');
-            window.location.href = '/logIn';
-        } else {
-            alert(data.message || "Reset failed.");
-        }
-    } catch (err) {
-        console.error(err);
-        alert("Error during reset.");
-    }
+  } catch (err) {
+    console.error("Reset password error:", err);
+    alert("Server error occurred.");
+  }
 }
+
 
  
