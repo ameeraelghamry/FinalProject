@@ -22,8 +22,8 @@ router.post('/signup', User.createUser);
 router.post('/login', User.loginUser); //creates 
 
  router.post('/forgot-password', User.sendResetCode);     //forgot pass  page
-router.post('/verify-reset-code', User.verifyResetCode);        // Code verification page
-router.post('/reset-passord', User.resetPassword);       // New password input page
+router.post('/verify-code', User.verifyResetCode);        // Code verification page
+router.post('/reset-password',   User.resetPassword);      // New password input page
 
 
 router.get('/logout', (req, res) => { //destroying the session

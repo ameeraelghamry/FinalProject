@@ -137,7 +137,10 @@ app.get('/verify', (req, res) => {
 });
 
 app.get('/resetpass', (req, res) => {
-  res.render('resetpass', { user: req.session.user });
+  res.render('resetpass', { 
+    user: req.session.user,
+    email: req.query.email || '' //  Pass email to the view
+  });
 });
 
 // Simple routing for checkout, success, and car details pages
