@@ -120,6 +120,7 @@ const loginUser = async (req, res) => {
 
 
 //forgot password  (sends a code)
+
 // helper to get email no matter which casing the frontend sends
 function getEmail(req) {
   return (req.body.Email || req.body.email || '').trim().toLowerCase();
@@ -148,7 +149,7 @@ const sendResetCode = async (req, res) => {
 };
 
 //verifaction code (checks the code )
-// verification code (checks the code)
+
 const verifyResetCode = async (req, res) => {
   try {
     const Email = getEmail(req);             // safely get the email from the body
@@ -170,9 +171,9 @@ const verifyResetCode = async (req, res) => {
 
 
 //resetpassword 
-// reset password
+
 const resetPassword = async (req, res) => {
-  const Email = getEmail(req);  // Fix: standardize the casing
+  const Email = getEmail(req);  
   const { newPassword, confirmPassword } = req.body;
 
   if (newPassword !== confirmPassword) {

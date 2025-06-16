@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
@@ -8,6 +9,9 @@ const path = require('path');
 const i18n = require('i18n');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+
+const passport = require('passport'); // for continue with google
+ require('./config/passport');
 
 require('dotenv/config')
 
@@ -62,6 +66,9 @@ app.use(`${api}/users`, userRoutes);
 app.use(`${api}/admin`, adminRoutes);
 app.use('/api/booking', bookingRoutes);
 
+//for continue with google 
+app.use(passport.initialize());
+app.use(passport.session());
 mongoose.connect(process.env.CONNECTION_STRING)
   .then(() => console.log('Database connection is ready...'))
   .catch(err => console.log(err));
@@ -122,6 +129,22 @@ app.get('/login', (req, res) => {
   res.render('login', { user: req.session?.user }); // renders the login.ejs 
 
 });
+
+// Route to trigger Google login
+app.get('/auth/google', passport.authenticate('google', {
+  scope: ['profile', 'email']
+}));
+
+// Callback after Google login
+app.get('/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  (req, res) => {
+    // Successful login
+        req.session.user = req.user; //storing in session
+    res.redirect('/'); // redirect to home 
+  }
+);
+
 
 app.use((req, res, next) => { //for debugging
   console.log(`${req.method}  ${req.originalUrl}`);
