@@ -34,7 +34,7 @@ body {
     position: relative;
 }
 
-/* Add this to your existing CSS */
+
 .login-container {
     opacity: 0;
     transform: translateY(20px);

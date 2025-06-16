@@ -60,9 +60,9 @@ rightContainer.classList.add('shrinkRight');
         document.querySelector('.left').classList.add('expandLeft');
         document.querySelector('.right').classList.add('shrinkRight');
 
-        // Optionally, delay navigation or further action until after animation completes
+        // delay navigation or further action until after animation completes
         setTimeout(() => {
-            // Redirect or show success message, etc.
+            // Redirect or show success message
             // window.location.href = "nextPage.html";
             alert("Form submitted!");
         }, 5000); // Wait for animation to complete (5s)

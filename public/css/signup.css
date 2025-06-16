@@ -18,7 +18,7 @@ body, html {
 }
 
 .left {
-    flex: 0 0 50%; /* Start at 50% width */
+    flex: 0 0 50%; 
     background: url('https://via.placeholder.com/500') no-repeat center center;
     background-size: cover;
     height: 100%;
@@ -26,7 +26,7 @@ body, html {
 }
 
 .right {
-    flex: 0 0 50%; /* Start at 50% width */
+    flex: 0 0 50%; 
     display: flex;
     justify-content: center;
     align-items: center;
